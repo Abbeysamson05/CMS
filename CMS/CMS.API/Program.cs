@@ -1,15 +1,20 @@
-﻿using System.Text;
-using CMS.DATA;
+﻿using CMS.API.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+//For Entity Framework
+
+builder.Services.AddDbContextAndConfigurations(builder.Environment, builder.Configuration);
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -38,7 +43,8 @@ builder.Services.AddSwaggerGen(c =>
                     }
                 });
 });
-builder.Services.AddDbContext<CMSDbContext>(options => options.UseNpgsql((builder.Configuration.GetConnectionString("DefaultConnection"))));
+//builder.Services.AddDbContext<CMSDbContext>(options => options.UseNpgsql((builder.Configuration.GetConnectionString("DefaultConnection"))));
+builder.Services.ConfigureIdentity();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -60,9 +66,12 @@ builder.Services.AddAuthentication(options =>
 });
 
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+//.SeedData(app).Wait();
 
 app.UseSwagger();
 app.UseSwaggerUI();
