@@ -2,10 +2,9 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace CMS.DATA;
+namespace CMS.DATA.Context;
 public class CMSDbContext : IdentityDbContext<ApplicationUser>
 {
-    public DbSet<User> Users { get; set; }
     public DbSet<Quiz> Quizs { get; set; }
     public DbSet<Course> Courses { get; set; }
     public DbSet<Invite> Invites { get; set; }
@@ -15,7 +14,7 @@ public class CMSDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<UserCourse> UserCourses { get; set; }
     public DbSet<UserQuizTaken> UserQuizTaken { get; set; }
     public DbSet<UserStack> UserStack { get; set; }
-    public CMSDbContext(DbContextOptions<CMSDbContext> options):base(options) {}
+    public CMSDbContext(DbContextOptions<CMSDbContext> options) : base(options) { }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {

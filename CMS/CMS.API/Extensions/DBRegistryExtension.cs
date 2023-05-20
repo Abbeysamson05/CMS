@@ -1,4 +1,4 @@
-﻿using CMS.DATA;
+﻿using CMS.DATA.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace CMS.API.Extensions
@@ -36,8 +36,6 @@ namespace CMS.API.Extensions
                 }
                 else
                 {
-                    //connStr = $"postgres://queenfisher_user:XdvZANh0qUqLUXvxcUElLGoVkAqHZfNi@dpg-cgb289g2qv267uepue2g-a.oregon-postgres.render.com/queenfisher";
-                    //options.UseNpgsql(connStr);
                     connStr = config.GetConnectionString("ProdDb");
                     options.UseNpgsql(connStr);
                 }
