@@ -8,5 +8,6 @@ namespace CMS.DATA.Entities
 {
     public class Stack: BaseEntity
     {
+        public string? Name { get; set; }
     }
 }
