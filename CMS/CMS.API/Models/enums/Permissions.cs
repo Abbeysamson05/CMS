@@ -1,8 +1,7 @@
-﻿using System;
-namespace CMS.API.Models.enums
+﻿namespace CMS.API.Models.enums
 {
-	public enum Permissions
-	{
+    public enum Permissions
+    {
         can_access_dotnet_curriculum,
         can_access_java_curriculum,
         can_access_node_curriculum,
@@ -11,4 +10,3 @@ namespace CMS.API.Models.enums
         can_delete
     }
 }
-

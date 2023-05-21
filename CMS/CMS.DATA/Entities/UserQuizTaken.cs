@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CMS.DATA.Entities
+﻿namespace CMS.DATA.Entities
 {
-    public  class UserQuizTaken: BaseEntity
+    public class UserQuizTaken : BaseEntity
     {
+        public string UserId { get; set; }
+        public virtual ApplicationUser User { get; set; }
+        public int Score { get; set; }
+        public string QuizId { get; set; }
+        public virtual Quiz Quiz { get; set; }
+        public bool CompletionStatus { get; set; }
     }
 }

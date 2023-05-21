@@ -1,4 +1,5 @@
 ﻿@import "colors.css";
+
 .top-nav-panel {
     padding: 15px;
     height: 80px;
@@ -6,7 +7,7 @@
     overflow: hidden;
 }
 
-.bordered{
+.bordered {
     border: 1px solid #ccc;
 }
 
@@ -26,31 +27,37 @@
 .menu-item {
     display: flex;
     flex-wrap: nowrap;
-    padding-top:20px;
-    padding-bottom:20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
+
 .menu-image-box {
     width: 20px;
     height: 20px;
     margin: 0px 10px
 }
+
 .menu-item:hover {
     background-color: var(--blue);
 }
-.menu-image-box img{
+
+.menu-image-box img {
     width: 100%;
 }
-.menu-item span{
-    margin-top:2px;
-    margin-left:5px;
+
+.menu-item span {
+    margin-top: 2px;
+    margin-left: 5px;
     text-decoration: none;
     color: #aaa;
 }
+
 .logout-menu {
     padding-top: 40px;
     padding-bottom: 40px;
     border-top: 2px solid #eee;
 }
+
 a:hover .menu-item span {
     color: var(--white);
 }
