@@ -11,5 +11,6 @@ namespace CMS.DATA.Entities
         public string? UserId { get; set; }
 
         public Course Course { get; set; }
+        public ApplicationUser User {get; set; }
     }
 }
