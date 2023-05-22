@@ -11,7 +11,5 @@ namespace CMS.DATA.Entities
         public string? UserId { get; set; }
 
         public Course Course { get; set; }
-
-        public virtual Stack Stack { get; set; }
     }
 }
