@@ -51,8 +51,8 @@ namespace CMS.DATA.Seeding
                     PhoneNumber = "08162292349",
                     SquadNumber = "003",
                     PhoneNumberConfirmed = true,
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
                     EmailConfirmed = true
                 },
 
@@ -66,8 +66,8 @@ namespace CMS.DATA.Seeding
                     PhoneNumber = "08162292377",
                     SquadNumber = "001",
                     PhoneNumberConfirmed = true,
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
                     EmailConfirmed = true
                 },
 
@@ -81,8 +81,8 @@ namespace CMS.DATA.Seeding
                     PhoneNumber = "08162292349",
                     SquadNumber = "001",
                     PhoneNumberConfirmed = true,
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
                     EmailConfirmed = true
                 } };
 

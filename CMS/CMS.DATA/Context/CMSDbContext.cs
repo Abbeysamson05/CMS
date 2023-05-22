@@ -27,7 +27,7 @@ public class CMSDbContext : IdentityDbContext<ApplicationUser>
             switch (item.State)
             {
                 case EntityState.Modified:
-                    item.Entity.UpdatedAt = DateTime.UtcNow;
+                    item.Entity.DateUpdated = DateTime.UtcNow;
                     break;
 
                 case EntityState.Deleted:
@@ -36,7 +36,7 @@ public class CMSDbContext : IdentityDbContext<ApplicationUser>
 
                 case EntityState.Added:
                     item.Entity.Id = Guid.NewGuid().ToString();
-                    item.Entity.CreatedAt = DateTime.UtcNow;
+                    item.Entity.DateCreated = DateTime.UtcNow;
                     break;
 
                 default:
