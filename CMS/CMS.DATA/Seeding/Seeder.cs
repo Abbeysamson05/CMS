@@ -39,7 +39,7 @@ namespace CMS.DATA.Seeding
                     await roleManager.CreateAsync(new IdentityRole { Name = role });
                 }
 
-                var users = new List<ApplicationUser> { 
+                var users = new List<ApplicationUser> {
                 //Instantiating i User and it properties
                 new ApplicationUser
                 {
@@ -51,10 +51,9 @@ namespace CMS.DATA.Seeding
                     PhoneNumber = "08162292349",
                     SquadNumber = "003",
                     PhoneNumberConfirmed = true,
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
                     EmailConfirmed = true
-
                 },
 
                  new ApplicationUser
@@ -67,10 +66,9 @@ namespace CMS.DATA.Seeding
                     PhoneNumber = "08162292377",
                     SquadNumber = "001",
                     PhoneNumberConfirmed = true,
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
                     EmailConfirmed = true
-
                 },
 
                  new ApplicationUser
@@ -83,10 +81,9 @@ namespace CMS.DATA.Seeding
                     PhoneNumber = "08162292349",
                     SquadNumber = "001",
                     PhoneNumberConfirmed = true,
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
                     EmailConfirmed = true
-
                 } };
 
                 for (int i = 0; i < users.Count; i++)
@@ -94,7 +91,6 @@ namespace CMS.DATA.Seeding
                     await userManager.CreateAsync(users[i], "Password@123");
                     await userManager.AddToRoleAsync(users[i], roles[i]);
                 }
-                
             }
 
             //if (!dbContext.Invites.Any())
@@ -160,7 +156,7 @@ namespace CMS.DATA.Seeding
         }
 
         //Defining method to get file paths
-        static string FilePath(string folderName, string fileName)
+        private static string FilePath(string folderName, string fileName)
         {
             return Path.Combine(folderName, fileName);
         }

@@ -1,6 +1,6 @@
-﻿using System.Diagnostics;
+﻿using CMS.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
-using CMS.MVC.Models;
+using System.Diagnostics;
 
 namespace CMS.MVC.Controllers;
 
@@ -29,4 +29,3 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
-
