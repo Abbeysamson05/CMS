@@ -6,6 +6,7 @@ namespace CMS.DATA.Entities
     public class Lesson : BaseEntity
     {
         public string CourseId { get; set; }
+        public string AddedById { get; set; }
         public Modules Module { get; set; }
         public ModuleWeeks Weeks { get; set; }
 
