@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CMS.DATA.Entities
+﻿namespace CMS.DATA.Entities
 {
-    public class Stack: BaseEntity
+    public class Stack : BaseEntity
     {
+        public string? StackName { get; set; }
+        public List<UserStack> User { get; set; }
     }
 }

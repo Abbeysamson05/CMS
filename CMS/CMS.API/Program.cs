@@ -1,4 +1,5 @@
 ﻿using CMS.API.Extensions;
+using CMS.DATA.Seeding;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -14,6 +15,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContextAndConfigurations(builder.Environment, builder.Configuration);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+builder.Services.ConfigureServices(builder.Configuration);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -65,13 +67,11 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
-//.SeedData(app).Wait();
+Seeder.SeedData(app).Wait();
 
 app.UseSwagger();
 app.UseSwaggerUI();
@@ -83,4 +83,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-

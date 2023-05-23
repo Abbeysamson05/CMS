@@ -1,8 +1,7 @@
-﻿using System;
-namespace CMS.API.Models.enums
+﻿namespace CMS.API.Models.enums
 {
-	public enum Modules
-	{
+    public enum Modules
+    {
         Module1,
         Module2,
         Module3,
@@ -15,4 +14,3 @@ namespace CMS.API.Models.enums
         Module10
     }
 }
-
