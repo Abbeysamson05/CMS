@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CMS.DATA.Migrations
 {
     [DbContext(typeof(CMSDbContext))]
-    [Migration("20230522141622_EntityModificationMigration")]
-    partial class EntityModificationMigration
+    [Migration("20230524173518_initialEntityCorrections")]
+    partial class initialEntityCorrections
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -133,6 +133,9 @@ namespace CMS.DATA.Migrations
 
                     b.Property<DateTime?>("DateUpdated")
                         .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");

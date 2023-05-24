@@ -70,7 +70,7 @@ namespace CMS.DATA.Repository.Implementation
             checkLesson.DateCreated = lesson.DateCreated;
             checkLesson.CompletionStatus = lesson.CompletionStatus;
             checkLesson.DateUpdated = lesson.DateUpdated;
-            checkLesson.Topic = lesson.Topic;
+            checkLesson.Topic = lesson.Topic; 
             checkLesson.PublicId = lesson.PublicId;
             checkLesson.VideoUrl = lesson.VideoUrl;
             checkLesson.IsDeleted = lesson.IsDeleted;

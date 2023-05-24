@@ -21,8 +21,8 @@ namespace CMS.API.Controllers
             _lessonsService = lessonsService;
             _mapper = mapper;
         }
-        [Authorize(Roles = "Facilitator, Admin")]
-        [Authorize(Policy = "can_add")]
+        //[Authorize(Roles = "Facilitator, Admin")]
+        //[Authorize(Policy = "can_add")]
         [HttpPost("add")]
         public async Task<IActionResult> AddLesson(AddLessonDTO addLesson)
         {
@@ -36,8 +36,8 @@ namespace CMS.API.Controllers
             return Ok(responseDto);
         }
 
-        [Authorize(Roles = "Facilitator, Admin")]
-        [Authorize(Policy = "can_delete")]
+        //[Authorize(Roles = "Facilitator, Admin")]
+        //[Authorize(Policy = "can_delete")]
         [HttpDelete("{lessonid}/delete")]
         public async Task<IActionResult> DeleteLeson(string lessonid)
         {
@@ -49,7 +49,7 @@ namespace CMS.API.Controllers
                     return NoContent();
                 }
                 var ErrorMessage = new ResponseDto<ErrorMessageDto>();
-                ErrorMessage.DisplayMessage = "Contact was not deleted";
+                ErrorMessage.DisplayMessage = "Lesson was not deleted";
                 ErrorMessage.StatusCode = StatusCodes.Status400BadRequest;
 
                 return BadRequest(ErrorMessage);
@@ -62,13 +62,13 @@ namespace CMS.API.Controllers
                 return BadRequest(ErrorMessage);
             }
         }
-        [Authorize]
+        //[Authorize]
         [HttpGet("{moduleid}")]
         public async Task<IActionResult> GetLessonByModule(Modules moduleid)
         {
             var response = new ResponseDto<IEnumerable<LessonResponseDTO>>();
             var result = await _lessonsService.GetLessonByModuleAsync(moduleid);
-            if (result == null)
+            if (result.Count() == 0)
             {
                 response.StatusCode = StatusCodes.Status404NotFound;
                 response.DisplayMessage = "lesson with the module not found";
@@ -80,8 +80,8 @@ namespace CMS.API.Controllers
             return Ok(response);
         }
 
-        [Authorize(Policy = "can_update")]
-        [Authorize(Roles = "Facilitator, Admin")]
+        //[Authorize(Policy = "can_update")]
+        //[Authorize(Roles = "Facilitator, Admin")]
         [HttpPut("{lessonId}/update")]
         public async Task<IActionResult> AddLesson(UpdateLessonDTO lesson, string lessonId)
         {

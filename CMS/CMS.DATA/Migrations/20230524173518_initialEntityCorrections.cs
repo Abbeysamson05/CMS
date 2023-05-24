@@ -4,7 +4,7 @@
 
 namespace CMS.DATA.Migrations
 {
-    public partial class EntityModificationMigration : Migration
+    public partial class initialEntityCorrections : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -161,6 +161,13 @@ namespace CMS.DATA.Migrations
                 oldType: "text",
                 oldNullable: true);
 
+            migrationBuilder.AddColumn<bool>(
+                name: "IsCompleted",
+                table: "Courses",
+                type: "boolean",
+                nullable: false,
+                defaultValue: false);
+
             migrationBuilder.CreateIndex(
                 name: "IX_UserCourses_UserId",
                 table: "UserCourses",
@@ -217,6 +224,10 @@ namespace CMS.DATA.Migrations
             migrationBuilder.DropIndex(
                 name: "IX_Quizs_AddedById",
                 table: "Quizs");
+
+            migrationBuilder.DropColumn(
+                name: "IsCompleted",
+                table: "Courses");
 
             migrationBuilder.RenameColumn(
                 name: "DateUpdated",
