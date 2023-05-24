@@ -12,5 +12,7 @@ namespace CMS.DATA.Entities
 
         public Course Course { get; set; }
         public ApplicationUser User {get; set; }
+
+        public bool CompletionStatus { get; set; }
     }
 }
