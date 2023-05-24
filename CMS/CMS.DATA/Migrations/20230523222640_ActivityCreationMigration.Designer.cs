@@ -3,6 +3,7 @@ using System;
 using CMS.DATA.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CMS.DATA.Migrations
 {
     [DbContext(typeof(CMSDbContext))]
-    partial class CMSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230523222640_ActivityCreationMigration")]
+    partial class ActivityCreationMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,10 +159,6 @@ namespace CMS.DATA.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ActivityId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("AddedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("DateCreated")
@@ -683,7 +681,7 @@ namespace CMS.DATA.Migrations
             modelBuilder.Entity("CMS.DATA.Entities.UserCourse", b =>
                 {
                     b.HasOne("CMS.DATA.Entities.Course", "Course")
-                        .WithMany()
+                        .WithMany("AddedBy")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -806,6 +804,8 @@ namespace CMS.DATA.Migrations
 
             modelBuilder.Entity("CMS.DATA.Entities.Course", b =>
                 {
+                    b.Navigation("AddedBy");
+
                     b.Navigation("Lessons");
                 });
 

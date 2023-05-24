@@ -19,6 +19,6 @@ namespace CMS.DATA.Entities
         public bool CompletionStatus { get; set; }
         public Course Course { get; set; }
         public ApplicationUser AddedBy { get; set; }
-        public List<Quiz> Quizes { get; set; }
+        public ICollection<Quiz> Quizes { get; set; }
     }
 }
