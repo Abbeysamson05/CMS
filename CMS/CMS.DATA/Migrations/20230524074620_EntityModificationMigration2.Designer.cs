@@ -3,6 +3,7 @@ using System;
 using CMS.DATA.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CMS.DATA.Migrations
 {
     [DbContext(typeof(CMSDbContext))]
-    partial class CMSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230524074620_EntityModificationMigration2")]
+    partial class EntityModificationMigration2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,9 +170,6 @@ namespace CMS.DATA.Migrations
 
                     b.Property<DateTime?>("DateUpdated")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -357,45 +356,6 @@ namespace CMS.DATA.Migrations
                     b.HasIndex("QuizId");
 
                     b.ToTable("QuizOptions");
-                });
-
-            modelBuilder.Entity("CMS.DATA.Entities.QuizReviewRequest", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("DateUpdated")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Notes")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("QuizId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuizId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("QuizReviewRequest");
                 });
 
             modelBuilder.Entity("CMS.DATA.Entities.Stack", b =>
@@ -722,25 +682,6 @@ namespace CMS.DATA.Migrations
                     b.Navigation("Quiz");
                 });
 
-            modelBuilder.Entity("CMS.DATA.Entities.QuizReviewRequest", b =>
-                {
-                    b.HasOne("CMS.DATA.Entities.Quiz", "Quiz")
-                        .WithMany()
-                        .HasForeignKey("QuizId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CMS.DATA.Entities.ApplicationUser", "User")
-                        .WithMany("QuizReviews")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Quiz");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("CMS.DATA.Entities.UserCourse", b =>
                 {
                     b.HasOne("CMS.DATA.Entities.Course", "Course")
@@ -859,8 +800,6 @@ namespace CMS.DATA.Migrations
                     b.Navigation("Courses");
 
                     b.Navigation("Lessons");
-
-                    b.Navigation("QuizReviews");
 
                     b.Navigation("Quizes");
 
