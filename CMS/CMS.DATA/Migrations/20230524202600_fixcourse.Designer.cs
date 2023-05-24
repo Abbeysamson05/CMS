@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CMS.DATA.Migrations
 {
     [DbContext(typeof(CMSDbContext))]
-    [Migration("20230524181932_EntityModificationMigration2")]
-    partial class EntityModificationMigration2
+    [Migration("20230524202600_fixcourse")]
+    partial class fixcourse
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -161,21 +161,19 @@ namespace CMS.DATA.Migrations
                     b.Property<string>("ActivityId")
                         .HasColumnType("text");
 
-                    b.Property<string>("AddedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime?>("DateUpdated")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 
@@ -689,7 +687,7 @@ namespace CMS.DATA.Migrations
             modelBuilder.Entity("CMS.DATA.Entities.UserCourse", b =>
                 {
                     b.HasOne("CMS.DATA.Entities.Course", "Course")
-                        .WithMany()
+                        .WithMany("AddedBy")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -812,6 +810,8 @@ namespace CMS.DATA.Migrations
 
             modelBuilder.Entity("CMS.DATA.Entities.Course", b =>
                 {
+                    b.Navigation("AddedBy");
+
                     b.Navigation("Lessons");
                 });
 

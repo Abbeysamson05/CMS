@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CMS.DATA.DTO
 {
-    public class ErrorMessageDto
+    public class DeleteLessonDto
     {
     }
 }

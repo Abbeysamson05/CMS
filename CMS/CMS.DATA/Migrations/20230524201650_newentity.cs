@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CMS.DATA.Migrations
 {
-    public partial class EntityModificationMigration2 : Migration
+    public partial class newentity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

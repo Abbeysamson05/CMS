@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CMS.DATA.Migrations
 {
     [DbContext(typeof(CMSDbContext))]
-    [Migration("20230524173518_initialEntityCorrections")]
-    partial class initialEntityCorrections
+    [Migration("20230524201650_newentity")]
+    partial class newentity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,36 @@ namespace CMS.DATA.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("CMS.DATA.Entities.Activity", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Activities");
+                });
 
             modelBuilder.Entity("CMS.DATA.Entities.ApplicationUser", b =>
                 {
@@ -128,23 +158,30 @@ namespace CMS.DATA.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("text");
 
+                    b.Property<string>("ActivityId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("AddedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime?>("DateUpdated")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("boolean");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ActivityId");
 
                     b.ToTable("Courses");
                 });
@@ -350,6 +387,9 @@ namespace CMS.DATA.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("text");
+
+                    b.Property<bool>("CompletionStatus")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("CourseId")
                         .IsRequired()
@@ -579,6 +619,24 @@ namespace CMS.DATA.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("CMS.DATA.Entities.Activity", b =>
+                {
+                    b.HasOne("CMS.DATA.Entities.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CMS.DATA.Entities.Course", b =>
+                {
+                    b.HasOne("CMS.DATA.Entities.Activity", null)
+                        .WithMany("Courses")
+                        .HasForeignKey("ActivityId");
+                });
+
             modelBuilder.Entity("CMS.DATA.Entities.Lesson", b =>
                 {
                     b.HasOne("CMS.DATA.Entities.ApplicationUser", "AddedBy")
@@ -631,7 +689,7 @@ namespace CMS.DATA.Migrations
             modelBuilder.Entity("CMS.DATA.Entities.UserCourse", b =>
                 {
                     b.HasOne("CMS.DATA.Entities.Course", "Course")
-                        .WithMany("AddedBy")
+                        .WithMany()
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -736,6 +794,11 @@ namespace CMS.DATA.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("CMS.DATA.Entities.Activity", b =>
+                {
+                    b.Navigation("Courses");
+                });
+
             modelBuilder.Entity("CMS.DATA.Entities.ApplicationUser", b =>
                 {
                     b.Navigation("Courses");
@@ -749,8 +812,6 @@ namespace CMS.DATA.Migrations
 
             modelBuilder.Entity("CMS.DATA.Entities.Course", b =>
                 {
-                    b.Navigation("AddedBy");
-
                     b.Navigation("Lessons");
                 });
 

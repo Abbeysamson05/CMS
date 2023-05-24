@@ -16,6 +16,15 @@ namespace CMS.DATA.Repository.Implementation
         }
         public async Task<Lesson> AddLesson(Lesson lesson)
         {
+            var checkUser = await _context.Users.FindAsync(lesson.AddedById);
+            if (checkUser == null) {
+                throw new Exception("User with the id not valid");
+            }
+            var checkCourse = await _context.Courses.FindAsync(lesson.CourseId);
+            if (checkCourse == null)
+            {
+                throw new Exception("Course id is invalid");
+            }
             var addLesson = await _context.Lessons.AddAsync(lesson);
             var result = await _context.SaveChangesAsync();
             return addLesson.Entity;

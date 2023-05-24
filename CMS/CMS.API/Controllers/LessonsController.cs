@@ -26,14 +26,15 @@ namespace CMS.API.Controllers
         [HttpPost("add")]
         public async Task<IActionResult> AddLesson(AddLessonDTO addLesson)
         {
-            var newlesson = _mapper.Map(addLesson, new Lesson());
-            var result = await _lessonsService.AddLessonNew(newlesson);
-            var addlessonDto = _mapper.Map(result, new LessonResponseDTO());
-            var responseDto = new ResponseDto<LessonResponseDTO>();
-            responseDto.DisplayMessage = "Successsfull";
-            responseDto.StatusCode = StatusCodes.Status200OK;
-            responseDto.Result = addlessonDto;
-            return Ok(responseDto);
+            var result = await _lessonsService.AddLessonNew(addLesson);
+            if(result.StatusCode == 200)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
         }
 
         //[Authorize(Roles = "Facilitator, Admin")]
@@ -41,57 +42,48 @@ namespace CMS.API.Controllers
         [HttpDelete("{lessonid}/delete")]
         public async Task<IActionResult> DeleteLeson(string lessonid)
         {
-            try
+            var result = await _lessonsService.DeleteLessonbyid(lessonid);
+            if (result.StatusCode == 200)
             {
-                var result = await _lessonsService.DeleteLessonbyid(lessonid);
-                if (result == true)
-                {
-                    return NoContent();
-                }
-                var ErrorMessage = new ResponseDto<ErrorMessageDto>();
-                ErrorMessage.DisplayMessage = "Lesson was not deleted";
-                ErrorMessage.StatusCode = StatusCodes.Status400BadRequest;
-
-                return BadRequest(ErrorMessage);
+                return Ok(result);
             }
-            catch (Exception ex)
+            else
             {
-                var ErrorMessage = new ResponseDto<ErrorMessageDto>();
-                ErrorMessage.DisplayMessage = ex.Message;
-                ErrorMessage.StatusCode = StatusCodes.Status400BadRequest;
-                return BadRequest(ErrorMessage);
+                return BadRequest(result);
             }
         }
         //[Authorize]
         [HttpGet("{moduleid}")]
         public async Task<IActionResult> GetLessonByModule(Modules moduleid)
         {
-            var response = new ResponseDto<IEnumerable<LessonResponseDTO>>();
             var result = await _lessonsService.GetLessonByModuleAsync(moduleid);
-            if (result.Count() == 0)
+            if (result.StatusCode == 200)
             {
-                response.StatusCode = StatusCodes.Status404NotFound;
-                response.DisplayMessage = "lesson with the module not found";
-                return NotFound(response);
+                return Ok(result);
+            }else if(result.StatusCode == 404)
+            {
+                return NotFound(result);
             }
-            response.DisplayMessage = "Successful";
-            response.Result = result;
-            response.StatusCode = StatusCodes.Status200OK;
-            return Ok(response);
+            else
+            {
+                return BadRequest(result);
+            }
         }
 
         //[Authorize(Policy = "can_update")]
         //[Authorize(Roles = "Facilitator, Admin")]
         [HttpPut("{lessonId}/update")]
-        public async Task<IActionResult> AddLesson(UpdateLessonDTO lesson, string lessonId)
+        public async Task<IActionResult> UpdateLesson(UpdateLessonDTO lesson, string lessonId)
         {
             var result = await _lessonsService.UpdateLesson(lesson, lessonId);
-            var updateResultlesson = _mapper.Map(result, new LessonResponseDTO());
-            var responseDto = new ResponseDto<LessonResponseDTO>();
-            responseDto.DisplayMessage = "Successsful";
-            responseDto.StatusCode = StatusCodes.Status200OK;
-            responseDto.Result = updateResultlesson;
-            return Ok(responseDto);
+            if (result.StatusCode == 200)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
         }
 
     }
