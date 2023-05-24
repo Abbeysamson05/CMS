@@ -17,6 +17,7 @@ namespace CMS.DATA.Entities
         public List<UserCourse> Courses { get; set; }
         public List<UserStack> Stacks { get; set; }
         public List<Lesson> Lessons { get; set; }
+        public List<QuizReviewRequest> QuizReviews { get; set; }
         public List<UserQuizTaken> Quizes { get; set; }
     }
 }

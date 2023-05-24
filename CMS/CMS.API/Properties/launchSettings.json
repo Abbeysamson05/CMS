@@ -11,6 +11,7 @@
   "profiles": {
     "CMS.API": {
       "commandName": "Project",
+      "launchBrowser": true,
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7027;http://localhost:5294",
       "environmentVariables": {
