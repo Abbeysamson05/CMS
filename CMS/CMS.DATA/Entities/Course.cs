@@ -5,7 +5,7 @@ namespace CMS.DATA.Entities
     public class Course : BaseEntity
     {
         [MaxLength(150)]
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
         public string AddedBy { get; set; }
 
