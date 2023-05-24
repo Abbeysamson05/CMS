@@ -173,6 +173,7 @@ namespace CMS.DATA.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 
@@ -384,6 +385,9 @@ namespace CMS.DATA.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("text");
+
+                    b.Property<bool>("CompletionStatus")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("CourseId")
                         .IsRequired()
