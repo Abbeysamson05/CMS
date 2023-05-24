@@ -7,8 +7,8 @@ namespace CMS.DATA.Entities
         [MaxLength(150)]
         public string? Name { get; set; }
 
-        public List<UserCourse> AddedBy { get; set; }
+        public string AddedBy { get; set; }
 
-        public List<Lesson> Lessons { get; set; }
+        public ICollection<Lesson> Lessons { get; set; }
     }
 }

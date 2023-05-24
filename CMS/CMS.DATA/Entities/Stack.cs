@@ -3,6 +3,6 @@
     public class Stack : BaseEntity
     {
         public string? StackName { get; set; }
-        public List<UserStack> User { get; set; }
+        public ICollection<UserStack> User { get; set; }
     }
 }
