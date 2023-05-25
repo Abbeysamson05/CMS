@@ -8,5 +8,8 @@ namespace CMS.DATA.Repository.RepositoryInterface
         Task<Quiz> DeleteQuizAsync(Quiz entity);
         Task<Quiz> UpdateQuiz(Quiz entity);
         Task<Quiz> GetQuizByIdAsync(string Id);
+        Task<IEnumerable<Quiz>> GetAllQuizAsync();
+        Task<IEnumerable<Quiz>> GetQuizByLessonAsync(string LessonId);
+        Task<IEnumerable<Quiz>> GetQuizByUserAsync(string userId);
     }
 }
