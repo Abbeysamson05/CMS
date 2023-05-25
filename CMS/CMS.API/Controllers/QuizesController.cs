@@ -16,12 +16,9 @@ namespace CMS.API.Controllers
             _quizesService = quizesService;
         }
 
-
         [HttpPost("add")]
         public async Task<ActionResult<ResponseDto<AddQuizDto>>> AddQuiz([FromBody] AddQuizDto addQuizDto)
         {
-
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -34,22 +31,17 @@ namespace CMS.API.Controllers
             else if (addQuiz.StatusCode == 400)
             {
                 return NotFound(addQuiz);
-
             }
             else
             {
                 return BadRequest(addQuiz);
             }
-
         }
 
 
         [HttpPatch("{quizId}/update")]
         public async Task<ActionResult<ResponseDto<AddQuizDto>>> UpdateQuiz(string quizId, [FromBody] UpdateDto updateDto)
         {
-
-
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -68,8 +60,6 @@ namespace CMS.API.Controllers
             {
                 return BadRequest(updateQuiz);
             }
-
-
         }
 
         [HttpDelete("{quizId}/delete")]
@@ -91,9 +81,6 @@ namespace CMS.API.Controllers
             {
                 return BadRequest(DeleteQuiz);
             }
-
-
-
 
         }
     }
