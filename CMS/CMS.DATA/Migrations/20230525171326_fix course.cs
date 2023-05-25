@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CMS.DATA.Migrations
 {
-    public partial class EntityModificationMigration2 : Migration
+    public partial class fixcourse : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -253,8 +253,9 @@ namespace CMS.DATA.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
+                    Name = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
                     AddedBy = table.Column<string>(type: "text", nullable: false),
+                    IsCompleted = table.Column<bool>(type: "boolean", nullable: false),
                     ActivityId = table.Column<string>(type: "text", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
@@ -389,6 +390,36 @@ namespace CMS.DATA.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "QuizReviewRequest",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    QuizId = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    Timestamp = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Notes = table.Column<string>(type: "text", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    DateUpdated = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_QuizReviewRequest", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_QuizReviewRequest_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_QuizReviewRequest_Quizs_QuizId",
+                        column: x => x.QuizId,
+                        principalTable: "Quizs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserQuizTaken",
                 columns: table => new
                 {
@@ -481,6 +512,16 @@ namespace CMS.DATA.Migrations
                 column: "QuizId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_QuizReviewRequest_QuizId",
+                table: "QuizReviewRequest",
+                column: "QuizId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_QuizReviewRequest_UserId",
+                table: "QuizReviewRequest",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Quizs_AddedById",
                 table: "Quizs",
                 column: "AddedById");
@@ -543,6 +584,9 @@ namespace CMS.DATA.Migrations
 
             migrationBuilder.DropTable(
                 name: "QuizOptions");
+
+            migrationBuilder.DropTable(
+                name: "QuizReviewRequest");
 
             migrationBuilder.DropTable(
                 name: "UserCourses");
