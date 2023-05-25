@@ -159,6 +159,10 @@ namespace CMS.DATA.Migrations
                     b.Property<string>("ActivityId")
                         .HasColumnType("text");
 
+                    b.Property<string>("AddedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp without time zone");
 
@@ -743,7 +747,7 @@ namespace CMS.DATA.Migrations
             modelBuilder.Entity("CMS.DATA.Entities.UserCourse", b =>
                 {
                     b.HasOne("CMS.DATA.Entities.Course", "Course")
-                        .WithMany("AddedBy")
+                        .WithMany()
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -868,8 +872,6 @@ namespace CMS.DATA.Migrations
 
             modelBuilder.Entity("CMS.DATA.Entities.Course", b =>
                 {
-                    b.Navigation("AddedBy");
-
                     b.Navigation("Lessons");
                 });
 

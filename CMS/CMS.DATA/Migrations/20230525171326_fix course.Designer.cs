@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CMS.DATA.Migrations
 {
     [DbContext(typeof(CMSDbContext))]
-    [Migration("20230524202600_fixcourse")]
+    [Migration("20230525171326_fix course")]
     partial class fixcourse
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -159,6 +159,10 @@ namespace CMS.DATA.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ActivityId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("AddedBy")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("DateCreated")
@@ -355,6 +359,45 @@ namespace CMS.DATA.Migrations
                     b.HasIndex("QuizId");
 
                     b.ToTable("QuizOptions");
+                });
+
+            modelBuilder.Entity("CMS.DATA.Entities.QuizReviewRequest", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("QuizId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuizId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("QuizReviewRequest");
                 });
 
             modelBuilder.Entity("CMS.DATA.Entities.Stack", b =>
@@ -684,10 +727,29 @@ namespace CMS.DATA.Migrations
                     b.Navigation("Quiz");
                 });
 
+            modelBuilder.Entity("CMS.DATA.Entities.QuizReviewRequest", b =>
+                {
+                    b.HasOne("CMS.DATA.Entities.Quiz", "Quiz")
+                        .WithMany()
+                        .HasForeignKey("QuizId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CMS.DATA.Entities.ApplicationUser", "User")
+                        .WithMany("QuizReviews")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Quiz");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("CMS.DATA.Entities.UserCourse", b =>
                 {
                     b.HasOne("CMS.DATA.Entities.Course", "Course")
-                        .WithMany("AddedBy")
+                        .WithMany()
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -803,6 +865,8 @@ namespace CMS.DATA.Migrations
 
                     b.Navigation("Lessons");
 
+                    b.Navigation("QuizReviews");
+
                     b.Navigation("Quizes");
 
                     b.Navigation("Stacks");
@@ -810,8 +874,6 @@ namespace CMS.DATA.Migrations
 
             modelBuilder.Entity("CMS.DATA.Entities.Course", b =>
                 {
-                    b.Navigation("AddedBy");
-
                     b.Navigation("Lessons");
                 });
 
