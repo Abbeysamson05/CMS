@@ -1,9 +1,9 @@
-﻿using CMS.DATA.Enum;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using CMS.DATA.Enum;
 
-namespace CMS.DATA.Entities
+namespace CMS.DATA.DTO
 {
-    public class Lesson : BaseEntity
+    public class AddLessonDTO
     {
         public string CourseId { get; set; }
         public string AddedById { get; set; }
@@ -17,8 +17,7 @@ namespace CMS.DATA.Entities
         public string VideoUrl { get; set; }
         public string PublicId { get; set; }
         public bool CompletionStatus { get; set; }
-        public Course Course { get; set; }
-        public ApplicationUser AddedBy { get; set; }
-        public ICollection<Quiz> Quizes { get; set; }
+        public bool IsDeleted { get; set; }
+
     }
 }

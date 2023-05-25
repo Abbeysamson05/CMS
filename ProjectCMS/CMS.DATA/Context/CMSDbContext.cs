@@ -6,6 +6,7 @@ namespace CMS.DATA.Context;
 
 public class CMSDbContext : IdentityDbContext<ApplicationUser>
 {
+    public DbSet<Activity> Activities { get; set; }
     public DbSet<Quiz> Quizs { get; set; }
     public DbSet<Course> Courses { get; set; }
     public DbSet<Invite> Invites { get; set; }

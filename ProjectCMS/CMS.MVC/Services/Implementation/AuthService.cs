@@ -42,8 +42,6 @@ namespace CMS.MVC.Services.Implementation
 
                 var resetResult = await _userManager.ResetPasswordAsync(user, resetPassword.Token, resetPassword.Password);
 
-
-
                 if (resetResult.Succeeded)
                 {
                     var response = new ResponseDto<ResetPassword>

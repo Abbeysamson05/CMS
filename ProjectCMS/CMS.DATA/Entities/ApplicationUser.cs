@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Collections;
 
 namespace CMS.DATA.Entities
 {
@@ -14,10 +15,11 @@ namespace CMS.DATA.Entities
         public bool ActiveStatus { get; set; }
         public string RefreshToken { get; set; } = String.Empty;
         public DateTime RefreshTokenExpiryTime { get; set; }
-        public List<UserCourse> Courses { get; set; }
-        public List<UserStack> Stacks { get; set; }
-        public List<Lesson> Lessons { get; set; }
+        public ICollection<UserCourse> Courses { get; set; }
+        public ICollection<UserStack> Stacks { get; set; }
+        public ICollection<Lesson> Lessons { get; set; }
+        public ICollection<UserQuizTaken> Quizes { get; set; }
         public List<QuizReviewRequest> QuizReviews { get; set; }
-        public List<UserQuizTaken> Quizes { get; set; }
+        
     }
 }
