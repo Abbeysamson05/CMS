@@ -21,7 +21,6 @@ namespace CMS.API.Services
             var response = new ResponseDto<Quiz>();
             try
             {
-
                 var NewQuiz = new Quiz
                 {
                     AddedById = addQuizDto.AddedById,
