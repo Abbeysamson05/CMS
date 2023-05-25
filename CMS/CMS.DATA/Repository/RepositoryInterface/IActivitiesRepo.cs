@@ -4,7 +4,7 @@ namespace CMS.DATA.Repository.RepositoryInterface
 {
     public interface IActivitiesRepo
     {
-        List<Activity> GetAll();
-        Activity Delete(string id);
+        Task<IEnumerable<Activity>> GetAllActivities();
+        Task<bool> DeleteActivityById(string id);
     }
 }

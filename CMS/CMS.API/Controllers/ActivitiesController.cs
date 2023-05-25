@@ -1,4 +1,6 @@
-﻿using CMS.API.Services.ServicesInterface;
+﻿using CMS.API.Models;
+using CMS.API.Services.ServicesInterface;
+using CMS.DATA.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CMS.API.Controllers
@@ -15,26 +17,26 @@ namespace CMS.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllActivities() 
+        public async Task<ActionResult> GetAllActivities() 
         {
-            var activities = _activitiesService.GetAllActivities();
+            var activities = await _activitiesService.GetAllActivitiesAsync();
             if(activities == null) 
             {
-                return NotFound();
+                return NotFound(new ResponseDto<Activity> { StatusCode = 404, DisplayMessage = "Activities not Found" });
             }
 
             return Ok(activities);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteActivity(string id) 
+        public async Task<IActionResult> DeleteActivity(string id) 
         {
-            var deletedActivity = _activitiesService.DeleteActivity(id);
+            var deletedActivity = await _activitiesService.DeleteActivityAsync(id);
             if(deletedActivity == null) 
             {
-                return NotFound();
+                return NotFound(new ResponseDto<Activity> { StatusCode = 404, DisplayMessage = "ActivityId not Found" });
             }
-            return NoContent(); 
+            return Ok(deletedActivity); 
         }
     }
 }

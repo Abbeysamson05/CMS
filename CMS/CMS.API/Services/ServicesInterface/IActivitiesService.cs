@@ -1,10 +1,12 @@
-﻿using CMS.DATA.Entities;
+﻿using CMS.API.Models;
+using CMS.DATA.Entities;
 
 namespace CMS.API.Services.ServicesInterface
 {
     public interface IActivitiesService
     {
-        List<Activity>GetAllActivities();
-        Activity DeleteActivity(string id);
+        Task<ResponseDto<IEnumerable<Activity>>> GetAllActivitiesAsync();
+        Task<ResponseDto<bool>> DeleteActivityAsync(string id);
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CMS.DATA.Context;
 using CMS.DATA.Entities;
 using CMS.DATA.Repository.RepositoryInterface;
+using Microsoft.EntityFrameworkCore;
 
 namespace CMS.DATA.Repository.Implementation
 {
@@ -13,24 +14,26 @@ namespace CMS.DATA.Repository.Implementation
             _context = context;
         }
 
-        public List<Activity>GetAll()
+        public async Task<IEnumerable<Activity>> GetAllActivities()
         {
-            var activities = _context.Activities.ToList();
-
-
-            return activities;
+            return await _context.Activities.ToListAsync();
 
         } 
 
-        public Activity Delete(string id)
+        public async Task<bool> DeleteActivityById(string id)
         {
-            var activity = _context.Activities.FirstOrDefault(a => a.Id == id);
-            if (activity != null)
+            var activity = await _context.Activities.FirstOrDefaultAsync(a => a.Id == id);
+            if (activity == null)
             {
-                _context.Activities.Remove(activity);
-                _context.SaveChanges();
+                throw new Exception("Activity with the id not found");
             }
-            return activity;
+            _context.Activities.Remove(activity);
+           var result= await _context.SaveChangesAsync();
+            if (result > 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
