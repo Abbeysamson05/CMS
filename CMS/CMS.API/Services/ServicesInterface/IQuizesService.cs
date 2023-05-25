@@ -1,4 +1,5 @@
 ﻿using CMS.API.Models;
+using CMS.DATA.DTO;
 using CMS.DATA.Entities;
 
 namespace CMS.API.Services.ServicesInterface
@@ -9,5 +10,8 @@ namespace CMS.API.Services.ServicesInterface
         Task<ResponseDto<Quiz>> GetQuizByIdAsync(string id);
         Task<ResponseDto<Quiz>> GetByLesson(string lessonId);
         Task<ResponseDto<Quiz>> GetByUser(string userId);
+        Task<ResponseDto<Quiz>> AddQuiz(AddQuizDto addQuizDto);
+        Task<ResponseDto<Quiz>> UpdateQuiz(string Id, UpdateDto updateDto);
+        Task<ResponseDto<bool>> DeleteQuiz(string Id);
     }
 }

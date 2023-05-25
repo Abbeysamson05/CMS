@@ -42,5 +42,44 @@ namespace CMS.DATA.Repository.Implementation
 
             return await _context.Quizs.Where(x => x.AddedById == userId).ToListAsync();
         }
+
+        public async Task<Quiz> AddQuiz(Quiz entity)
+        {
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            await _context.Quizs.AddAsync(entity);
+            var Status = await _context.SaveChangesAsync();
+
+            if (Status > 0)
+                return entity;
+
+            return null;
+        }
+        
+        public async Task<Quiz> DeleteQuizAsync(Quiz entity)
+        {
+            _context.Quizs.Remove(entity);
+            var status = await _context.SaveChangesAsync();
+
+            if (status > 0)
+                return entity;
+
+            return null;
+        }
+
+        public async Task<Quiz> UpdateQuiz(Quiz entity)
+        {
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+            _context.Quizs.Update(entity);
+            var status = await _context.SaveChangesAsync();
+
+            if (status > 0)
+                return entity;
+
+            return null;
+        }
+        
     }
 }

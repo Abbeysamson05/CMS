@@ -19,7 +19,4 @@
   <ItemGroup>
     <None Remove="Entities\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DTO\" />
-  </ItemGroup>
 </Project>

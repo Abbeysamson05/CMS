@@ -1,4 +1,5 @@
-﻿using CMS.API.Services;
+﻿using CMS.API.Profiles;
+using CMS.API.Services;
 using CMS.API.Services.ServicesInterface;
 using CMS.DATA.Repository.Implementation;
 using CMS.DATA.Repository.RepositoryInterface;
@@ -9,6 +10,8 @@ namespace CMS.API.Extensions
     {
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
         {
+
+            services.AddAutoMapper(typeof(CMSProfile));
             services.AddScoped<IAuthRepo, AuthRepo>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IActivitiesRepo, ActivitiesRepo>();

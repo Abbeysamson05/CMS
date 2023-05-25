@@ -427,6 +427,9 @@ namespace CMS.DATA.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("text");
 
+                    b.Property<bool>("CompletionStatus")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("CourseId")
                         .IsRequired()
                         .HasColumnType("text");
