@@ -25,21 +25,22 @@ namespace CMS.DATA.Repository.Implementation
         }
    
 
-        public async Task<Quiz> GetQuizByLessonAsync(string lessonId)
+        public async Task<IEnumerable<Quiz>> GetQuizByLessonAsync(string lessonId)
         {
             var lesson = await _context.Lessons.FindAsync(lessonId);
             if (lesson == null)
                 throw new Exception("Lesson does not exist");
-            return await _context.Quizs.FirstOrDefaultAsync(e => e.LessonId == lessonId);
+
+            return await _context.Quizs.Where(x => x.LessonId == lessonId).ToListAsync();
         }
 
-        public async Task<Quiz> GetQuizByUserAsync(string userId)
+        public async Task<IEnumerable<Quiz>> GetQuizByUserAsync(string userId)
         {
             var user = await _context.Users.FindAsync(userId);
             if (user == null)
                 throw new Exception("User does not exist");
 
-            return await _context.Quizs.FirstOrDefaultAsync(e => e.AddedById== userId);
+            return await _context.Quizs.Where(x => x.AddedById == userId).ToListAsync();
         }
     }
 }

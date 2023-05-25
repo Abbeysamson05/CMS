@@ -29,12 +29,8 @@ namespace CMS.API.Services
             {
                 response.StatusCode = 200;
                 response.DisplayMessage = "Operation Successful";
-                response.Result = new Quiz
-                {
-                    LessonId = lesson.LessonId,
-                    Question = lesson.Question,
-                    AddedById = lesson.AddedById
-                };
+                response.Result = (Quiz)lesson;
+                
             }
 
            return response;
@@ -55,14 +51,7 @@ namespace CMS.API.Services
             {
                 StatusCode = 200,
                 DisplayMessage = "Operation Successful",
-                Result = new Quiz
-                {
-                    Question = getUser.Question,
-                    AnswerType = getUser.AnswerType,
-                    AddedById = getUser.AddedById,
-                    PreferedAnswer = getUser.PreferedAnswer,
-                    LessonId = getUser.LessonId
-                }
+                Result = (Quiz)getUser
             };
      
         }

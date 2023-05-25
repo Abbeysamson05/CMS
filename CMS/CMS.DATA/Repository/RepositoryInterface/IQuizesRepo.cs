@@ -6,7 +6,7 @@ namespace CMS.DATA.Repository.RepositoryInterface
     {
         Task<IEnumerable<Quiz>> GetAllQuizAsync();
         Task<Quiz> GetQuizByIdAsync(string quizId);
-        Task<Quiz> GetQuizByLessonAsync(string LessonId);
-        Task<Quiz> GetQuizByUserAsync(string userId);
+        Task<IEnumerable<Quiz>> GetQuizByLessonAsync(string LessonId);
+        Task<IEnumerable<Quiz>> GetQuizByUserAsync(string userId);
     }
 }
