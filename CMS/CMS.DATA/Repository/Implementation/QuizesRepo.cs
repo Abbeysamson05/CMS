@@ -27,9 +27,7 @@ namespace CMS.DATA.Repository.Implementation
 
             return null;
         }
-
-
-
+        
         public async Task<Quiz> DeleteQuizAsync(Quiz entity)
         {
             _context.Quizs.Remove(entity);
@@ -43,7 +41,6 @@ namespace CMS.DATA.Repository.Implementation
 
         public async Task<Quiz> UpdateQuiz(Quiz entity)
         {
-
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
             _context.Quizs.Update(entity);
@@ -54,10 +51,9 @@ namespace CMS.DATA.Repository.Implementation
 
             return null;
         }
+        
         public async Task<Quiz> GetQuizByIdAsync(string Id)
         {
-
-
             var result = await _context.Quizs.FirstOrDefaultAsync(b => b.Id == Id);
             if (result == null)
             {
