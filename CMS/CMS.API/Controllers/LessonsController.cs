@@ -14,15 +14,15 @@ namespace CMS.API.Controllers
     public class LessonsController : ControllerBase
     {
         private readonly ILessonsService _lessonsService;
-        private readonly IMapper _mapper;
+      
 
-        public LessonsController(ILessonsService lessonsService, IMapper mapper)
+        public LessonsController(ILessonsService lessonsService)
         {
             _lessonsService = lessonsService;
-            _mapper = mapper;
+         
         }
-        //[Authorize(Roles = "Facilitator, Admin")]
-        //[Authorize(Policy = "can_add")]
+        [Authorize(Roles = "Facilitator, Admin")]
+        [Authorize(Policy = "can_add")]
         [HttpPost("add")]
         public async Task<IActionResult> AddLesson(AddLessonDTO addLesson)
         {
@@ -37,8 +37,8 @@ namespace CMS.API.Controllers
             }
         }
 
-        //[Authorize(Roles = "Facilitator, Admin")]
-        //[Authorize(Policy = "can_delete")]
+        [Authorize(Roles = "Facilitator, Admin")]
+        [Authorize(Policy = "can_delete")]
         [HttpDelete("{lessonid}/delete")]
         public async Task<IActionResult> DeleteLeson(string lessonid)
         {
@@ -52,7 +52,7 @@ namespace CMS.API.Controllers
                 return BadRequest(result);
             }
         }
-        //[Authorize]
+        [Authorize]
         [HttpGet("{moduleid}")]
         public async Task<IActionResult> GetLessonByModule(Modules moduleid)
         {
@@ -70,8 +70,8 @@ namespace CMS.API.Controllers
             }
         }
 
-        //[Authorize(Policy = "can_update")]
-        //[Authorize(Roles = "Facilitator, Admin")]
+        [Authorize(Policy = "can_update")]
+        [Authorize(Roles = "Facilitator, Admin")]
         [HttpPut("{lessonId}/update")]
         public async Task<IActionResult> UpdateLesson(UpdateLessonDTO lesson, string lessonId)
         {

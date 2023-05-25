@@ -45,9 +45,9 @@ namespace CMS.API.Services
 
         }
 
-        public async Task<ResponseDto<DeleteLessonDto>> DeleteLessonbyid(string lessonid)
+        public async Task<ResponseDto<string>> DeleteLessonbyid(string lessonid)
         {
-            var response = new ResponseDto<DeleteLessonDto>();
+            var response = new ResponseDto<string>();
             try
             {
                 var result = await _lessonsRepo.DeleteLesson(lessonid);
