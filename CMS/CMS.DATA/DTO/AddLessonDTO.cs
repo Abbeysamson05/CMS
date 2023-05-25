@@ -23,8 +23,6 @@ namespace CMS.DATA.DTO
         public string VideoUrl { get; set; }
         public string PublicId { get; set; }
         public bool CompletionStatus { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime? DateUpdated { get; set; }
         public bool IsDeleted { get; set; }
 
     }

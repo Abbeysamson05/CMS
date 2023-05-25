@@ -24,7 +24,10 @@ namespace CMS.API.Services
             var responseDto = new ResponseDto<LessonResponseDTO>();
             try
             {
-                var newlesson = _mapper.Map(addLesson, new Lesson());
+                var lessonToAdd = new Lesson();
+                lessonToAdd.DateCreated = DateTime.UtcNow;
+                lessonToAdd.DateUpdated = DateTime.UtcNow;
+                var newlesson = _mapper.Map(addLesson, lessonToAdd);
                 var result = await _lessonsRepo.AddLesson(newlesson);
                 var addlessonDto = _mapper.Map(result, new LessonResponseDTO());
                 responseDto.DisplayMessage = "Successsful";

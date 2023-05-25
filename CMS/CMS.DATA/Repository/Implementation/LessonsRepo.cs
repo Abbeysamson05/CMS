@@ -76,9 +76,8 @@ namespace CMS.DATA.Repository.Implementation
             }
             checkLesson.Text = lesson.Text;
             checkLesson.Weeks = lesson.Weeks;
-            checkLesson.DateCreated = lesson.DateCreated;
             checkLesson.CompletionStatus = lesson.CompletionStatus;
-            checkLesson.DateUpdated = lesson.DateUpdated;
+            checkLesson.DateUpdated = DateTime.UtcNow;
             checkLesson.Topic = lesson.Topic; 
             checkLesson.PublicId = lesson.PublicId;
             checkLesson.VideoUrl = lesson.VideoUrl;
