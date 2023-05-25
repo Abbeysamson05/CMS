@@ -8,7 +8,8 @@ namespace CMS.DATA.Entities
         public string Name { get; set; }
 
         public string AddedBy { get; set; }
+        public Icollection<Lesson> Lessons { get; set; }
+        public bool IsCompleted { get; set; }
 
-        public ICollection<Lesson> Lessons { get; set; }
     }
 }
