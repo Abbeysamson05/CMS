@@ -31,50 +31,33 @@ namespace CMS.API.Services
                     LessonId = addQuizDto.LessonId,
                     DateCreated = DateTime.Now,
                     PreferedAnswer = addQuizDto.PreferedAnswer,
-
                 };
 
                 var QuizResult = await _quizesRepo.AddQuiz(NewQuiz);
                 if (QuizResult != null)
                 {
-
                     response.StatusCode = 200;
                     response.DisplayMessage = "You have successfully added a quiz";
                     response.Result = QuizResult;
                     return response;
-
                 }
 
                 response.ErrorMessages = new List<string> { "Error trying to add a quiz" };
                 response.StatusCode = 404;
                 response.Result = null;
                 return response;
-
-
             }
             catch (Exception)
             {
-
                 response.ErrorMessages = new List<string> { "Error trying to add a quiz" };
                 response.StatusCode = 400;
                 return response;
-
-
-
-
             }
-
-
-
         }
-
-
+        
         public async Task<ResponseDto<Quiz>> UpdateQuiz(string Id, [FromBody] UpdateDto updateDto)
         {
             var response = new ResponseDto<Quiz>();
-
-
-
             try
             {
 
@@ -94,29 +77,22 @@ namespace CMS.API.Services
 
                 if (QuizResult != null)
                 {
-
                     response.StatusCode = 200;
                     response.DisplayMessage = "You have successfully updated quiz";
                     response.Result = QuizResult;
                     return response;
-
                 }
 
                 response.ErrorMessages = new List<string> { "Error trying to update a quiz" };
                 response.StatusCode = 404;
                 response.Result = null;
                 return response;
-
-
-
             }
             catch
             {
-
                 response.ErrorMessages = new List<string> { "Error trying to update a quiz" };
                 response.StatusCode = 400;
                 return response;
-
             }
         }
 
@@ -135,27 +111,17 @@ namespace CMS.API.Services
                     response.DisplayMessage = "Quiz deleted successfully";
                     response.Result = true;
                     return response;
-
-
                 }
-
                 response.ErrorMessages = new List<string> { "Error trying to update a quiz" };
                 response.StatusCode = 404;
                 response.Result = false;
                 return response;
-
-
-
             }
             catch
             {
-
                 response.ErrorMessages = new List<string> { "Error trying to update a quiz" };
                 response.StatusCode = 400;
                 return response;
-
-
-
             }
         }
 
