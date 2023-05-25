@@ -1,4 +1,5 @@
 ﻿using CMS.API.Services.ServicesInterface;
+using CMS.DATA.Entities;
 using CMS.DATA.Repository.RepositoryInterface;
 
 namespace CMS.API.Services
@@ -11,5 +12,18 @@ namespace CMS.API.Services
         {
             _activitiesRepo = activitiesRepo;
         }
+
+        public List<Activity>GetAllActivities()
+        {
+            return _activitiesRepo.GetAll();
+        }
+
+        public Activity DeleteActivity(string id)
+        {
+
+        return _activitiesRepo.Delete(id);
+
+        }
     }
+
 }

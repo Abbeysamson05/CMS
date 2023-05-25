@@ -13,5 +13,28 @@ namespace CMS.API.Controllers
         {
             _activitiesService = activitiesService;
         }
+
+        [HttpGet]
+        public IActionResult GetAllActivities() 
+        {
+            var activities = _activitiesService.GetAllActivities();
+            if(activities == null) 
+            {
+                return NotFound();
+            }
+
+            return Ok(activities);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteActivity(string id) 
+        {
+            var deletedActivity = _activitiesService.DeleteActivity(id);
+            if(deletedActivity == null) 
+            {
+                return NotFound();
+            }
+            return NoContent(); 
+        }
     }
 }
