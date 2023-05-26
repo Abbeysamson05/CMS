@@ -7,5 +7,6 @@ namespace CMS.API.Services.ServicesInterface
     {
         ResponseDto<List<string>> GetStacks();
         Task<ResponseDto<List<UserDto>>> GetUsersByStack(string stackId);
+        Task<ResponseDto<string>> DeleteStack(string stackId);
     }
 }

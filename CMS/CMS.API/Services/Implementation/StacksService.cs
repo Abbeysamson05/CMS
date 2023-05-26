@@ -50,5 +50,24 @@ namespace CMS.API.Services
             }
             return response;
         }
+
+        public async Task<ResponseDto<string>> DeleteStack(string stackId)
+        {
+            var response = new ResponseDto<string>();
+
+            try
+            {
+                await _stacksRepo.DeleteStack(stackId);
+                response.StatusCode = 200;
+                response.DisplayMessage = "Stack deleted successfully";
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = 500;
+                response.ErrorMessages = new List<string> { ex.Message };
+                return response;
+            }
+        }
     }
 }

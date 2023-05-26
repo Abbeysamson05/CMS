@@ -7,5 +7,6 @@ namespace CMS.DATA.Repository.RepositoryInterface
     {
         List<string> GetStacks();
         Task<List<UserDto>> GetUsersByStack(string stackId);
+        Task<bool> DeleteStack(string stackId);
     }
 }

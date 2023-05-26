@@ -32,5 +32,20 @@ namespace CMS.DATA.Repository.Implementation
                 .ToListAsync();
             return _mapper.Map<List<UserDto>>(userStacks);
         }
+        public async Task<bool> DeleteStack(string stackId)
+        {
+            var stack = await _context.Stacks.FindAsync(stackId);
+            if (stack == null)
+            {
+                return false;
+            }
+            _context.Stacks.Remove(stack);
+           var result=  await _context.SaveChangesAsync();
+            if(result > 0)
+            {
+                return true;
+            }
+            throw new Exception("stack not deleted");
+        }
     }
 }
