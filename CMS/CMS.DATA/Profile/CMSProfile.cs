@@ -10,6 +10,7 @@ namespace CMS.API.Profiles
         {
             CreateMap<AddLessonDTO, Lesson>().ReverseMap();
             CreateMap<Lesson, LessonResponseDTO>().ReverseMap();
+            CreateMap<UpdateStacksDto, Stack>().ReverseMap();
         }
     }
 }

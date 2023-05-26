@@ -20,5 +20,25 @@ namespace CMS.DATA.Repository.Implementation
             var stacks = await _context.Stacks.ToListAsync();
             return stacks;
         }
+
+        
+
+        public async Task<bool?> UpdateStackbyId(string stackId, Stack entity)
+        {
+            var existingStack = await _context.Stacks.FindAsync(stackId);
+            if (existingStack == null)
+            {
+                return null;
+            }
+            existingStack.StackName = entity.StackName;
+            existingStack.DateUpdated = DateTime.UtcNow;
+            _context.Stacks.Update(existingStack);
+            var updateResult = await _context.SaveChangesAsync();
+            if (updateResult > 0)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
