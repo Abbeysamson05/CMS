@@ -23,8 +23,7 @@ namespace CMS.API.Extensions
             services.AddScoped<IQuizesService, QuizesService>();
             services.AddScoped<IStacksRepo, StacksRepo>();
             services.AddScoped<IStacksService, StacksService>();
-            services.AddScoped<IUsersRepo, UsersRepo>();
-            services.AddScoped<IUsersService, UsersService>();
+           
         }
     }
 }
