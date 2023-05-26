@@ -12,8 +12,6 @@ namespace CMS.API.Extensions
         {
 
             services.AddAutoMapper(typeof(CMSProfile));
-            services.AddScoped<IAuthRepo, AuthRepo>();
-            services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IActivitiesRepo, ActivitiesRepo>();
             services.AddScoped<IActivitiesService, ActivitiesService>();
             services.AddScoped<ICoursesRepo, CoursesRepo>();
@@ -21,7 +19,6 @@ namespace CMS.API.Extensions
             services.AddScoped<ILessonsRepo, LessonsRepo>();
             services.AddScoped<ILessonsService, LessonsService>();
             services.AddScoped<IPermissionsRepo, PermissionsRepo>();
-            services.AddScoped<IPermissionsService, PermissionsService>();
             services.AddScoped<IQuizesRepo, QuizesRepo>();
             services.AddScoped<IQuizesService, QuizesService>();
             services.AddScoped<IStacksRepo, StacksRepo>();
