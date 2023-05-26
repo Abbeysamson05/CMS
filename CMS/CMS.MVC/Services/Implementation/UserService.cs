@@ -31,7 +31,7 @@ namespace CMS.MVC.Services.Implementation
             {
                 return new ResponseDto<bool>
                 {
-                    StatusCode = 404,
+                    StatusCode = StatusCodes.Status404NotFound,
                     DisplayMessage = "User not found",
                     ErrorMessages = new List<string> { "User not found" }
                 };
@@ -43,7 +43,7 @@ namespace CMS.MVC.Services.Implementation
                 var errorMessages = result.Errors.Select(e => e.Description).ToList();
                 return new ResponseDto<bool>
                 {
-                    StatusCode = 500,
+                    StatusCode = StatusCodes.Status400BadRequest,
                     DisplayMessage = "Failed to delete user",
                     ErrorMessages = errorMessages
                 };
@@ -51,7 +51,7 @@ namespace CMS.MVC.Services.Implementation
 
             return new ResponseDto<bool>
             {
-                StatusCode = 200,
+                StatusCode = StatusCodes.Status200OK,
                 DisplayMessage = "User deleted successfully",
                 Result = true
             };
@@ -64,7 +64,7 @@ namespace CMS.MVC.Services.Implementation
             {
                 return new ResponseDto<bool>
                 {
-                    StatusCode = 404,
+                    StatusCode = StatusCodes.Status404NotFound,
                     DisplayMessage = "User not found",
                     ErrorMessages = new List<string> { "User not found" }
                 };
@@ -77,7 +77,7 @@ namespace CMS.MVC.Services.Implementation
                 var errorMessages = result.Errors.Select(e => e.Description).ToList();
                 return new ResponseDto<bool>
                 {
-                    StatusCode = 500,
+                    StatusCode = StatusCodes.Status400BadRequest,
                     DisplayMessage = "Failed to update active status",
                     ErrorMessages = errorMessages
                 };
@@ -85,7 +85,7 @@ namespace CMS.MVC.Services.Implementation
 
             return new ResponseDto<bool>
             {
-                StatusCode = 200,
+                StatusCode = StatusCodes.Status200OK,
                 DisplayMessage = "Active status updated successfully",
                 Result = true
             };
