@@ -8,7 +8,7 @@ namespace CMS.API.Profiles
     {
         public CMSProfile()
         {
-            CreateMap<AddLessonDTO,Lesson>().ReverseMap();
+            CreateMap<AddLessonDTO, Lesson>().ReverseMap();
             CreateMap<Lesson, LessonResponseDTO>().ReverseMap();
         }
     }

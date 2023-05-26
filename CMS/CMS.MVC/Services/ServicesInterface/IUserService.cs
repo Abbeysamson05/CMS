@@ -1,4 +1,4 @@
-﻿using CMS.DATA.Enum;
+using CMS.DATA.Enum;
 
 namespace CMS.MVC.Services.ServicesInterface
 {
@@ -6,5 +6,6 @@ namespace CMS.MVC.Services.ServicesInterface
     {
         Task<bool> RequestPermission(string userId);
         Task<bool> GrantPermission(string userId, Permissions claims);
+
     }
 }

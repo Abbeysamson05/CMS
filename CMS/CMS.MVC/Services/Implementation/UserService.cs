@@ -1,9 +1,10 @@
-﻿using CMS.DATA.Context;
+using CMS.DATA.Context;
 using CMS.DATA.Entities;
 using CMS.DATA.Enum;
 using CMS.MVC.Services.ServicesInterface;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+
 
 namespace CMS.MVC.Services.Implementation
 {
@@ -13,15 +14,12 @@ namespace CMS.MVC.Services.Implementation
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signinManager;
-      
-
         public UserService(CMSDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signinManager)
         {
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
-            _signinManager = signinManager;
-            
+            _signinManager = signinManager;  
         }
 
         public async Task<bool> GrantPermission(string userId, Permissions claims)
@@ -68,6 +66,7 @@ namespace CMS.MVC.Services.Implementation
                 throw new Exception("Failed to request permission.");
             }
             return true;
+
         }
     }
 }
