@@ -1,4 +1,5 @@
-﻿using CMS.MVC.MVCExtension;
+﻿using CMS.MVC.Configuration;
+using CMS.MVC.MVCExtension;
 using CMS.MVC.Services.Implementation;
 using CMS.MVC.Services.ServicesInterface;
 
@@ -10,6 +11,9 @@ builder.Services.AddDbContextAndConfigurations(builder.Environment, builder.Conf
 builder.Services.ConfigureIdentity();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
+var emailConfig = builder.Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
+builder.Services.AddSingleton(emailConfig);
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 var app = builder.Build();
 

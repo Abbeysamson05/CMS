@@ -1,4 +1,6 @@
 ﻿using CMS.API.Services.ServicesInterface;
+using CMS.DATA.DTO;
+using CMS.DATA.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CMS.API.Controllers
@@ -19,6 +21,13 @@ namespace CMS.API.Controllers
         {
             var responseDto = _stacksService.GetStacks();
             return Ok(responseDto);
+        }
+
+        [HttpGet("{stackId}/get-users")]
+        public async Task<ActionResult<List<ApplicationUser>>> GetUsersByStack(string stackId)
+        {
+            var users = await _stacksService.GetUsersByStack(stackId);
+            return Ok(users);
         }
     }
 }
