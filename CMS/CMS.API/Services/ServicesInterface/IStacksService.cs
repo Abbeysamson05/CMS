@@ -5,7 +5,7 @@ namespace CMS.API.Services.ServicesInterface
 {
     public interface IStacksService
     {
-        ResponseDto<List<string>> GetStacks();
         Task<ResponseDto<Stack>> GetStackbyId(string id);
+        Task<ResponseDto<IEnumerable<Stack>>> GetStacks();
     }
 }

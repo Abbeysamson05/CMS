@@ -14,6 +14,7 @@ namespace CMS.API.Services
             _stacksRepo = stacksRepo;
         }
 
+
         public async Task<ResponseDto<Stack>> GetStackbyId(string id)
         {
             var response = new ResponseDto<Stack>();
@@ -39,21 +40,25 @@ namespace CMS.API.Services
             }
             return response;
         }
-
-
-
-        public ResponseDto<List<string>> GetStacks()
+        public async Task<ResponseDto<IEnumerable<Stack>>> GetStacks()
         {
-            var stacks = _stacksRepo.GetStacks();
-
-            var response = new ResponseDto<List<string>>
+            var response = new ResponseDto<IEnumerable<Stack>>();
+            try
             {
-                StatusCode = 200,
-                DisplayMessage = "All stacks returned",
-                Result = stacks
-            };
+                var result = await _stacksRepo.GetStacks();
+                response.DisplayMessage = "Successfull";
+                response.StatusCode = StatusCodes.Status200OK;
+                response.Result = result;
+                return response;
 
-            return response;
+            }
+            catch (Exception ex)
+            {
+
+                response.ErrorMessages.Add("Error in retriving stack");
+                response.DisplayMessage = "Error";
+                return response;
+            }
         }
     }
 }

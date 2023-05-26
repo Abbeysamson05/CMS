@@ -1,6 +1,8 @@
 ﻿using CMS.DATA.Context;
 using CMS.DATA.Entities;
 using CMS.DATA.Repository.RepositoryInterface;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace CMS.DATA.Repository.Implementation
 {
@@ -17,10 +19,9 @@ namespace CMS.DATA.Repository.Implementation
         {
             return await _context.Stacks.FindAsync(stackid);
         }
-
-        public List<string> GetStacks()
+        public async Task<IEnumerable<Stack>> GetStacks()
         {
-            var stacks = _context.Stacks.Select(stack => stack.StackName).ToList();
+            var stacks = await _context.Stacks.ToListAsync();
             return stacks;
         }
     }
