@@ -1,8 +1,5 @@
-﻿using AutoMapper;
-using CMS.API.Models;
-using CMS.API.Services.ServicesInterface;
+﻿using CMS.API.Services.ServicesInterface;
 using CMS.DATA.DTO;
-using CMS.DATA.Entities;
 using CMS.DATA.Enum;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,8 +18,8 @@ namespace CMS.API.Controllers
             _lessonsService = lessonsService;
 
         }
-        //[Authorize(Roles = "Facilitator, Admin")]
-        //[Authorize(Policy = "can_add")]
+        [Authorize(Roles = "Facilitator, Admin")]
+        [Authorize(Policy = "can_add")]
         [HttpPost("add")]
         public async Task<IActionResult> AddLesson(AddLessonDTO addLesson)
         {
@@ -97,8 +94,8 @@ namespace CMS.API.Controllers
             return BadRequest(result);
         }
 
-        
-        //[Authorize(Roles = "Facilitator, Admin")]
+
+        [Authorize(Roles = "Facilitator, Admin")]
         [HttpGet("topic")]
         public async Task<IActionResult> GetLessonTopic(string topic)
         {
@@ -117,7 +114,7 @@ namespace CMS.API.Controllers
 
             }
         }
-        //[Authorize(Roles = "Facilitator, Admin")]
+        [Authorize(Roles = "Facilitator, Admin")]
         [HttpGet("lesson/{id}")]
         public async Task<IActionResult> GetLessonId(string id)
         {
