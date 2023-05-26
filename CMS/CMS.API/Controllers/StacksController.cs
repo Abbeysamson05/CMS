@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CMS.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/stack")]
     [ApiController]
     public class StacksController : ControllerBase
     {
@@ -15,9 +15,9 @@ namespace CMS.API.Controllers
         }
 
         [HttpGet("all")]
-        public IActionResult GetAllStacks()
+        public async Task<IActionResult> GetAllStacks()
         {
-            var responseDto = _stacksService.GetStacks();
+            var responseDto = await _stacksService.GetStacks();
             return Ok(responseDto);
         }
     }

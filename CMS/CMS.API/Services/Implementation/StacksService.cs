@@ -1,5 +1,6 @@
 ﻿using CMS.API.Models;
 using CMS.API.Services.ServicesInterface;
+using CMS.DATA.Entities;
 using CMS.DATA.Repository.RepositoryInterface;
 
 namespace CMS.API.Services
@@ -13,18 +14,25 @@ namespace CMS.API.Services
             _stacksRepo = stacksRepo;
         }
 
-        public ResponseDto<List<string>> GetStacks()
+        public async Task<ResponseDto<IEnumerable<Stack>>> GetStacks()
         {
-            var stacks = _stacksRepo.GetStacks();
-
-            var response = new ResponseDto<List<string>>
+            var response = new ResponseDto<IEnumerable<Stack>>();
+            try
             {
-                StatusCode = 200,
-                DisplayMessage = "All stacks returned",
-                Result = stacks
-            };
+                var result = await _stacksRepo.GetStacks();
+                response.DisplayMessage = "Successfull";
+                response.StatusCode = StatusCodes.Status200OK;
+                response.Result = result;
+                return response;
 
-            return response;
+            }
+            catch (Exception ex)
+            {
+
+                response.ErrorMessages.Add(ex.Message);
+                response.DisplayMessage = "Error";
+                return response;
+            }
         }
     }
 }
