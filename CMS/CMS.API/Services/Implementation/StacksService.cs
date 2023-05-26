@@ -29,7 +29,7 @@ namespace CMS.API.Services
             catch (Exception ex)
             {
 
-                response.ErrorMessages.Add(ex.Message);
+                response.ErrorMessages.Add("Error in retriving stack");
                 response.DisplayMessage = "Error";
                 return response;
             }
