@@ -1,4 +1,4 @@
-﻿using CMS.DATA.DTO;
+using CMS.DATA.DTO;
 using CMS.DATA.Entities;
 
 namespace CMS.DATA.Repository.RepositoryInterface
@@ -7,5 +7,6 @@ namespace CMS.DATA.Repository.RepositoryInterface
     {
         List<string> GetStacks();
         Task<List<UserDto>> GetUsersByStack(string stackId);
+       Task<IEnumerable<Stack>> GetStacks();
     }
 }
