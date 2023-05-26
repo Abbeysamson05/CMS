@@ -6,10 +6,10 @@ namespace CMS.API.Services.ServicesInterface
 {
     public interface IQuizesService
     {
-        Task<IEnumerable<Quiz>> GetQuizAysnc();
+        Task<ResponseDto<IEnumerable<Quiz>>> GetQuizAysnc();
         Task<ResponseDto<Quiz>> GetQuizByIdAsync(string id);
-        Task<ResponseDto<Quiz>> GetByLesson(string lessonId);
-        Task<ResponseDto<Quiz>> GetByUser(string userId);
+        Task<ResponseDto<IEnumerable<Quiz>>> GetByUser(string userId);
+        Task<ResponseDto<IEnumerable<Quiz>>> GetByLesson(string lessonId);
         Task<ResponseDto<Quiz>> AddQuiz(AddQuizDto addQuizDto);
         Task<ResponseDto<Quiz>> UpdateQuiz(string Id, UpdateDto updateDto);
         Task<ResponseDto<bool>> DeleteQuiz(string Id);

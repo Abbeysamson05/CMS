@@ -18,7 +18,14 @@ namespace CMS.API.Controllers
         public async Task<IActionResult> GetAllStacks()
         {
             var responseDto = await _stacksService.GetStacks();
-            return Ok(responseDto);
+            if(responseDto.StatusCode == 200)
+            {
+                return Ok(responseDto);
+            }
+            else
+            {
+                return BadRequest(responseDto);
+            }
         }
     }
 }
