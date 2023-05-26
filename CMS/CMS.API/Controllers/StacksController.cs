@@ -20,5 +20,20 @@ namespace CMS.API.Controllers
             var responseDto = _stacksService.GetStacks();
             return Ok(responseDto);
         }
+
+        [HttpGet("{stackId}")]
+        public async Task<IActionResult> GetStackById (string stackId) 
+        {
+            var response = await _stacksService.GetStackbyId(stackId);
+
+            if (response.StatusCode == 200)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return StatusCode(response.StatusCode, response);
+            }
+        }
     }
 }

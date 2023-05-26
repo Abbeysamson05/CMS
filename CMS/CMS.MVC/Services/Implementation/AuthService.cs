@@ -78,5 +78,19 @@ namespace CMS.MVC.Services.Implementation
                 return response;
             }
         }
+
+        public async Task<ResponseDto<string>> Logout()
+        {
+          
+           await _signinManager.SignOutAsync();
+            var response = new ResponseDto<string>
+            {
+                StatusCode = StatusCodes.StatusC,
+                DisplayMessage = "Logout successful",
+                Result = null,
+                ErrorMessages = null
+            };
+            return response;
+        }
     }
 }
