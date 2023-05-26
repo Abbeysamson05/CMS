@@ -5,8 +5,7 @@ namespace CMS.DATA.Repository.RepositoryInterface
 {
     public interface IStacksRepo
     {
-        List<string> GetStacks();
         Task<List<UserDto>> GetUsersByStack(string stackId);
-       Task<IEnumerable<Stack>> GetStacks();
+        Task<IEnumerable<Stack>> GetStacks();
     }
 }

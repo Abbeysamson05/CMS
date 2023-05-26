@@ -22,11 +22,13 @@ namespace CMS.DATA.Repository.Implementation
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Stack>> GetStacks()
+        public async Task<IEnumerable<Stack>> GetStack()
         {
             var stacks = await _context.Stacks.ToListAsync();
             return stacks;
         }
+
+        
 
         public async Task<List<UserDto>> GetUsersByStack(string stackId)
         {
