@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Collections;
 
 namespace CMS.DATA.Entities
 {
@@ -19,5 +20,12 @@ namespace CMS.DATA.Entities
         public List<Lesson> Lessons { get; set; }
         public List<QuizReviewRequest> QuizReviews { get; set; }
         public List<UserQuizTaken> Quizes { get; set; }
+        public ICollection<UserCourse> Courses { get; set; }
+        public ICollection<UserStack> Stacks { get; set; }
+        public ICollection<Lesson> Lessons { get; set; }
+        public ICollection<UserQuizTaken> Quizes { get; set; }
+        public List<QuizReviewRequest> QuizReviews { get; set; }
+        
+
     }
 }

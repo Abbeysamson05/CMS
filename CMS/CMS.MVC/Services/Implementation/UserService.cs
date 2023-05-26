@@ -1,6 +1,9 @@
+
 ﻿//using AutoMapper;
 using CMS.DATA.Context;
 using CMS.DATA.DTO;
+
+﻿using CMS.DATA.Context;
 using CMS.DATA.Entities;
 using CMS.MVC.Services.ServicesInterface;
 using Microsoft.AspNetCore.Identity;
@@ -21,6 +24,7 @@ namespace CMS.MVC.Services.Implementation
             _userManager = userManager;
             _roleManager = roleManager;
             _signinManager = signinManager;
+
             
         }
 
@@ -89,6 +93,9 @@ namespace CMS.MVC.Services.Implementation
                 DisplayMessage = "Active status updated successfully",
                 Result = true
             };
+        }
+
+
         }
 
     }

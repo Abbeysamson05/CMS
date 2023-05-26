@@ -104,6 +104,8 @@ namespace CMS.DATA.Seeding
                 var coursePath = File.ReadAllText(FilePath(baseDir, "JsonFiles/Course.json"));
                 var cmsCourse = JsonConvert.DeserializeObject<List<Course>>(coursePath);
                 await dbContext.Courses.AddRangeAsync(cmsCourse);
+
+                var modules = dbContext.Lessons.Where(x => x.CourseId == "").Select(x => x.Module).ToList();
             }
             //if (!dbContext.Lessons.Any())
             //{

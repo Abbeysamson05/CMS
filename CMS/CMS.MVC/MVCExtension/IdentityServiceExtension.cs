@@ -3,6 +3,7 @@ using CMS.DATA.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace CMS.API.Extensions
+namespace CMS.MVC.MVCExtension
 {
     public static class IdentityServiceExtension
     {
@@ -22,4 +23,5 @@ namespace CMS.API.Extensions
                 .AddDefaultTokenProviders();
         }
     }
+}
 }
