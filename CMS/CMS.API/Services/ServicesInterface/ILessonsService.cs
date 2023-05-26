@@ -11,5 +11,9 @@ namespace CMS.API.Services.ServicesInterface
         Task<ResponseDto<string>> DeleteLessonbyid(string lessonid);
         Task<ResponseDto<IEnumerable<LessonResponseDTO>>> GetLessonByModuleAsync(Modules lessonModule);
         Task<ResponseDto<LessonResponseDTO>> UpdateLesson(UpdateLessonDTO lesson, string lessonId);
+        Task<ResponseDto<IEnumerable<Lesson>>> GetAllLessons();
+        Task<ResponseDto<Lesson>> GetLessonById(string id);
+
+        Task<ResponseDto<IEnumerable<Lesson>>> GetLessonsByTopic(string topic);
     }
 }
