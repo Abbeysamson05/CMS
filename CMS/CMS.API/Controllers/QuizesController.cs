@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CMS.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/quiz")]
     [ApiController]
     public class QuizesController : ControllerBase
     {
@@ -20,57 +20,80 @@ namespace CMS.API.Controllers
         [HttpGet("All")]
         public async Task<ActionResult> GetAllQuiz()
         {
-            try
-            {
-                return Ok(await _quizesService.GetQuizAysnc());
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                "Error retreiving data from the database");
-            }
+                var result = await _quizesService.GetQuizAysnc();
+                if (result.StatusCode == 200)
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == 404)
+                {
+                    return NotFound(result);
+                }
+                else
+                {
+                    return BadRequest(result);
+                }
+            
         }
 
         [HttpGet("{quizId}")]
         public async Task<ActionResult<Quiz>> GetQuizById(string quizId)
         {
-            try
-            {
-                return Ok(await _quizesService.GetQuizByIdAsync(quizId));
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                "Error retreiving data from the database");
-            }
+          
+                var result = await _quizesService.GetQuizByIdAsync(quizId);
+
+                if (result.StatusCode == 200)
+                {
+                    return Ok(result);
+                }
+                else if (result.StatusCode == 404)
+                {
+                    return NotFound(result);
+                }
+                else
+                {
+                    return BadRequest(result);
+                }
         }
 
         [HttpGet("lesson/{lessonId}")]
         public async Task<ActionResult<Quiz>> GetQuizByLessonId(string lessonId)
         {
-            try
+           var result = await _quizesService.GetByLesson(lessonId);
+
+            if (result.StatusCode == 200)
             {
-                return Ok(await _quizesService.GetByLesson(lessonId));
+                return Ok(result);
             }
-            catch (Exception)
+            else if (result.StatusCode == 404)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                "Error retreiving data from the database");
+                return NotFound(result);
             }
+            else
+            {
+                return BadRequest(result);
+            }
+
         }
 
         [HttpGet("user/{userId}")]
         public async Task<ActionResult<Quiz>> GetQuizByUserId(string userId)
         {
-            try
+            
+             var result = await _quizesService.GetByUser(userId);
+            if (result.StatusCode == 200)
             {
-                return Ok(await _quizesService.GetByUser(userId));
+                return Ok(result);
             }
-            catch (Exception)
+            else if (result.StatusCode == 404)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                "Error retreiving data from the database");
+                return NotFound(result);
             }
+            else
+            {
+                return BadRequest(result);
+            }
+
         }
 
 
