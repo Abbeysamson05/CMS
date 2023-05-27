@@ -11,5 +11,20 @@ namespace CMS.DATA.Repository.Implementation
         {
             _context = context;
         }
+
+        public void SetCourseAsCompleted(string courseId)
+        {
+            var course = _context.Courses.FirstOrDefault(c => c.Id == courseId);
+
+            if (course != null)
+            {
+                course.IsCompleted = true;
+                _context.SaveChanges();
+            }
+
+
+        }
+
+
     }
 }

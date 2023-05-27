@@ -1,7 +1,15 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using CMS.MVC.MVCExtension;
+using CMS.MVC.Services.Implementation;
+using CMS.MVC.Services.ServicesInterface;
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContextAndConfigurations(builder.Environment, builder.Configuration);
+builder.Services.ConfigureIdentity();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 

@@ -1,17 +1,20 @@
-﻿using CMS.API.Services.ServicesInterface;
+﻿using CMS.MVC.Services.ServicesInterface;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CMS.API.Controllers
+namespace CMS.MVC.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController : Controller
     {
         private readonly IAuthService _authService;
 
         public AuthController(IAuthService authService)
         {
             _authService = authService;
+        }
+
+        public IActionResult Index()
+        {
+            return View();
         }
     }
 }
