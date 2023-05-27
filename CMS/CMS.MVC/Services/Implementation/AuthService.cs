@@ -1,4 +1,4 @@
-﻿using CMS.DATA.Context;
+using CMS.DATA.Context;
 using CMS.DATA.DTO;
 using CMS.DATA.Entities;
 using CMS.MVC.Services.ServicesInterface;
@@ -22,6 +22,7 @@ namespace CMS.MVC.Services.Implementation
             _signinManager = signinManager;
             
         }
+
 
         public async Task<ResponseDto<ResetPassword>> ResetPasswords(ResetPassword resetPassword)
         {
