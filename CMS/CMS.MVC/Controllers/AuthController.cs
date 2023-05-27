@@ -24,39 +24,7 @@ namespace CMS.MVC.Controllers
         }
 
 
-        /*[HttpPost("send-invite")]
-        public IActionResult SendInvite([FromBody] string stackId, string name, string email)
-        {
-            var linkToRegister = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/adduser?stackId={HttpUtility.UrlEncode(stackId)}&name={HttpUtility.UrlEncode(name)}&email={HttpUtility.UrlEncode(email)}";
-            var subject = "Invitation to Program";
-            var content = $"<p>Dear {name}, you have been invited to join the decagon program.</p><br>" +
-                          $"<div><p>Please click the following link to accept the invitation:</p> " +
-                          $"<a href='{linkToRegister}'>Accept Invitation</a></div>";
-
-            var mail = new EmailDto
-            {
-                To = email,
-                Subject = subject,
-                Content = content
-            };
-
-            try
-            {
-                _emailService.SendInvite(mail);
-
-                var response = new
-                {
-                    statusCode = 200,
-                    displayMessage = "Invitation sent successfully",
-                };
-
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Failed to send invite: {ex.Message}");
-            }
-        }*/
+       
         [HttpPost("send-invite")]
         public IActionResult SendInvite([FromBody] List<string> emails, string stackId, string Firstname,string Lastname)
         {
