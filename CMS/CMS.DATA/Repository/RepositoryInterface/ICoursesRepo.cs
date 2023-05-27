@@ -1,7 +1,10 @@
-﻿namespace CMS.DATA.Repository.RepositoryInterface
+﻿using CMS.DATA.Entities;
+
+namespace CMS.DATA.Repository.RepositoryInterface
 {
     public interface ICoursesRepo
     {
-        void SetCourseAsCompleted(string courseId);
+        Task<Course> AddCourse(Course entity);
+        Task<IEnumerable<Course>> GetAllCourse();
     }
 }

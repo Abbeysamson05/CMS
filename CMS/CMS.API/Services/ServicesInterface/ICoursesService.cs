@@ -1,7 +1,12 @@
-﻿namespace CMS.API.Services.ServicesInterface
+﻿using CMS.API.Models;
+using CMS.DATA.DTO;
+using CMS.DATA.Entities;
+
+namespace CMS.API.Services.ServicesInterface
 {
     public interface ICoursesService
     {
-        void SetCourseAsCompleted(string courseId);
+        Task<ResponseDto<Course>> AddCourse(AddCourseDto addCoourseDto);
+        Task<ResponseDto<IEnumerable<Course>>> GetAllCousrse();
     }
 }

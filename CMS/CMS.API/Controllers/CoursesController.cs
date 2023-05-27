@@ -1,5 +1,6 @@
 ﻿using CMS.API.Models;
 using CMS.API.Services.ServicesInterface;
+using CMS.DATA.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CMS.API.Controllers
@@ -15,51 +16,45 @@ namespace CMS.API.Controllers
             _coursesService = coursesService;
         }
 
-
-        [HttpPatch]
-        [Route("{courseId}")]
-        // [Authorize]
-        public IActionResult MarkCourseAsCompleted(string courseId, bool completed = true)
+        [HttpPost("add")]
+        public async Task<ActionResult<ResponseDto<AddQuizDto>>> AddQuiz([FromBody] AddCourseDto addCourseDto)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (completed)
-                {
-                    _coursesService.SetCourseAsCompleted(courseId);
-                    var response = new ResponseDto<string>
-                    {
-                        StatusCode = 200,
-                        DisplayMessage = "Course marked as completed",
-                        Result = "Success"
-                    };
-
-                    return Ok(response);
-                }
-                else
-                {
-                    var response = new ResponseDto<string>
-                    {
-                        StatusCode = 400,
-                        DisplayMessage = "Invalid value for 'completed' parameter",
-                        Result = "Failure"
-                    };
-
-                    return BadRequest(response);
-                }
+                return BadRequest(ModelState);
             }
-            catch (Exception ex)
+            var addCourse = await _coursesService.AddCourse(addCourseDto);
+            if (addCourse.StatusCode == 200)
             {
-                var response = new ResponseDto<string>
-                {
-                    StatusCode = 500,
-                    DisplayMessage = $"Error occurred while marking course as completed: {ex.Message}",
-                    Result = "Failure"
-                };
-
-                return StatusCode(500, response);
+                return Ok(addCourse);
+            }
+            else if (addCourse.StatusCode == 400)
+            {
+                return NotFound(addCourse);
+            }
+            else
+            {
+                return BadRequest(addCourse);
             }
         }
 
+        [HttpGet("All")]
+        public async Task<ActionResult> GetAllCourses()
+        {
+            var result = await _coursesService.GetAllCousrse();
+            if (result.StatusCode == 200)
+            {
+                return Ok(result);
+            }
+            else if (result.StatusCode == 404)
+            {
+                return NotFound(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
 
     }
 }
