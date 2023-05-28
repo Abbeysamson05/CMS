@@ -26,8 +26,15 @@ namespace CMS.API.Services
                 var NewCourse = new Course
                 {
                     Name = addCoourseDto.Name,
-                    AddedBy = addCoourseDto.AddedBy
+                    AddedById = addCoourseDto.UserId,
+                    IsCompleted = addCoourseDto.IsCompleted,
+                    DateCreated = DateTime.Now,
+                    IsDeleted = false
+
+
+
                 };
+
                 var QuizResult = await _coursesRepo.AddCourse(NewCourse);
                 if (QuizResult != null)
                 {
@@ -57,20 +64,19 @@ namespace CMS.API.Services
                 var result = await _coursesRepo.GetAllCourse();
                 if (result != null && result.Any())
                 {
-                    response.StatusCode = StatusCodes.Status200OK;
+                    response.StatusCode = 200;
                     response.DisplayMessage = "Successful";
                     response.Result = result;
                     return response;
                 }
-                response.StatusCode = StatusCodes.Status400BadRequest;
+                response.StatusCode = 404;
                 response.DisplayMessage = "Not Successful";
                 return response;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                response.StatusCode = StatusCodes.Status400BadRequest;
-                response.DisplayMessage = "Error";
-                response.ErrorMessages = new List<string> { ex.Message };
+                response.ErrorMessages = new List<string> { "Error trying to get list of all courses" };
+                response.StatusCode = 400;
                 return response;
             }
 

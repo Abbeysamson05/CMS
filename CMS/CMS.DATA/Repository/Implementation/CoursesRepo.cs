@@ -13,21 +13,27 @@ namespace CMS.DATA.Repository.Implementation
         {
             _context = context;
         }
-
-
-
-
         public async Task<Course> AddCourse(Course entity)
         {
             if (entity == null)
+            {
                 throw new ArgumentNullException(nameof(entity));
 
+            }
+            var User = await _context.Users.FindAsync(entity.AddedById);
+            if (User == null)
+            {
+                throw new ArgumentNullException(nameof(User));
+
+            }
             await _context.Courses.AddAsync(entity);
             var Status = await _context.SaveChangesAsync();
 
             if (Status > 0)
+            {
                 return entity;
 
+            }
             return null;
         }
         public async Task<IEnumerable<Course>> GetAllCourse()
