@@ -2,6 +2,7 @@
 using CMS.DATA.DTO;
 using CMS.DATA.Entities;
 using CMS.DATA.Repository.RepositoryInterface;
+using Serilog;
 
 namespace CMS.API.Services
 {
@@ -13,6 +14,7 @@ namespace CMS.API.Services
         {
             _coursesRepo = coursesRepo;
         }
+
 
         public async Task<ResponseDTO<bool>> DeleteCourseAsync(string courseId)
         {
@@ -38,6 +40,14 @@ namespace CMS.API.Services
             {
                 var courseResponse = await _coursesRepo.GetCourseById(courseId);
                 return courseResponse;
+
+        public void SetCourseAsCompleted(string courseId)
+        {
+            try
+            {
+
+                _coursesRepo.SetCourseAsCompleted(courseId);
+
             }
             catch (Exception ex)
             {
@@ -66,6 +76,10 @@ namespace CMS.API.Services
                     StatusCode = 500,
                     ErrorMessages = new List<string> { "Error updating course" }
                 };
+                Log.Error(ex, $"Error occurred while marking course {courseId} as completed");
+
+
+                throw;
             }
         }
     }

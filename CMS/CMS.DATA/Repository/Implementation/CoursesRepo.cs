@@ -14,6 +14,7 @@ namespace CMS.DATA.Repository.Implementation
         {
             _context = context;
         }
+
         public async Task<ResponseDTO<Course>> GetCourseById(string courseId)
         {
             var response = new ResponseDTO<Course>();
@@ -82,6 +83,20 @@ namespace CMS.DATA.Repository.Implementation
             response.ErrorMessages = new List<string>() { "Course not deleted successfully" };
             return response;
         }
+
+        public void SetCourseAsCompleted(string courseId)
+        {
+            var course = _context.Courses.FirstOrDefault(c => c.Id == courseId);
+
+            if (course != null)
+            {
+                course.IsCompleted = true;
+                _context.SaveChanges();
+            }
+
+
+        }
+
     }
 
 }

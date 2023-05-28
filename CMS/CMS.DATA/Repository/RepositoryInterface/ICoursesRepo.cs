@@ -8,5 +8,6 @@ namespace CMS.DATA.Repository.RepositoryInterface
         Task<ResponseDTO<Course>> GetCourseById(string courseId);
         Task<ResponseDTO<Course>> UpdateCourseAsync(string courseId, UpdateCourseDTO course);
         Task<ResponseDTO<bool>> DeleteCourseAsync(string courseId);
+        void SetCourseAsCompleted(string courseId);
     }
 }
