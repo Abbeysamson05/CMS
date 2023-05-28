@@ -1,10 +1,11 @@
-﻿using CMS.API.Models;
+using CMS.DATA.DTO;
+using CMS.API.Models;
 using CMS.API.Services.ServicesInterface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CMS.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/courses")]
     [ApiController]
     public class CoursesController : ControllerBase
     {
@@ -15,6 +16,57 @@ namespace CMS.API.Controllers
             _coursesService = coursesService;
         }
 
+        [HttpGet("{courseId}")]
+        public async Task<IActionResult> GetCourseById(string courseId)
+        {
+            var result = await _coursesService.GetCourseById(courseId);
+            if (result.StatusCode == 200)
+            {
+                return Ok(result);
+            }else if(result.StatusCode == 404)
+            {
+                return NotFound(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+            
+        }
+        [HttpDelete("{courseId}/delete")]
+        public async Task<IActionResult> DeleteCourse(string courseId)
+        {
+            var result = await _coursesService.DeleteCourseAsync(courseId);
+            if(result.StatusCode == 200)
+            {
+                return Ok(result);
+            }else if(result.StatusCode == 404)
+            {
+                return NotFound(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+
+        }
+        [HttpPut("{courseId}/update")]
+        public async Task<IActionResult> UpdateCourse(UpdateCourseDTO course, string courseId)
+        {
+            var result = await _coursesService.UpdateCourseAsync(courseId, course);
+            if (result.StatusCode == 200)
+            {
+                return Ok(result);
+            }
+            else if (result.StatusCode == 404)
+            {
+                return NotFound(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
 
         [HttpPatch]
         [Route("{courseId}")]
@@ -59,7 +111,6 @@ namespace CMS.API.Controllers
                 return StatusCode(500, response);
             }
         }
-
 
     }
 }
