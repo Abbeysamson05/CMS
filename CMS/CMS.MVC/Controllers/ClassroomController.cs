@@ -4,17 +4,17 @@ namespace CMS.MVC.Controllers
 {
     public class ClassroomController : Controller
     {
+        public bool toggleState { get; set; } = false;
+
         public IActionResult LearningContent()
         {
             return View();
         }
 
-        public IActionResult Quiz()
+        public IActionResult QuizPage()
         {
-            return View();
-        }
-        public IActionResult FacilitatorScreen()
-        {
+            ViewBag.ShowSuccessModal = toggleState;
+
             return View();
         }
         public IActionResult ResourcePage()
@@ -22,10 +22,6 @@ namespace CMS.MVC.Controllers
             return View();
         }
         public IActionResult QuizScore()
-        {
-            return View();
-        }
-        public IActionResult DecadevScreen()
         {
             return View();
         }
