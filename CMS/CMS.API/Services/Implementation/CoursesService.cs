@@ -40,14 +40,6 @@ namespace CMS.API.Services
             {
                 var courseResponse = await _coursesRepo.GetCourseById(courseId);
                 return courseResponse;
-
-        public void SetCourseAsCompleted(string courseId)
-        {
-            try
-            {
-
-                _coursesRepo.SetCourseAsCompleted(courseId);
-
             }
             catch (Exception ex)
             {
@@ -56,8 +48,20 @@ namespace CMS.API.Services
                 {
                     DisplayMessage = "Error",
                     StatusCode = 500,
-                    ErrorMessages = new List<string> { "Error deleting course" }
+                    ErrorMessages = new List<string> { "Error getting course" }
                 };
+            }
+        }
+
+        public void SetCourseAsCompleted(string courseId)
+        {
+            try
+            {
+                _coursesRepo.SetCourseAsCompleted(courseId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -76,10 +80,6 @@ namespace CMS.API.Services
                     StatusCode = 500,
                     ErrorMessages = new List<string> { "Error updating course" }
                 };
-                Log.Error(ex, $"Error occurred while marking course {courseId} as completed");
-
-
-                throw;
             }
         }
     }
