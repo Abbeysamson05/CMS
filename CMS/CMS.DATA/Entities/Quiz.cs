@@ -10,7 +10,7 @@
         public string Instruction { get; set; }
         public Lesson Lesson { get; set; }
         public string LessonId { get; set; }
-        public List<QuizOption> QuizOptions { get; set; }
-        public List<UserQuizTaken> UserQuizzesTaken { get; set; }
+        public ICollection<QuizOption> QuizOptions { get; set; }
+        public ICollection<UserQuizTaken> UserQuizzesTaken { get; set; }
     }
 }
