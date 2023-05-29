@@ -4,6 +4,7 @@ using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using CMS.API.Models;
 using CMS.DATA.Context;
+using CMS.DATA.DTO;
 using CMS.DATA.Entities;
 using CMS.MVC.Services.ServicesInterface;
 using Microsoft.AspNetCore.Identity;
@@ -29,9 +30,9 @@ namespace CMS.MVC.Services.Implementation
 
 
         #region UploadFileAsync
-        public async Task<UploadResponseDto<Dictionary<string, string>>> UploadFileAsync(IFormFile file, string email)
+        public async Task<ResponseDTO<Dictionary<string, string>>> UploadFileAsync(IFormFile file, string email)
         {
-            var response = new UploadResponseDto<Dictionary<string, string>>();
+            var response = new ResponseDTO<Dictionary<string, string>>();
             try
             {
                 if (string.IsNullOrEmpty(email))
@@ -107,9 +108,9 @@ namespace CMS.MVC.Services.Implementation
         #endregion
 
         #region DeleteFileAsync
-        public async Task<UploadResponseDto<bool>> DeleteFileAsync(string publicId, string email)
+        public async Task<ResponseDTO<bool>> DeleteFileAsync(string publicId, string email)
         {
-            var response = new UploadResponseDto<bool>();
+            var response = new ResponseDTO<bool>();
 
             try
             {

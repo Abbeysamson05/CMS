@@ -1,10 +1,10 @@
-﻿using CMS.API.Models;
+﻿using CMS.DATA.DTO;
 
 namespace CMS.MVC.Services.ServicesInterface
 {
     public interface IUserService
     {
-        Task<UploadResponseDto<bool>> DeleteFileAsync(string publicId, string email);
-        Task<UploadResponseDto<Dictionary<string, string>>> UploadFileAsync(IFormFile file, string email);
+        Task<ResponseDTO<bool>> DeleteFileAsync(string publicId, string email);
+        Task<ResponseDTO<Dictionary<string, string>>> UploadFileAsync(IFormFile file, string email);
     }
 }

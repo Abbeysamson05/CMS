@@ -1,6 +1,6 @@
-﻿namespace CMS.API.Models
+﻿namespace CMS.DATA.DTO
 {
-    public class UploadResponseDto<T>
+    public class ResponseDTO<T>
     {
         public int StatusCode { get; set; }
         public string DisplayMessage { get; set; }
