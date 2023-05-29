@@ -17,7 +17,7 @@ namespace CMS.API.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<ActionResult<ResponseDto<AddQuizDto>>> AddQuiz([FromBody] AddCourseDto addCourseDto)
+        public async Task<ActionResult<ResponseDto<AddQuizDto>>> AddCourse([FromBody] AddCourseDto addCourseDto)
         {
             if (!ModelState.IsValid)
             {

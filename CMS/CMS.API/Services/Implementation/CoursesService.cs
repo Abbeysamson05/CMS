@@ -35,12 +35,12 @@ namespace CMS.API.Services
 
                 };
 
-                var QuizResult = await _coursesRepo.AddCourse(NewCourse);
-                if (QuizResult != null)
+                var CourseResult = await _coursesRepo.AddCourse(NewCourse);
+                if (CourseResult != null)
                 {
                     response.StatusCode = 200;
                     response.DisplayMessage = "You have successfully added a course";
-                    response.Result = QuizResult;
+                    response.Result = CourseResult;
                     return response;
                 }
                 response.ErrorMessages = new List<string> { "Error trying to add a course" };
