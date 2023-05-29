@@ -2,10 +2,7 @@
 using CMS.DATA.Entities;
 using Microsoft.AspNetCore.Identity;
 
-<<<<<<< HEAD
-=======
-namespace CMS.API.Extensions
->>>>>>> 17278b98d1f9b20d97e8c9c2c94fcf70fbff7b89
+
 namespace CMS.MVC.MVCExtension
 {
     public static class IdentityServiceExtension
@@ -27,7 +24,3 @@ namespace CMS.MVC.MVCExtension
         }
     }
 }
-<<<<<<< HEAD
-=======
-}
->>>>>>> 17278b98d1f9b20d97e8c9c2c94fcf70fbff7b89

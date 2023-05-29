@@ -1,16 +1,11 @@
 
-<<<<<<< HEAD
 using CMS.DATA.Context;
-=======
-﻿//using AutoMapper;
 using CMS.DATA.Context;
 using CMS.DATA.DTO;
 
-﻿using CMS.DATA.Context;
->>>>>>> 17278b98d1f9b20d97e8c9c2c94fcf70fbff7b89
 using CMS.DATA.Entities;
 using CMS.DATA.Enum;
-using CMS.DATA.DTO;
+
 using CMS.MVC.Services.Implementation;
 using CMS.MVC.Services.ServicesInterface;
 using Microsoft.AspNetCore.Identity;
@@ -25,22 +20,14 @@ namespace CMS.MVC.Services.Implementation
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signinManager;
-<<<<<<< HEAD
-=======
-       
 
->>>>>>> 17278b98d1f9b20d97e8c9c2c94fcf70fbff7b89
         public UserService(CMSDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signinManager)
         {
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
             _signinManager = signinManager;
-<<<<<<< HEAD
-=======
 
-            
->>>>>>> 17278b98d1f9b20d97e8c9c2c94fcf70fbff7b89
         }
 
 
@@ -157,11 +144,8 @@ namespace CMS.MVC.Services.Implementation
 
         }
 
-<<<<<<< HEAD
-=======
 
-        }
 
->>>>>>> 17278b98d1f9b20d97e8c9c2c94fcf70fbff7b89
     }
+
 }
