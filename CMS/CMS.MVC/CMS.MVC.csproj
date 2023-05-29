@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CMS.API\CMS.API.csproj" />
     <ProjectReference Include="..\CMS.DATA\CMS.DATA.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
