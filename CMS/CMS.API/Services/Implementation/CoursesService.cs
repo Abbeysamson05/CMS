@@ -80,49 +80,63 @@ namespace CMS.API.Services
                 };
             }
         }
-         [Authorize(Roles = "Facilitator, Admin")]
-        [Authorize(Policy = "can_add")]
-        [HttpPost("add")]
-        public async Task<ActionResult<ResponseDto<AddCourseDto>>> AddCourse([FromBody] AddCourseDto addCourseDto)
+          public async Task<ResponseDto<Course>> AddCourse(AddCourseDto addCoourseDto)
         {
-            if (!ModelState.IsValid)
+            var response = new ResponseDto<Course>();
+            try
             {
-                return BadRequest(ModelState);
+                var NewCourse = new Course
+                {
+                    Name = addCoourseDto.Name,
+                    AddedBy = addCoourseDto.AddedBy
+                };
+                var QuizResult = await _coursesRepo.AddCourse(NewCourse);
+                if (QuizResult != null)
+                {
+                    response.StatusCode = 200;
+                    response.DisplayMessage = "You have successfully added a course";
+                    response.Result = QuizResult;
+                    return response;
+                }
+                response.ErrorMessages = new List<string> { "Error trying to add a course" };
+                response.StatusCode = 404;
+                response.Result = null;
+                return response;
             }
-            var addCourse = await _coursesService.AddCourse(addCourseDto);
-            if (addCourse.StatusCode == 200)
+            catch (Exception)
             {
-                return Ok(addCourse);
-            }
-            else if (addCourse.StatusCode == 400)
-            {
-                return NotFound(addCourse);
-            }
-            else
-            {
-                return BadRequest(addCourse);
-            }
-        }
-        [Authorize]
-        [HttpGet("All")]
-        public async Task<ActionResult> GetAllCourses()
-        {
-            var result = await _coursesService.GetAllCousrse();
-            if (result.StatusCode == 200)
-            {
-                return Ok(result);
-            }
-            else if (result.StatusCode == 404)
-            {
-                return NotFound(result);
-            }
-            else
-            {
-                return BadRequest(result);
+                response.ErrorMessages = new List<string> { "Error trying to add a course" };
+                response.StatusCode = 400;
+                return response;
             }
         }
 
-       
+        public async Task<ResponseDto<IEnumerable<Course>>> GetAllCousrse()
+        {
+            var response = new ResponseDto<IEnumerable<Course>>();
+            try
+            {
+                var result = await _coursesRepo.GetAllCourse();
+                if (result != null && result.Any())
+                {
+                    response.StatusCode = StatusCodes.Status200OK;
+                    response.DisplayMessage = "Successful";
+                    response.Result = result;
+                    return response;
+                }
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                response.DisplayMessage = "Not Successful";
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                response.DisplayMessage = "Error";
+                response.ErrorMessages = new List<string> { ex.Message };
+                return response;
+            }
+        }
+        
         }
     }
 }
