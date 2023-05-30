@@ -1,4 +1,3 @@
-using CMS.DATA.DTO;
 using CMS.API.Models;
 using CMS.API.Services.ServicesInterface;
 using CMS.DATA.DTO;
@@ -17,14 +16,15 @@ namespace CMS.API.Controllers
         {
             _coursesService = coursesService;
         }
-      [HttpGet("{courseId}")]
-       public async Task<IActionResult> GetCourseById(string courseId)
+        [HttpGet("{courseId}")]
+        public async Task<IActionResult> GetCourseById(string courseId)
         {
             var result = await _coursesService.GetCourseById(courseId);
             if (result.StatusCode == 200)
             {
                 return Ok(result);
-            }else if(result.StatusCode == 404)
+            }
+            else if (result.StatusCode == 404)
             {
                 return NotFound(result);
             }
@@ -32,16 +32,17 @@ namespace CMS.API.Controllers
             {
                 return BadRequest(result);
             }
-            
+
         }
         [HttpDelete("{courseId}/delete")]
         public async Task<IActionResult> DeleteCourse(string courseId)
         {
             var result = await _coursesService.DeleteCourseAsync(courseId);
-            if(result.StatusCode == 200)
+            if (result.StatusCode == 200)
             {
                 return Ok(result);
-            }else if(result.StatusCode == 404)
+            }
+            else if (result.StatusCode == 404)
             {
                 return NotFound(result);
             }

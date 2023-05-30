@@ -1,3 +1,4 @@
+using CMS.API.Models;
 using CMS.API.Services.ServicesInterface;
 using CMS.DATA.DTO;
 using CMS.DATA.Entities;
@@ -14,7 +15,7 @@ namespace CMS.API.Services
             _coursesRepo = coursesRepo;
         }
 
-       public async Task<ResponseDTO<bool>> DeleteCourseAsync(string courseId)
+        public async Task<ResponseDTO<bool>> DeleteCourseAsync(string courseId)
         {
             try
             {
@@ -80,7 +81,7 @@ namespace CMS.API.Services
                 };
             }
         }
-          public async Task<ResponseDto<Course>> AddCourse(AddCourseDto addCoourseDto)
+        public async Task<ResponseDto<Course>> AddCourse(AddCourseDto addCoourseDto)
         {
             var response = new ResponseDto<Course>();
             try
@@ -88,7 +89,7 @@ namespace CMS.API.Services
                 var NewCourse = new Course
                 {
                     Name = addCoourseDto.Name,
-                    AddedById = addCoourseDto.AddedbyId
+                    AddedById = addCoourseDto.UserId
                 };
                 var QuizResult = await _coursesRepo.AddCourse(NewCourse);
                 if (QuizResult != null)
@@ -136,6 +137,6 @@ namespace CMS.API.Services
                 return response;
             }
         }
-        
+
     }
 }

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CMS.DATA.Migrations
 {
     [DbContext(typeof(CMSDbContext))]
-    [Migration("20230528110859_recent")]
-    partial class recent
+    [Migration("20230530222420_My-migration")]
+    partial class Mymigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -184,8 +184,6 @@ namespace CMS.DATA.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ActivityId");
-
-                    b.HasIndex("AddedById");
 
                     b.ToTable("Courses");
                 });
@@ -678,14 +676,6 @@ namespace CMS.DATA.Migrations
                     b.HasOne("CMS.DATA.Entities.Activity", null)
                         .WithMany("Courses")
                         .HasForeignKey("ActivityId");
-
-                    b.HasOne("CMS.DATA.Entities.ApplicationUser", "AddedBy")
-                        .WithMany()
-                        .HasForeignKey("AddedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AddedBy");
                 });
 
             modelBuilder.Entity("CMS.DATA.Entities.Lesson", b =>

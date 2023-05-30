@@ -183,8 +183,6 @@ namespace CMS.DATA.Migrations
 
                     b.HasIndex("ActivityId");
 
-                    b.HasIndex("AddedById");
-
                     b.ToTable("Courses");
                 });
 
@@ -676,14 +674,6 @@ namespace CMS.DATA.Migrations
                     b.HasOne("CMS.DATA.Entities.Activity", null)
                         .WithMany("Courses")
                         .HasForeignKey("ActivityId");
-
-                    b.HasOne("CMS.DATA.Entities.ApplicationUser", "AddedBy")
-                        .WithMany()
-                        .HasForeignKey("AddedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AddedBy");
                 });
 
             modelBuilder.Entity("CMS.DATA.Entities.Lesson", b =>
