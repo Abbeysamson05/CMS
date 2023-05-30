@@ -1,6 +1,7 @@
-using CMS.DATA.DTO;
 using CMS.API.Models;
 using CMS.API.Services.ServicesInterface;
+using CMS.DATA.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CMS.API.Controllers
@@ -15,7 +16,6 @@ namespace CMS.API.Controllers
         {
             _coursesService = coursesService;
         }
-
         [HttpGet("{courseId}")]
         public async Task<IActionResult> GetCourseById(string courseId)
         {
@@ -23,7 +23,8 @@ namespace CMS.API.Controllers
             if (result.StatusCode == 200)
             {
                 return Ok(result);
-            }else if(result.StatusCode == 404)
+            }
+            else if (result.StatusCode == 404)
             {
                 return NotFound(result);
             }
@@ -31,16 +32,17 @@ namespace CMS.API.Controllers
             {
                 return BadRequest(result);
             }
-            
+
         }
         [HttpDelete("{courseId}/delete")]
         public async Task<IActionResult> DeleteCourse(string courseId)
         {
             var result = await _coursesService.DeleteCourseAsync(courseId);
-            if(result.StatusCode == 200)
+            if (result.StatusCode == 200)
             {
                 return Ok(result);
-            }else if(result.StatusCode == 404)
+            }
+            else if (result.StatusCode == 404)
             {
                 return NotFound(result);
             }
@@ -109,6 +111,47 @@ namespace CMS.API.Controllers
                 };
 
                 return StatusCode(500, response);
+            }
+        }
+        [Authorize(Roles = "Facilitator, Admin")]
+        [Authorize(Policy = "can_add")]
+        [HttpPost("add")]
+        public async Task<ActionResult<ResponseDto<AddCourseDto>>> AddCourse([FromBody] AddCourseDto addCourseDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var addCourse = await _coursesService.AddCourse(addCourseDto);
+            if (addCourse.StatusCode == 200)
+            {
+                return Ok(addCourse);
+            }
+            else if (addCourse.StatusCode == 400)
+            {
+                return NotFound(addCourse);
+            }
+            else
+            {
+                return BadRequest(addCourse);
+            }
+        }
+        [Authorize]
+        [HttpGet("All")]
+        public async Task<ActionResult> GetAllCourses()
+        {
+            var result = await _coursesService.GetAllCousrse();
+            if (result.StatusCode == 200)
+            {
+                return Ok(result);
+            }
+            else if (result.StatusCode == 404)
+            {
+                return NotFound(result);
+            }
+            else
+            {
+                return BadRequest(result);
             }
         }
 
