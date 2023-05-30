@@ -93,6 +93,10 @@ namespace CMS.DATA.Repository.Implementation
                 course.IsCompleted = true;
                 _context.SaveChanges();
             }
+            else
+            {
+                throw new Exception($"Course with ID {courseId} does not exist.");
+            }
 
 
         }

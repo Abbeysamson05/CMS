@@ -61,7 +61,10 @@ namespace CMS.API.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Log.Error(ex, $"Error occurred while marking course {courseId} as completed");
+
+
+                throw;
             }
         }
 
@@ -79,7 +82,7 @@ namespace CMS.API.Services
                     DisplayMessage = "Error",
                     StatusCode = 500,
                     ErrorMessages = new List<string> { "Error updating course" }
-                };
+                };             
             }
         }
     }
