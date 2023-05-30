@@ -9,7 +9,7 @@ namespace CMS.DATA.Entities
         public string AddedById { get; set; }
         public ICollection<Lesson> Lessons { get; set; }
         public bool IsCompleted { get; set; }
-        public string AddedBy { get; set; }  
+       
 
     }
 }
