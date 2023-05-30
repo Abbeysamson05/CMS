@@ -50,17 +50,16 @@ namespace CMS.API.Services
                     ErrorMessages = new List<string> { "Error getting course" }
                 };
             }
-        }
-
-        public void SetCourseAsCompleted(string courseId)
-        {
+  
+            public void SetCourseAsCompleted(string courseId)
+            {
             try
             {
                 _coursesRepo.SetCourseAsCompleted(courseId);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Log.Error(ex, $"Error occurred while marking course {courseId} as completed");
             }
         }
 
@@ -78,6 +77,7 @@ namespace CMS.API.Services
                     DisplayMessage = "Error",
                     StatusCode = 500,
                     ErrorMessages = new List<string> { "Error updating course" }
+
                 };
             }
         }
@@ -137,6 +137,5 @@ namespace CMS.API.Services
                 return response;
             }
         }
-
     }
 }

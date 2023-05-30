@@ -93,19 +93,21 @@ namespace CMS.DATA.Repository.Implementation
                 course.IsCompleted = true;
                 _context.SaveChanges();
             }
+            else
+            {
+                throw new Exception($"Course with ID {courseId} does not exist.");
+            }
         }
        public async Task<Course> AddCourse(Course entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
-
             }
             var User = await _context.Users.FindAsync(entity.AddedById);
             if (User == null)
             {
                 throw new ArgumentNullException(nameof(User));
-
             }
             await _context.Courses.AddAsync(entity);
             var Status = await _context.SaveChangesAsync();
@@ -113,7 +115,6 @@ namespace CMS.DATA.Repository.Implementation
             if (Status > 0)
             {
                 return entity;
-
             }
             return null;
         }
@@ -121,7 +122,5 @@ namespace CMS.DATA.Repository.Implementation
         {
             return await _context.Courses.ToListAsync();
         }
-
     }
-
 }
