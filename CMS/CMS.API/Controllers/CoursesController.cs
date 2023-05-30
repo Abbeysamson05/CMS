@@ -1,6 +1,7 @@
 ﻿using CMS.API.Models;
 using CMS.API.Services.ServicesInterface;
 using CMS.DATA.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CMS.API.Controllers
@@ -15,9 +16,10 @@ namespace CMS.API.Controllers
         {
             _coursesService = coursesService;
         }
-
+        [Authorize(Roles = "Facilitator, Admin")]
+        [Authorize(Policy = "can_add")]
         [HttpPost("add")]
-        public async Task<ActionResult<ResponseDto<AddQuizDto>>> AddCourse([FromBody] AddCourseDto addCourseDto)
+        public async Task<ActionResult<ResponseDto<AddCourseDto>>> AddCourse([FromBody] AddCourseDto addCourseDto)
         {
             if (!ModelState.IsValid)
             {
@@ -37,7 +39,7 @@ namespace CMS.API.Controllers
                 return BadRequest(addCourse);
             }
         }
-
+        [Authorize]
         [HttpGet("All")]
         public async Task<ActionResult> GetAllCourses()
         {
