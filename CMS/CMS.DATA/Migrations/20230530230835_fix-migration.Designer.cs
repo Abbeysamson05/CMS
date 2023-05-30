@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CMS.DATA.Migrations
 {
     [DbContext(typeof(CMSDbContext))]
-    [Migration("20230529154633_InitMigration")]
-    partial class InitMigration
+    [Migration("20230530230835_fix-migration")]
+    partial class fixmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -161,7 +161,7 @@ namespace CMS.DATA.Migrations
                     b.Property<string>("ActivityId")
                         .HasColumnType("text");
 
-                    b.Property<string>("AddedBy")
+                    b.Property<string>("AddedById")
                         .IsRequired()
                         .HasColumnType("text");
 
