@@ -9,10 +9,12 @@ namespace CMS.API.Services
     public class CoursesService : ICoursesService
     {
         private readonly ICoursesRepo _coursesRepo;
+        private readonly ILogger<CoursesService> Log;
 
-        public CoursesService(ICoursesRepo coursesRepo)
+        public CoursesService(ICoursesRepo coursesRepo, ILogger<CoursesService> Log)
         {
             _coursesRepo = coursesRepo;
+            this.Log = Log;
         }
 
         public async Task<ResponseDTO<bool>> DeleteCourseAsync(string courseId)
@@ -50,8 +52,8 @@ namespace CMS.API.Services
                     ErrorMessages = new List<string> { "Error getting course" }
                 };
             }
-  
-            public void SetCourseAsCompleted(string courseId)
+        }
+      public void SetCourseAsCompleted(string courseId)
             {
             try
             {
@@ -59,7 +61,7 @@ namespace CMS.API.Services
             }
             catch (Exception ex)
             {
-                Log.Error(ex, $"Error occurred while marking course {courseId} as completed");
+                Log.LogError(ex, $"Error occurred while marking course {courseId} as completed");
             }
         }
 

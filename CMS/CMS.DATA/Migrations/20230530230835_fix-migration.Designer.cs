@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CMS.DATA.Migrations
 {
     [DbContext(typeof(CMSDbContext))]
-    [Migration("20230530222420_My-migration")]
-    partial class Mymigration
+    [Migration("20230530230835_fix-migration")]
+    partial class fixmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
