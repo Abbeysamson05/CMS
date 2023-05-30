@@ -11,7 +11,7 @@ namespace CMS.API.Services
     public class LessonsService : ILessonsService
     {
         private readonly ILessonsRepo _lessonsRepo;
-        private readonly IMapper _mapper;
+       private readonly IMapper _mapper;
 
         public LessonsService(ILessonsRepo lessonsRepo, IMapper mapper)
         {
