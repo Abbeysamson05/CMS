@@ -88,7 +88,7 @@ namespace CMS.API.Services
                 var NewCourse = new Course
                 {
                     Name = addCoourseDto.Name,
-                    AddedBy = addCoourseDto.AddedBy
+                    AddedById = addCoourseDto.AddedbyId
                 };
                 var QuizResult = await _coursesRepo.AddCourse(NewCourse);
                 if (QuizResult != null)
