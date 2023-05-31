@@ -15,7 +15,6 @@
                 <section class="d-flex flex-column gap-4">
                     <div class="col-12">
                         <label class="form-label" for="title">Course Week</label>
-                        @*<input type="text" class="form-control" id="title" placeholder="Enter a title" />*@
                             <select class="form-control" id="week">
                                 <option value="Select">Enter a Week</option>
                                 <option value="week2">Week 1</option>
@@ -25,17 +24,29 @@
                                 <option value="week3">Week 5</option>
                             </select>
                     </div>
+                        <div class="col-12">
+                            <label class="form-label" for="title">Course Module</label>
+                            <select class="form-control" id="week">
+                                <option value="Select">Enter a Course Module</option>
+                                <option value="week2">Module 1</option>
+                                <option value="week3">Module 2</option>
+                                <option value="week3">Module 3</option>
+                                <option value="week3">Module 4</option>
+                                <option value="week3">Module 5</option>
+                            </select>
+                        </div>
                     <div class="col-12">
                         <label class="form-label" for="title">Course Title</label>
                         <input type="text" class="form-control" id="title" placeholder="Enter a title" />
                     </div>
                     <div class="col-12 d-flex justify-content-between align-items-end">
                             <div class="col-5">
-                                <label class="form-label" for="video-content">Category</label>
-                            
-                            <input type="text" class="form-control" id="video-content" placeholder="Input your video category" />
+                                <label class="form-label" for="video-category">Category</label>
+
+                                <input type="text" class="form-control" id="video-category" placeholder="Input your video category" />
                             </div>
                             <div class="input-2 col-5">
+                                <label class="form-label" for="video-content">Video Content</label>
                                 <input type="file" class="form-control" id="video-content" placeholder="Upload video content" />
                             </div>
                     </div>
