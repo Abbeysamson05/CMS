@@ -9,7 +9,7 @@
 body {
     font-family: "inter";
     width: 100%;
-    overflow: auto
+    overflow: auto;
 }
 
 ul li {
@@ -132,4 +132,58 @@ th {
 
 .th-bg {
     background-color: #eaecf0
+}
+.th-bg {
+    background-color: #eaecf0
+}
+
+.bg-blue {
+    background-color: #1470ef;
+}
+
+.bg-orange {
+    background-color: #e0502c;
+}
+
+.ft-20 {
+    font-size: 20px
+}
+
+.gray-border {
+    border: 2px solid gray;
+}
+
+.w-40 {
+    width: 120px
+}
+
+.contain {
+    width: 95%;
+    height: auto;
+    background: #F2F4F7;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-bottom: 20px
+}
+
+#activities {
+    font-family: 'Inter';
+    font-style: normal;
+    border-radius: 8px;
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 100px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#activities td {
+    border: 1px #ddd;
+    padding: 15px 10px 10px 15px;
+}
+
+.img {
+    height: 50px;
+    width: 50px;
+    float: right;
 }
