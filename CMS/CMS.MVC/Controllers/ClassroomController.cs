@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CMS.MVC.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CMS.MVC.Controllers
 {
@@ -19,7 +20,8 @@ namespace CMS.MVC.Controllers
         }
         public IActionResult ResourcePage()
         {
-            return View();
+            var result = new CKEditor();
+            return View(result);
         }
         public IActionResult QuizScore()
         {
