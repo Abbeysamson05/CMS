@@ -24,11 +24,13 @@ namespace CMS.MVC.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult DecadevsPage()
         {
             return View();
         }
 
+        [HttpGet]
         public IActionResult FacilitatorsPage()
         {
             return View();
