@@ -188,10 +188,10 @@ namespace CMS.MVC.Services.Implementation
             try
             {
                 var users = await _userManager.Users.ToListAsync();
-                if (users == null || !users.Any())
+                if (users == null)
                 {
-                    response.StatusCode = StatusCodes.Status204NoContent;
-                    response.DisplayMessage = "No Content Found";
+                    response.StatusCode = StatusCodes.Status404NotFound;
+                    response.DisplayMessage = "No User Found";
                     return response;
                 }
                 var usersDtos = _mapper.Map<IEnumerable<GetAllUsersDto>>(users);
@@ -219,7 +219,7 @@ namespace CMS.MVC.Services.Implementation
                 {
                     return new ResponseDto<GetuserByIdDto>
                     {
-                        StatusCode = StatusCodes.Status204NoContent,
+                        StatusCode = StatusCodes.Status404NotFound,
                         DisplayMessage = $"User with ID {Id} was not found"
                     };
                 }
