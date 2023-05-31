@@ -8,17 +8,22 @@ namespace CMS.MVC.Controllers
         {
             return View();
         }
-
+        public IActionResult FacilitatorLogin()
+        {
+            return View();
+        }
         public IActionResult Register()
         {
             return View();
         }
 
+        [HttpGet]
         public IActionResult ResetPasword()
         {
             return View();
         }
 
+        [HttpGet]
         public IActionResult ForgotPassword()
         {
             return View();
