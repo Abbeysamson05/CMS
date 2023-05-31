@@ -14,6 +14,11 @@ namespace CMS.MVC.Services.ServicesInterface
       public Task<bool> RequestPermission(string userId);
      public Task<bool> GrantPermission(string userId, Permissions claims);
 
+     Task<ResponseDto<string>> GetUserRoles(string userId);
+     Task<ResponseDto<IEnumerable<GetAllUsersDto>>> GetAllUsers();
+     Task<ResponseDto<GetuserByIdDto>> GetByIDAsync(string Id);
+
+
 
     }
 }
