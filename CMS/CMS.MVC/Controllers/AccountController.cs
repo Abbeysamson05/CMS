@@ -8,7 +8,10 @@ namespace CMS.MVC.Controllers
         {
             return View();
         }
-
+        public IActionResult FacilitatorLogin()
+        {
+            return View();
+        }
         public IActionResult Register()
         {
             return View();
