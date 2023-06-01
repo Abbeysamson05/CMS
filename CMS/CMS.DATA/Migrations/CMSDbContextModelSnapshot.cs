@@ -159,7 +159,7 @@ namespace CMS.DATA.Migrations
                     b.Property<string>("ActivityId")
                         .HasColumnType("text");
 
-                    b.Property<string>("AddedBy")
+                    b.Property<string>("AddedById")
                         .IsRequired()
                         .HasColumnType("text");
 
