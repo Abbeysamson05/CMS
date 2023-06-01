@@ -186,6 +186,8 @@ namespace CMS.MVC.Services.Implementation
 
         #endregion
 
+
+        #region UploadFileAsync
         public async Task<ResponseDTO<Dictionary<string, string>>> UploadFileAsync(IFormFile file, string email)
         {
             var response = new ResponseDTO<Dictionary<string, string>>();
@@ -262,6 +264,8 @@ namespace CMS.MVC.Services.Implementation
 
             }
         }
+        #endregion
+
 
         public async Task<bool> RequestPermission(string userId)
         {
@@ -392,16 +396,6 @@ namespace CMS.MVC.Services.Implementation
                     ErrorMessages = new List<string> { ex.Message }
                 };
             }
-
-            #region UploadFileAsync
-
-
-
-            #endregion
-
-            
-
-
         }
     }
 }
