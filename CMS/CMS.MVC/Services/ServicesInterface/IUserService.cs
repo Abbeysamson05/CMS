@@ -16,6 +16,9 @@ namespace CMS.MVC.Services.ServicesInterface
 
      Task<ResponseDTO<bool>> DeleteFileAsync(string publicId, string email);
      Task<ResponseDTO<Dictionary<string, string>>> UploadFileAsync(IFormFile file, string email);
+     Task<ResponseDto<string>> GetUserRoles(string userId);
+     Task<ResponseDto<IEnumerable<GetAllUsersDto>>> GetAllUsers();
+     Task<ResponseDto<GetuserByIdDto>> GetByIDAsync(string Id);
     }
 }
 

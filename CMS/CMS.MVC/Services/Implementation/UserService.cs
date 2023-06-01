@@ -1,4 +1,5 @@
 
+using AutoMapper;
 using CMS.DATA.Context;
 using CMS.DATA.Context;
 using CMS.DATA.DTO;
@@ -10,6 +11,7 @@ using CMS.MVC.Services.Implementation;
 using CMS.MVC.Services.ServicesInterface;
 using Microsoft.AspNetCore.Identity;
 using Npgsql.BackendMessages;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using System.Security.Principal;
 using CloudinaryDotNet;
@@ -28,12 +30,16 @@ namespace CMS.MVC.Services.Implementation
 
         public UserService(CMSDbContext context, UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signinManager, IConfiguration config)
+        private readonly IMapper _mapper;
+
+        public UserService(CMSDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signinManager, IMapper mapper)
         {
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
             _signinManager = signinManager;
             _config = config;
+            _mapper = mapper;
         }
 
 
@@ -154,6 +160,100 @@ namespace CMS.MVC.Services.Implementation
 
         }
 
+        public async Task<ResponseDto<string>> GetUserRoles(string userId)
+        {
+            var response = new ResponseDto<string>();
+            try
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
+                {
+                    response.StatusCode = StatusCodes.Status404NotFound;
+                    response.DisplayMessage = $"Not successful";
+                    response.ErrorMessages = new List<string>() { "User not found." };
+                    return response;
+                }
+                var roles = await _userManager.GetRolesAsync(user);
+                if (roles.Any())
+                {
+                    string rolesString = string.Join(", ", roles);
+                    response.StatusCode = StatusCodes.Status200OK;
+                    response.DisplayMessage = "User roles retrieved successfully";
+                    response.Result = rolesString;
+                    return response;
+                }
+                response.StatusCode = StatusCodes.Status204NoContent;
+                response.DisplayMessage = "This user has no roles ";
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                response.DisplayMessage = "Bad Request";
+                response.ErrorMessages = new List<string>() { ex.Message };
+                return response;
+            }
+        }
+
+        public async Task<ResponseDto<IEnumerable<GetAllUsersDto>>> GetAllUsers()
+        {
+            var response = new ResponseDto<IEnumerable<GetAllUsersDto>>();
+            try
+            {
+                var users = await _userManager.Users.ToListAsync();
+                if (users == null)
+                {
+                    response.StatusCode = StatusCodes.Status404NotFound;
+                    response.DisplayMessage = "No User Found";
+                    return response;
+                }
+                var usersDtos = _mapper.Map<IEnumerable<GetAllUsersDto>>(users);
+                response.StatusCode = StatusCodes.Status200OK;
+                response.DisplayMessage = "Operation Successful";
+                response.Result = usersDtos;
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                response.DisplayMessage = "Error Occured while getting user";
+                response.ErrorMessages = new List<string> { ex.Message };
+                return response;
+
+            }
+
+        }
+        public async Task<ResponseDto<GetuserByIdDto>> GetByIDAsync(string Id)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(Id);
+                if (user == null)
+                {
+                    return new ResponseDto<GetuserByIdDto>
+                    {
+                        StatusCode = StatusCodes.Status404NotFound,
+                        DisplayMessage = $"User with ID {Id} was not found"
+                    };
+                }
+                var userResponse = _mapper.Map<GetuserByIdDto>(user);
+                return new ResponseDto<GetuserByIdDto>
+                {
+                    StatusCode = StatusCodes.Status200OK,
+                    DisplayMessage = "Successful Operation",
+                    Result = userResponse
+                };
+            }
+            catch (Exception ex)
+            {
+
+                return new ResponseDto<GetuserByIdDto>
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    DisplayMessage = "Error Occured while getting user",
+                    ErrorMessages = new List<string> { ex.Message }
+                };
+            }
 
         #region UploadFileAsync
 
@@ -233,6 +333,8 @@ namespace CMS.MVC.Services.Implementation
 
             }
         }
+        }
+    }
 
         #endregion
 
