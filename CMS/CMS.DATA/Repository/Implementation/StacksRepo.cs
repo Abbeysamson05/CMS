@@ -2,6 +2,7 @@
 using AutoMapper;
 using CMS.DATA.Context;
 using CMS.DATA.DTO;
+using CMS.DATA.Entities;
 using CMS.DATA.Repository.RepositoryInterface;
 using Microsoft.EntityFrameworkCore;
 

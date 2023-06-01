@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CMS.DATA.Migrations
 {
-    public partial class fixmigration : Migration
+    public partial class fixMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,15 +29,15 @@ namespace CMS.DATA.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    FirstName = table.Column<string>(type: "text", nullable: false),
-                    LastName = table.Column<string>(type: "text", nullable: false),
-                    SquadNumber = table.Column<string>(type: "text", nullable: false),
+                    FirstName = table.Column<string>(type: "text", nullable: true),
+                    LastName = table.Column<string>(type: "text", nullable: true),
+                    SquadNumber = table.Column<string>(type: "text", nullable: true),
                     PublicId = table.Column<string>(type: "text", nullable: true),
                     ImageUrl = table.Column<string>(type: "text", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     ActiveStatus = table.Column<bool>(type: "boolean", nullable: false),
-                    RefreshToken = table.Column<string>(type: "text", nullable: false),
+                    RefreshToken = table.Column<string>(type: "text", nullable: true),
                     RefreshTokenExpiryTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -64,10 +64,10 @@ namespace CMS.DATA.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    FirstName = table.Column<string>(type: "text", nullable: false),
-                    LastName = table.Column<string>(type: "text", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
+                    FirstName = table.Column<string>(type: "text", nullable: true),
+                    LastName = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
@@ -118,8 +118,8 @@ namespace CMS.DATA.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    UserId = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<string>(type: "text", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
@@ -131,8 +131,7 @@ namespace CMS.DATA.Migrations
                         name: "FK_Activities_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -225,8 +224,8 @@ namespace CMS.DATA.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    StackId = table.Column<string>(type: "text", nullable: false),
-                    UserId = table.Column<string>(type: "text", nullable: false),
+                    StackId = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<string>(type: "text", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
@@ -238,14 +237,12 @@ namespace CMS.DATA.Migrations
                         name: "FK_UserStack_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_UserStack_Stacks_StackId",
                         column: x => x.StackId,
                         principalTable: "Stacks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -254,7 +251,7 @@ namespace CMS.DATA.Migrations
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
-                    AddedById = table.Column<string>(type: "text", nullable: false),
+                    AddedById = table.Column<string>(type: "text", nullable: true),
                     IsCompleted = table.Column<bool>(type: "boolean", nullable: false),
                     ActivityId = table.Column<string>(type: "text", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -276,14 +273,14 @@ namespace CMS.DATA.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    CourseId = table.Column<string>(type: "text", nullable: false),
-                    AddedById = table.Column<string>(type: "text", nullable: false),
+                    CourseId = table.Column<string>(type: "text", nullable: true),
+                    AddedById = table.Column<string>(type: "text", nullable: true),
                     Module = table.Column<int>(type: "integer", nullable: false),
                     Weeks = table.Column<int>(type: "integer", nullable: false),
-                    Topic = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
-                    Text = table.Column<string>(type: "text", nullable: false),
-                    VideoUrl = table.Column<string>(type: "text", nullable: false),
-                    PublicId = table.Column<string>(type: "text", nullable: false),
+                    Topic = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
+                    Text = table.Column<string>(type: "text", nullable: true),
+                    VideoUrl = table.Column<string>(type: "text", nullable: true),
+                    PublicId = table.Column<string>(type: "text", nullable: true),
                     CompletionStatus = table.Column<bool>(type: "boolean", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
@@ -296,14 +293,12 @@ namespace CMS.DATA.Migrations
                         name: "FK_Lessons_AspNetUsers_AddedById",
                         column: x => x.AddedById,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Lessons_Courses_CourseId",
                         column: x => x.CourseId,
                         principalTable: "Courses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -311,8 +306,8 @@ namespace CMS.DATA.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    CourseId = table.Column<string>(type: "text", nullable: false),
-                    UserId = table.Column<string>(type: "text", nullable: false),
+                    CourseId = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<string>(type: "text", nullable: true),
                     CompletionStatus = table.Column<bool>(type: "boolean", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
@@ -325,14 +320,12 @@ namespace CMS.DATA.Migrations
                         name: "FK_UserCourses_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_UserCourses_Courses_CourseId",
                         column: x => x.CourseId,
                         principalTable: "Courses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -340,12 +333,12 @@ namespace CMS.DATA.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    Question = table.Column<string>(type: "text", nullable: false),
-                    AnswerType = table.Column<string>(type: "text", nullable: false),
-                    PreferedAnswer = table.Column<string>(type: "text", nullable: false),
-                    AddedById = table.Column<string>(type: "text", nullable: false),
-                    Instruction = table.Column<string>(type: "text", nullable: false),
-                    LessonId = table.Column<string>(type: "text", nullable: false),
+                    Question = table.Column<string>(type: "text", nullable: true),
+                    AnswerType = table.Column<string>(type: "text", nullable: true),
+                    PreferedAnswer = table.Column<string>(type: "text", nullable: true),
+                    AddedById = table.Column<string>(type: "text", nullable: true),
+                    Instruction = table.Column<string>(type: "text", nullable: true),
+                    LessonId = table.Column<string>(type: "text", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
@@ -357,14 +350,12 @@ namespace CMS.DATA.Migrations
                         name: "FK_Quizs_AspNetUsers_AddedById",
                         column: x => x.AddedById,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Quizs_Lessons_LessonId",
                         column: x => x.LessonId,
                         principalTable: "Lessons",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -372,8 +363,8 @@ namespace CMS.DATA.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    QuizId = table.Column<string>(type: "text", nullable: false),
-                    Option = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
+                    QuizId = table.Column<string>(type: "text", nullable: true),
+                    Option = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
                     DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
@@ -385,8 +376,7 @@ namespace CMS.DATA.Migrations
                         name: "FK_QuizOptions_Quizs_QuizId",
                         column: x => x.QuizId,
                         principalTable: "Quizs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -394,10 +384,10 @@ namespace CMS.DATA.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    QuizId = table.Column<string>(type: "text", nullable: false),
-                    UserId = table.Column<string>(type: "text", nullable: false),
+                    QuizId = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<string>(type: "text", nullable: true),
                     Timestamp = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    Notes = table.Column<string>(type: "text", nullable: false),
+                    Notes = table.Column<string>(type: "text", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
@@ -409,14 +399,12 @@ namespace CMS.DATA.Migrations
                         name: "FK_QuizReviewRequest_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_QuizReviewRequest_Quizs_QuizId",
                         column: x => x.QuizId,
                         principalTable: "Quizs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -424,9 +412,9 @@ namespace CMS.DATA.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    UserId = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: true),
                     Score = table.Column<int>(type: "integer", nullable: false),
-                    QuizId = table.Column<string>(type: "text", nullable: false),
+                    QuizId = table.Column<string>(type: "text", nullable: true),
                     CompletionStatus = table.Column<bool>(type: "boolean", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
@@ -439,14 +427,12 @@ namespace CMS.DATA.Migrations
                         name: "FK_UserQuizTaken_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_UserQuizTaken_Quizs_QuizId",
                         column: x => x.QuizId,
                         principalTable: "Quizs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
