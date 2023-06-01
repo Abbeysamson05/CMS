@@ -85,17 +85,17 @@ namespace CMS.MVC.Services.Implementation
 
         public async Task<ResponseDto<string>> Logout()
         {
-          
-           await _signinManager.SignOutAsync();
+
+            await _signinManager.SignOutAsync();
             var response = new ResponseDto<string>
             {
-                StatusCode = StatusCodes.StatusC,
+                StatusCode = StatusCodes.Status200OK,
                 DisplayMessage = "Logout successful",
                 Result = null,
                 ErrorMessages = null
             };
             return response;
-
+        }
         public async Task<ResponseDto<string>> ForgotPassword(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);

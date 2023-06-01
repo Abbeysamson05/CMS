@@ -11,6 +11,5 @@ namespace CMS.DATA.Repository.RepositoryInterface
         Task<IEnumerable<Stack>> GetStacks();
         Task<List<UserDto>> GetUsersByStack(string stackId);
         Task<bool> DeleteStack(string stackId);
-        Task<IEnumerable<Stack>> GetStacks();
     }
 }
