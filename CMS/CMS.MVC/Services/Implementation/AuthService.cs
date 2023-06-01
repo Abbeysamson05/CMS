@@ -1,4 +1,5 @@
-﻿using CMS.DATA.Context;
+﻿using CMS.API.Configuration;
+using CMS.DATA.Context;
 using CMS.DATA.DTO;
 using CMS.DATA.Entities;
 using CMS.MVC.Services.ServicesInterface;
@@ -12,16 +13,19 @@ namespace CMS.MVC.Services.Implementation
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signinManager;
+        private readonly IEmailService _emailService;
+
         //private readonly IMapper _mapper;
 
-        public AuthService(CMSDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signinManager)
+        public AuthService(CMSDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signinManager, IEmailService emailService)
         {
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
             _signinManager = signinManager;
-            
+            _emailService = emailService;
         }
+
 
         public async Task<ResponseDto<ResetPassword>> ResetPasswords(ResetPassword resetPassword)
         {
@@ -91,6 +95,38 @@ namespace CMS.MVC.Services.Implementation
                 ErrorMessages = null
             };
             return response;
+
+        public async Task<ResponseDto<string>> ForgotPassword(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user != null)
+            {
+                var tokens = await _userManager.GeneratePasswordResetTokenAsync(user);
+                if (tokens != null)
+                {
+                    // Send email with the generated token
+                    var message = new Message(new string[] { email }, "Reset Password Token", $"Your reset password token is: {tokens}");
+                    _emailService.SendEmail(message);
+                    return new ResponseDto<string>
+                    {
+                        StatusCode = StatusCodes.Status200OK,
+                        DisplayMessage = $"Reset password token generated and sent to email: {email}",
+                        Result = tokens
+                    };
+                }
+                return new ResponseDto<string>
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    DisplayMessage = "Token not generated",
+                };
+            }
+
+            return new ResponseDto<string>
+            {
+                StatusCode = StatusCodes.Status404NotFound,
+                DisplayMessage = $"Email not found: {email}",
+                ErrorMessages = new List<string> { $"Email not found: {email}" }
+            };
         }
     }
 }

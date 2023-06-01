@@ -2,6 +2,7 @@
 using CMS.DATA.Entities;
 using Microsoft.AspNetCore.Identity;
 
+
 namespace CMS.MVC.MVCExtension
 {
     public static class IdentityServiceExtension

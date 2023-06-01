@@ -92,5 +92,22 @@ namespace CMS.DATA.Repository.Implementation
             }
             throw new Exception("Lesson not updated successfully");
         }
+
+        public async Task<IEnumerable<Lesson>> GetAllLessonsAsync()
+        {
+            return await _context.Lessons.ToListAsync();
+        }
+
+        public async Task<Lesson> GetLessonByIdAsync(string id)
+        {
+             
+             var result = await _context.Lessons.FindAsync(id);
+            return result;
+        }
+
+        public async Task<IEnumerable<Lesson>> GetLessonsByTopicAsync(string topic)
+        {
+            return await _context.Lessons.Where(lesson => lesson.Topic == topic).ToListAsync();
+        }
     }
 }

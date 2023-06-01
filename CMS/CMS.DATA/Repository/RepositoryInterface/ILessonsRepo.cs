@@ -10,5 +10,8 @@ namespace CMS.DATA.Repository.RepositoryInterface
         Task<bool> DeleteLesson(string lessonId);
         Task<IEnumerable<LessonResponseDTO>> GetLessonByModule(Modules lessonModule);
         Task<Lesson> UpdateLesson(UpdateLessonDTO lesson, string lessonId);
+        Task<IEnumerable<Lesson>> GetAllLessonsAsync();
+        Task<Lesson> GetLessonByIdAsync(string id);
+        Task<IEnumerable<Lesson>> GetLessonsByTopicAsync(string topic);
     }
 }
