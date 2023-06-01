@@ -18,6 +18,10 @@ namespace CMS.DATA.Repository.Implementation
             _mapper = mapper;
         }
 
+        public async Task<Stack> GetStackAsync(string stackid)
+        {
+            return await _context.Stacks.FindAsync(stackid);
+        }
         public async Task<IEnumerable<Stack>> GetStacks()
         {
             var stacks = await _context.Stacks.ToListAsync();

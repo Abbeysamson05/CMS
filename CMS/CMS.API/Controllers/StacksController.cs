@@ -32,6 +32,19 @@ namespace CMS.API.Controllers
             }
         }
 
+        [HttpGet("{stackId}")]
+        public async Task<IActionResult> GetStackById (string stackId) 
+        {
+            var response = await _stacksService.GetStackbyId(stackId);
+
+            if (response.StatusCode == 200)
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return StatusCode(response.StatusCode, response);
+
         [HttpGet("{stackId}/get-users")]
         public async Task<ActionResult<List<ApplicationUser>>> GetUsersByStack(string stackId)
         {
