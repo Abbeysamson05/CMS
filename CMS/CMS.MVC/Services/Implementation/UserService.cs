@@ -10,8 +10,12 @@ using CMS.DATA.Enum;
 using CMS.MVC.Services.Implementation;
 using CMS.MVC.Services.ServicesInterface;
 using Microsoft.AspNetCore.Identity;
+using Npgsql.BackendMessages;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using System.Security.Principal;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 
 
 namespace CMS.MVC.Services.Implementation
@@ -22,6 +26,10 @@ namespace CMS.MVC.Services.Implementation
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signinManager;
+        private readonly IConfiguration _config;
+
+        public UserService(CMSDbContext context, UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signinManager, IConfiguration config)
         private readonly IMapper _mapper;
 
         public UserService(CMSDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signinManager, IMapper mapper)
@@ -30,6 +38,7 @@ namespace CMS.MVC.Services.Implementation
             _userManager = userManager;
             _roleManager = roleManager;
             _signinManager = signinManager;
+            _config = config;
             _mapper = mapper;
         }
 
@@ -100,6 +109,7 @@ namespace CMS.MVC.Services.Implementation
                 Result = true
             };
         }
+
         public async Task<bool> GrantPermission(string userId, Permissions claims)
         {
             var user = await _userManager.FindByIdAsync(userId);
@@ -116,6 +126,7 @@ namespace CMS.MVC.Services.Implementation
             {
                 throw new Exception("Failed to request permission.");
             }
+
             return true;
         }
 
@@ -136,6 +147,7 @@ namespace CMS.MVC.Services.Implementation
                 }
 
             }
+
             var newClaim = new Claim(Permissions.can_update.ToString(), Permissions.can_update.ToString());
             var result = await _userManager.AddClaimAsync(user, newClaim);
 
@@ -143,6 +155,7 @@ namespace CMS.MVC.Services.Implementation
             {
                 throw new Exception("Failed to request permission.");
             }
+
             return true;
 
         }
@@ -242,8 +255,146 @@ namespace CMS.MVC.Services.Implementation
                 };
             }
 
+        #region UploadFileAsync
 
+        public async Task<ResponseDTO<Dictionary<string, string>>> UploadFileAsync(IFormFile file, string email)
+        {
+            var response = new ResponseDTO<Dictionary<string, string>>();
+            try
+            {
+                if (string.IsNullOrEmpty(email))
+                {
+                    throw new ArgumentNullException(nameof(email));
+                }
+
+                var findContact = await _userManager.FindByEmailAsync(email);
+                if (findContact == null)
+                {
+                    throw new ArgumentNullException($"User with the email {email} does not exist");
+                }
+
+                var account = new Account
+                {
+                    ApiKey = _config.GetSection("Cloudinary:ApiKey").Value,
+                    ApiSecret = _config.GetSection("Cloudinary:ApiSecret").Value,
+                    Cloud = _config.GetSection("Cloudinary:CloudName").Value
+
+                };
+
+                var cloudinary = new Cloudinary(account);
+
+                if (file.Length is > 0 and <= 1024 * 1024 * 2)
+                {
+                    if (file.ContentType.Equals("image/jpeg") || file.ContentType.Equals("image/png") ||
+                        file.ContentType.Equals("image/jpg"))
+                    {
+                        UploadResult uploadResult;
+                        await using (var stream = file.OpenReadStream())
+                        {
+                            var uploadParameters = new ImageUploadParams
+                            {
+                                File = new FileDescription(file.FileName, stream),
+                                Transformation = new Transformation().Width(300).Height(300).Crop("fill")
+                                    .Gravity("face")
+                            };
+
+                            uploadResult = await cloudinary.UploadAsync(uploadParameters);
+                        }
+
+                        var result = new Dictionary<string, string>
+                        {
+                            { "PublicId", uploadResult.PublicId },
+                            { "Url", uploadResult.Url.ToString() }
+                        };
+                        response.Result = result;
+                        response.DisplayMessage = "Image was uploaded successfully!";
+                        response.StatusCode = StatusCodes.Status200OK;
+                        return response;
+                    }
+                    else
+                    {
+                        response.ErrorMessages = new List<string>() { "invalid file format" };
+                        response.StatusCode = StatusCodes.Status401Unauthorized;
+                        return response;
+                    }
+                }
+                else
+                {
+                    response.ErrorMessages = new List<string>() { "invalid file size" };
+                    response.StatusCode = StatusCodes.Status401Unauthorized;
+                    return response;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessages = new List<string>() { ex.Message };
+                response.StatusCode = StatusCodes.Status401Unauthorized;
+                return response;
+
+            }
+        }
         }
     }
 
+        #endregion
+
+        #region DeleteFileAsync
+
+        public async Task<ResponseDTO<bool>> DeleteFileAsync(string publicId, string email)
+        {
+            var response = new ResponseDTO<bool>();
+
+            try
+            {
+                if (string.IsNullOrEmpty(email))
+                {
+                    throw new ArgumentNullException(nameof(email));
+                }
+
+                var findContact = await _userManager.FindByEmailAsync(email);
+                if (findContact == null)
+                {
+                    throw new ArgumentNullException($"User with the email {email} does not exist");
+                }
+
+                var account = new Account
+                {
+                    ApiKey = _config.GetSection("Cloudinary:ApiKey").Value,
+                    ApiSecret = _config.GetSection("Cloudinary:ApiSecret").Value,
+                    Cloud = _config.GetSection("Cloudinary:CloudName").Value
+                };
+
+                var cloudinary = new Cloudinary(account);
+
+                var deletionParams = new DeletionParams(publicId);
+
+                var result = await cloudinary.DestroyAsync(deletionParams);
+
+                if (result != null)
+                {
+                    response.StatusCode = StatusCodes.Status200OK;
+                    response.DisplayMessage = "Image was successfully deleted";
+                    response.Result = true;
+                    return response;
+                }
+
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                response.DisplayMessage = "Image failed to delete";
+                response.Result = false;
+                return response;
+
+
+            }
+            catch (Exception ex)
+            {
+                response.ErrorMessages = new List<string>() { ex.Message };
+                response.StatusCode = StatusCodes.Status401Unauthorized;
+                return response;
+            }
+        }
+
+        #endregion
+
+
+    }
 }
