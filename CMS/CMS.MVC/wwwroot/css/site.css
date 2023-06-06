@@ -51,6 +51,7 @@ body {
 .right-main-panel {
     margin-left: 317px;
     background-color: var(--grey);
+    overflow-x: hidden;
 }
 
 .inner-panel {

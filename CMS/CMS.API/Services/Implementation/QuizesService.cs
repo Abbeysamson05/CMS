@@ -128,84 +128,116 @@ namespace CMS.API.Services
 
 
 
-        public async Task<ResponseDto<Quiz>> GetByLesson(string lessonId)
+        public async Task<ResponseDto<IEnumerable<Quiz>>> GetByLesson(string lessonId)
         { 
-            var lesson = await _quizesRepo.GetQuizByLessonAsync(lessonId);
-            var response = new ResponseDto<Quiz>();
-            if (lesson == null)
+            var response = new ResponseDto<IEnumerable<Quiz>>();
+            try
             {
-                response.StatusCode = 404;
-                response.ErrorMessages = new List<string> { "Lesson not Found" };
+                var result = await _quizesRepo.GetQuizByLessonAsync(lessonId);
+                if (result != null)
+                {
+                    response.StatusCode = StatusCodes.Status200OK;
+                    response.DisplayMessage = "Successful";
+                    response.Result = result;
+                    return response;
+                }
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                response.DisplayMessage = "Not Successful";
+                return response;
             }
-            else
+            catch (Exception ex)
             {
-                response.StatusCode = 200;
-                response.DisplayMessage = "Operation Successful";
-                response.Result = (Quiz)lesson;
-                
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                response.DisplayMessage = "Error";
+                response.ErrorMessages = new List<string> { ex.Message };
+                return response;
             }
 
-           return response;
-          
         }
 
-        public async Task<ResponseDto<Quiz>> GetByUser(string userId)
+        public async Task<ResponseDto<IEnumerable<Quiz>>> GetByUser(string userId)
         {
-            var getUser = await _quizesRepo.GetQuizByUserAsync(userId);
-            if (getUser == null)
-                return new ResponseDto<Quiz> 
-                { 
-                    StatusCode = 404, 
-                    ErrorMessages = new List<string> { "User not Found" } 
-                };
-
-            return new ResponseDto<Quiz>
+           
+            var response = new ResponseDto<IEnumerable<Quiz>>();
+            try
             {
-                StatusCode = 200,
-                DisplayMessage = "Operation Successful",
-                Result = (Quiz)getUser
-            };
-     
+                var result = await _quizesRepo.GetQuizByUserAsync(userId);
+                if (result != null)
+                {
+                    response.StatusCode = StatusCodes.Status200OK;
+                    response.DisplayMessage = "Successful";
+                    response.Result = result;
+                    return response;
+                }
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                response.DisplayMessage = "Not Successful";
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                response.DisplayMessage = "Error";
+                response.ErrorMessages = new List<string> { ex.Message };
+                return response;
+            }
+
         }
 
-        public async Task<IEnumerable<Quiz>> GetQuizAysnc()
+        public async Task<ResponseDto<IEnumerable<Quiz>>> GetQuizAysnc()
         {
-            var result = await _quizesRepo.GetAllQuizAsync();
-            if (result != null && result.Any())
+            var response = new ResponseDto<IEnumerable<Quiz>>();
+            try
             {
-                return result;
+                var result = await _quizesRepo.GetAllQuizAsync();
+                if (result != null && result.Any())
+                {
+                    response.StatusCode = StatusCodes.Status200OK;
+                    response.DisplayMessage = "Successful";
+                    response.Result = result;
+                    return response;
+                }
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                response.DisplayMessage = "Not Successful";
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                response.DisplayMessage = "Error";
+                response.ErrorMessages = new List<string> { ex.Message };
+                return response;
             }
             
-            return null;
+            
 
 
         }
 
         public async Task<ResponseDto<Quiz>> GetQuizByIdAsync(string id)
         {
-            var quizId = await _quizesRepo.GetQuizByIdAsync(id);
 
-            if (quizId == null)
-                return new ResponseDto<Quiz> 
-                { 
-                    StatusCode = 404, 
-                    ErrorMessages = new List<string> { "Quiz not found" }
-                };
-
-            return new ResponseDto<Quiz> 
-            { 
-                StatusCode = 200, 
-                DisplayMessage = "Operation Successful",
-                Result = new Quiz
+            var response = new ResponseDto<Quiz>();
+            try
+            {
+                var result = await _quizesRepo.GetQuizByIdAsync(id);
+                if (result != null)
                 {
-                    Question = quizId.Question,
-                    AnswerType = quizId.AnswerType,
-                    PreferedAnswer = quizId.PreferedAnswer,
-                    AddedById = quizId.AddedById,
-                    DateCreated = quizId.DateCreated,
-                    DateUpdated = quizId.DateUpdated
+                    response.StatusCode = StatusCodes.Status200OK;
+                    response.DisplayMessage = "Successful";
+                    response.Result = result;
+                    return response;
                 }
-            };
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                response.DisplayMessage = "Not Successful";
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                response.DisplayMessage = "Error";
+                response.ErrorMessages = new List<string> { ex.Message };
+                return response;
+            }
         }
     }
 }

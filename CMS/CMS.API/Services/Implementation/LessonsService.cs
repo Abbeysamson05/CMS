@@ -11,7 +11,7 @@ namespace CMS.API.Services
     public class LessonsService : ILessonsService
     {
         private readonly ILessonsRepo _lessonsRepo;
-        private readonly IMapper _mapper;
+       private readonly IMapper _mapper;
 
         public LessonsService(ILessonsRepo lessonsRepo, IMapper mapper)
         {
@@ -120,6 +120,92 @@ namespace CMS.API.Services
                 responseDto.ErrorMessages = new List<string> { ex.Message };
                 return responseDto;
 
+            }
+        }
+
+        public async Task<ResponseDto<IEnumerable<Lesson>>> GetAllLessons()
+        {
+            var response = new ResponseDto<IEnumerable<Lesson>>();
+            try
+            {
+                var result = await _lessonsRepo.GetAllLessonsAsync();
+               
+                if (result != null)
+                {
+                    response.StatusCode = StatusCodes.Status200OK;
+                    response.DisplayMessage = "Operation Successful";
+                    response.Result = result;
+                }
+                else
+                {
+                    response.StatusCode = StatusCodes.Status400BadRequest;
+                    response.DisplayMessage = "Error";
+                }
+                return response;
+                    
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                response.DisplayMessage = "Error";
+                response.ErrorMessages = new List<string> { ex.Message };
+                return response;
+            }
+        }
+
+        public async Task<ResponseDto<Lesson>> GetLessonById(string id)
+        {
+            var response = new ResponseDto<Lesson>();
+            try
+            {
+                var result = await _lessonsRepo.GetLessonByIdAsync(id);
+                if(result != null)
+                {
+                    response.StatusCode= StatusCodes.Status200OK;
+                    response.DisplayMessage= "Successful";
+                    response.Result = result;
+                }
+                else
+                {
+                    response.StatusCode = StatusCodes.Status404NotFound;
+                    response.DisplayMessage = "Lesson not Found";
+                }
+                return response;
+
+            }
+            catch (Exception ex)
+            {
+
+                response.DisplayMessage = ex.Message;
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                return response;
+            }
+        }
+        public async Task<ResponseDto<IEnumerable<Lesson>>> GetLessonsByTopic(string topic)
+        {
+            var response = new ResponseDto<IEnumerable<Lesson>>();
+            try
+            {
+                var result = await _lessonsRepo.GetLessonsByTopicAsync(topic);
+                if (result != null)
+                {
+                    response.StatusCode = StatusCodes.Status200OK;
+                    response.DisplayMessage = "Successful";
+                    response.Result = result;
+                }
+                else
+                {
+                    response.StatusCode = StatusCodes.Status404NotFound;
+                    response.DisplayMessage = "Topic not Found";
+                }
+                return response;
+
+            }
+            catch (Exception ex)
+            {
+                response.DisplayMessage = ex.Message;
+                response.StatusCode = StatusCodes.Status400BadRequest;
+                return response;
             }
         }
     }
