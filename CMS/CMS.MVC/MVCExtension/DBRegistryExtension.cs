@@ -1,6 +1,5 @@
 ﻿using CMS.DATA.Context;
 using Microsoft.EntityFrameworkCore;
-
 namespace CMS.MVC.MVCExtension
 {
     public static class DBRegistryExtension
@@ -43,3 +42,4 @@ namespace CMS.MVC.MVCExtension
         }
     }
 }
+

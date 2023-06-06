@@ -35,14 +35,12 @@ namespace CMS.DATA.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -81,14 +79,12 @@ namespace CMS.DATA.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("text");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
@@ -118,7 +114,6 @@ namespace CMS.DATA.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("RefreshToken")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("RefreshTokenExpiryTime")
@@ -128,7 +123,6 @@ namespace CMS.DATA.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("SquadNumber")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -159,8 +153,7 @@ namespace CMS.DATA.Migrations
                     b.Property<string>("ActivityId")
                         .HasColumnType("text");
 
-                    b.Property<string>("AddedBy")
-                        .IsRequired()
+                    b.Property<string>("AddedById")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("DateCreated")
@@ -199,22 +192,18 @@ namespace CMS.DATA.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -229,14 +218,12 @@ namespace CMS.DATA.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("AddedById")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("CompletionStatus")
                         .HasColumnType("boolean");
 
                     b.Property<string>("CourseId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("DateCreated")
@@ -252,20 +239,16 @@ namespace CMS.DATA.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("PublicId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Text")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Topic")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 
                     b.Property<string>("VideoUrl")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("Weeks")
@@ -287,11 +270,9 @@ namespace CMS.DATA.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("AddedById")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("AnswerType")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("DateCreated")
@@ -301,22 +282,18 @@ namespace CMS.DATA.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Instruction")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<string>("LessonId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PreferedAnswer")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Question")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -344,12 +321,10 @@ namespace CMS.DATA.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Option")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 
                     b.Property<string>("QuizId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -375,18 +350,15 @@ namespace CMS.DATA.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Notes")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("QuizId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -431,7 +403,6 @@ namespace CMS.DATA.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("CourseId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("DateCreated")
@@ -444,7 +415,6 @@ namespace CMS.DATA.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -475,14 +445,12 @@ namespace CMS.DATA.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("QuizId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("Score")
                         .HasColumnType("integer");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -510,11 +478,9 @@ namespace CMS.DATA.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("StackId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -662,9 +628,7 @@ namespace CMS.DATA.Migrations
                 {
                     b.HasOne("CMS.DATA.Entities.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -680,15 +644,11 @@ namespace CMS.DATA.Migrations
                 {
                     b.HasOne("CMS.DATA.Entities.ApplicationUser", "AddedBy")
                         .WithMany("Lessons")
-                        .HasForeignKey("AddedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AddedById");
 
                     b.HasOne("CMS.DATA.Entities.Course", "Course")
                         .WithMany("Lessons")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CourseId");
 
                     b.Navigation("AddedBy");
 
@@ -699,15 +659,11 @@ namespace CMS.DATA.Migrations
                 {
                     b.HasOne("CMS.DATA.Entities.ApplicationUser", "AddedBy")
                         .WithMany()
-                        .HasForeignKey("AddedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AddedById");
 
                     b.HasOne("CMS.DATA.Entities.Lesson", "Lesson")
                         .WithMany("Quizes")
-                        .HasForeignKey("LessonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LessonId");
 
                     b.Navigation("AddedBy");
 
@@ -718,9 +674,7 @@ namespace CMS.DATA.Migrations
                 {
                     b.HasOne("CMS.DATA.Entities.Quiz", "Quiz")
                         .WithMany("QuizOptions")
-                        .HasForeignKey("QuizId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("QuizId");
 
                     b.Navigation("Quiz");
                 });
@@ -729,15 +683,11 @@ namespace CMS.DATA.Migrations
                 {
                     b.HasOne("CMS.DATA.Entities.Quiz", "Quiz")
                         .WithMany()
-                        .HasForeignKey("QuizId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("QuizId");
 
                     b.HasOne("CMS.DATA.Entities.ApplicationUser", "User")
                         .WithMany("QuizReviews")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Quiz");
 
@@ -748,15 +698,11 @@ namespace CMS.DATA.Migrations
                 {
                     b.HasOne("CMS.DATA.Entities.Course", "Course")
                         .WithMany()
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CourseId");
 
                     b.HasOne("CMS.DATA.Entities.ApplicationUser", "User")
                         .WithMany("Courses")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Course");
 
@@ -767,15 +713,11 @@ namespace CMS.DATA.Migrations
                 {
                     b.HasOne("CMS.DATA.Entities.Quiz", "Quiz")
                         .WithMany("UserQuizzesTaken")
-                        .HasForeignKey("QuizId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("QuizId");
 
                     b.HasOne("CMS.DATA.Entities.ApplicationUser", "User")
                         .WithMany("Quizes")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Quiz");
 
@@ -786,15 +728,11 @@ namespace CMS.DATA.Migrations
                 {
                     b.HasOne("CMS.DATA.Entities.Stack", "Stack")
                         .WithMany("User")
-                        .HasForeignKey("StackId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StackId");
 
                     b.HasOne("CMS.DATA.Entities.ApplicationUser", "User")
                         .WithMany("Stacks")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Stack");
 

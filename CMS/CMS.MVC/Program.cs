@@ -1,4 +1,5 @@
 ﻿using CMS.MVC.Configuration;
+﻿using CMS.MVC.MVCAutoMapper;
 using CMS.MVC.MVCExtension;
 using CMS.MVC.Services.Implementation;
 using CMS.MVC.Services.ServicesInterface;
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContextAndConfigurations(builder.Environment, builder.Configuration);
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.ConfigureIdentity();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
@@ -34,6 +36,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Account}/{action=Login}/{id?}");
 
 app.Run();
