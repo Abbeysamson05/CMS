@@ -1,4 +1,5 @@
-
+using CMS.DATA.Repository.RepositoryInterface;
+using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using CMS.DATA.Context;
 using CMS.DATA.DTO;
@@ -29,6 +30,7 @@ namespace CMS.DATA.Repository.Implementation
             return stacks;
         }
 
+
         public async Task<bool?> UpdateStackbyId(string stackId, Stack entity)
         {
             var existingStack = await _context.Stacks.FindAsync(stackId);
@@ -55,6 +57,7 @@ namespace CMS.DATA.Repository.Implementation
                 .ToListAsync();
             return _mapper.Map<List<UserDto>>(userStacks);
         }
+
         public async Task<bool> DeleteStack(string stackId)
         {
             var stack = await _context.Stacks.FindAsync(stackId);

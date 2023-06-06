@@ -65,7 +65,6 @@ namespace CMS.API.Services
             }
         }
 
-
         public async Task<ResponseDto<string>> UpdateStackById(string stackid, UpdateStacksDto stack)
         {
 
