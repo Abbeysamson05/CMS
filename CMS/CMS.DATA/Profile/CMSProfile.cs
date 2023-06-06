@@ -10,6 +10,7 @@ namespace CMS.API.Profiles
         {
             CreateMap<AddLessonDTO, Lesson>().ReverseMap();
             CreateMap<Lesson, LessonResponseDTO>().ReverseMap();
+            CreateMap<UpdateStacksDto, Stack>().ReverseMap();
             CreateMap<ApplicationUser, UserDto>()
                 .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.FirstName))
                 .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName))

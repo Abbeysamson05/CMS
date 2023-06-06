@@ -1,3 +1,4 @@
+﻿using CMS.API.Models;
 ﻿using CMS.API.Services.ServicesInterface;
 using CMS.DATA.DTO;
 using CMS.DATA.Entities;
@@ -68,6 +69,23 @@ namespace CMS.API.Controllers
             else
             {
                 return BadRequest(response.ErrorMessages);
+            }
+        }
+
+        [HttpPut("{stackid}/Update")]
+        public async Task<ActionResult<ResponseDto<bool?>>> UpdateStackById(string stackid, [FromBody] UpdateStacksDto model)
+        {
+            var res = await _stacksService.UpdateStackById(stackid, model);
+            if(res.StatusCode ==  200)
+            {
+                return Ok(res);
+            }else if(res.StatusCode == 404)
+            {
+                return NotFound(res);
+            }
+            else
+            {
+                return BadRequest(res);
             }
         }
     }

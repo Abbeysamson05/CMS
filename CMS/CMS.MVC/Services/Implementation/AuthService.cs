@@ -4,6 +4,7 @@ using CMS.DATA.DTO;
 using CMS.DATA.Entities;
 using CMS.MVC.Services.ServicesInterface;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CMS.MVC.Services.Implementation
 {
@@ -83,6 +84,71 @@ namespace CMS.MVC.Services.Implementation
             }
         }
 
+        public async Task<ResponseDto<ConfirmEmailDto>>ConfirmEmail(string useremail, string token)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(useremail) || string.IsNullOrEmpty(token))
+                {
+                    var response = new ResponseDto<ConfirmEmailDto>
+                    {
+                        StatusCode = 400,
+                        DisplayMessage = "Bad Request",
+                        Result = null,
+                        ErrorMessages = new List<string> { "User ID and token must be provided" }
+                    };
+                    return response;
+                }
+                
+                var user = await _userManager.FindByEmailAsync(useremail);
+                if (user == null)
+                {
+                    var response = new ResponseDto<ConfirmEmailDto>
+                    {
+                        StatusCode = 404,
+                        DisplayMessage = "User not found",
+                        Result = null,
+                        ErrorMessages = new List<string> { "The user with the specified ID was not found" }
+                    };
+                    return response;
+                }
+                var result = await _userManager.ConfirmEmailAsync(user, token);
+                if (result.Succeeded)
+                {
+                    var response = new ResponseDto<ConfirmEmailDto>
+                    {
+                        StatusCode = 200,
+                        DisplayMessage = "Email confirmed successfully",
+                        Result = {},
+                        ErrorMessages = ""
+                    };
+                    return response;
+                }
+                    else
+                    {
+                        var response = new ResponseDto<ConfirmEmailDto>
+                        {
+                            StatusCode = 400,
+                            DisplayMessage = "Email confirmation failed",
+                            Result = null,
+                            ErrorMessages = result.Errors.Select(e => e.Description).ToList()
+                        };
+                        return response;
+                    }
+                
+            }
+            catch (Exception ex)
+            {
+                var response = new ResponseDto<ConfirmEmailDto>
+                {
+                    StatusCode = 500,
+                    DisplayMessage = "Internal Server Error",
+                    Result = null,
+                    ErrorMessages = new List<string> {  "An error occurred while resetting the password" }
+                };
+                return response;
+
+            }
         public async Task<ResponseDto<string>> Logout()
         {
 
