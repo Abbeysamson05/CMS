@@ -17,11 +17,13 @@ namespace CMS.MVC.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult ResetPasword()
         {
             return View();
         }
 
+        [HttpGet]
         public IActionResult ForgotPassword()
         {
             return View();

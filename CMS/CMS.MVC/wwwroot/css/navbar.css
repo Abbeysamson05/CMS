@@ -39,10 +39,17 @@
 
 .menu-item:hover {
     background-color: var(--blue);
+    border-radius: 5px;
 }
 
 .menu-image-box img {
     width: 100%;
+    color: black;
+}
+
+.menu-image-box  {
+   
+    color: black;
 }
 
 .menu-item span {

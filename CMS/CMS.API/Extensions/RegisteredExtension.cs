@@ -10,8 +10,6 @@ namespace CMS.API.Extensions
     {
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
         {
-          
-
             services.AddAutoMapper(typeof(CMSProfile));
             services.AddScoped<IActivitiesRepo, ActivitiesRepo>();
             services.AddScoped<IActivitiesService, ActivitiesService>();
