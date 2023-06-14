@@ -45,6 +45,15 @@ builder.Services.AddSwaggerGen(c =>
                     }
                 });
 });
+builder.Services.AddCors(options => {
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyMethod();
+        builder.AllowAnyOrigin();
+        builder.AllowAnyMethod();
+    });
+
+});
 //builder.Services.AddDbContext<CMSDbContext>(options => options.UseNpgsql((builder.Configuration.GetConnectionString("DefaultConnection"))));
 builder.Services.ConfigureIdentity();
 builder.Services.AddAuthentication(options =>
@@ -73,8 +82,10 @@ var app = builder.Build();
 
 Seeder.SeedData(app).Wait();
 
+
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseCors();
 
 app.UseHttpsRedirection();
 

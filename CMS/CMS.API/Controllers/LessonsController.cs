@@ -18,8 +18,8 @@ namespace CMS.API.Controllers
             _lessonsService = lessonsService;
 
         }
-        [Authorize(Roles = "Facilitator, Admin")]
-        [Authorize(Policy = "can_add")]
+        //[Authorize(Roles = "Facilitator, Admin")]
+        //[Authorize(Policy = "can_add")]
         [HttpPost("add")]
         public async Task<IActionResult> AddLesson(AddLessonDTO addLesson)
         {
@@ -34,8 +34,8 @@ namespace CMS.API.Controllers
             }
         }
 
-        [Authorize(Roles = "Facilitator, Admin")]
-        [Authorize(Policy = "can_delete")]
+        //[Authorize(Roles = "Facilitator, Admin")]
+        //[Authorize(Policy = "can_delete")]
         [HttpDelete("{lessonid}/delete")]
         public async Task<IActionResult> DeleteLeson(string lessonid)
         {
