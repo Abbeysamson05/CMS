@@ -66,8 +66,8 @@ namespace CMS.MVC.Controllers
                     model.PublicId = uploadVideo.PublicId;
                 }
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                //This will be replace with context of signIn User
-                model.AddedById = "36e318aa-6d02-46d9-8048-3e2a8182a6c3";
+                //This will be replace with context of signIn User "36e318aa-6d02-46d9-8048-3e2a8182a6c3"
+                model.AddedById = userId;
                 using (var client = new HttpClient())
                 {
                     var apiUrl = "https://localhost:7027/api/lesson/add";

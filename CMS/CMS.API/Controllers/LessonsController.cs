@@ -18,11 +18,12 @@ namespace CMS.API.Controllers
             _lessonsService = lessonsService;
 
         }
-        //[Authorize(Roles = "Facilitator, Admin")]
-        //[Authorize(Policy = "can_add")]
+        [Authorize(Roles = "Facilitator, Admin")]
+        [Authorize(Policy = "can_add")]
         [HttpPost("add")]
         public async Task<IActionResult> AddLesson(AddLessonDTO addLesson)
         {
+            
             var result = await _lessonsService.AddLessonNew(addLesson);
             if (result.StatusCode == 200)
             {
@@ -34,8 +35,8 @@ namespace CMS.API.Controllers
             }
         }
 
-        //[Authorize(Roles = "Facilitator, Admin")]
-        //[Authorize(Policy = "can_delete")]
+        [Authorize(Roles = "Facilitator, Admin")]
+        [Authorize(Policy = "can_delete")]
         [HttpDelete("{lessonid}/delete")]
         public async Task<IActionResult> DeleteLeson(string lessonid)
         {
@@ -83,7 +84,7 @@ namespace CMS.API.Controllers
                 return BadRequest(result);
             }
         }
-        //[Authorize]
+        [Authorize]
         [HttpGet("all")]
         public async Task<IActionResult> GetAllLessonsAsync()
         {
