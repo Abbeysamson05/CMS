@@ -23,7 +23,6 @@ namespace CMS.API.Controllers
         [HttpPost("add")]
         public async Task<IActionResult> AddLesson(AddLessonDTO addLesson)
         {
-            
             var result = await _lessonsService.AddLessonNew(addLesson);
             if (result.StatusCode == 200)
             {

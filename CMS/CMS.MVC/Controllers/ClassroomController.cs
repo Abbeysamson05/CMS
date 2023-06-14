@@ -10,10 +10,12 @@ namespace CMS.MVC.Controllers
     public class ClassroomController : Controller
     {
         private readonly ICloudinaryService _cloudinaryService;
+        private readonly IConfiguration _configuration;
 
-        public ClassroomController(ICloudinaryService cloudinaryService)
+        public ClassroomController(ICloudinaryService cloudinaryService, IConfiguration configuration)
         {
             _cloudinaryService = cloudinaryService;
+            _configuration = configuration;
         }
         public bool toggleState { get; set; } = false;
 
@@ -37,7 +39,7 @@ namespace CMS.MVC.Controllers
             var result = new ResourcesModel();
             using (var client = new HttpClient())
             {
-                var apiUrl = "https://localhost:7027/api/lesson/all";
+                var apiUrl = _configuration["baseUrl:localhost"] + ConstantSubBaseEnpoint.GetLessonUri;
                 var response = await client.GetFromJsonAsync<ResponseDto<IEnumerable<Lesson>>>(apiUrl);
                 var uploadResults = new List<UploadRecord>();
                 foreach (var userResult in response.Result)
@@ -59,7 +61,7 @@ namespace CMS.MVC.Controllers
         {
             try
             {
-                var uploadVideo = await _cloudinaryService.UploadVideo(model.VideoFile, model.Topic);
+                var uploadVideo = await _cloudinaryService.UploadVideo(model.VideoFile, model.Module.ToString());
                 if (uploadVideo.Url.ToString() != null)
                 {
                     model.VideoUrl = uploadVideo.Url.ToString();
@@ -70,7 +72,7 @@ namespace CMS.MVC.Controllers
                 model.AddedById = userId;
                 using (var client = new HttpClient())
                 {
-                    var apiUrl = "https://localhost:7027/api/lesson/add";
+                    var apiUrl = _configuration["baseUrl:localhost"] + ConstantSubBaseEnpoint.AddLessonUri;
                     var response = await client.PostAsJsonAsync(apiUrl, model);
                     if (response.IsSuccessStatusCode)
                     {
