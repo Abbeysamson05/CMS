@@ -52,7 +52,7 @@ namespace CMS.MVC.Controllers
                     displayMessage = "Invitation sent successfully",
                 };
 
-                return Ok(response);
+                return RedirectToAction("SuccessInvite", "Account");
             }
             catch (Exception ex)
             {

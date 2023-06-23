@@ -1,5 +1,33 @@
-﻿@{
+﻿
+@{
+    ViewData["Title"] = "Invite Sent";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
-<div>
-    Success Invite page
+
+<link rel="stylesheet" href=" /css/Dev.css" />
+<link rel="stylesheet" href="~/css/FacilitatorScreen.css" />
+<partial name="_LeftNavbarPartial" />
+<div class="right-main-panel vh-100 pb-auto">
+    <partial name="_TopNavPartial" />
+    <div class="d-flex align-items-center justify-content-center text-center p-auto h-75 ">
+        <div>
+            <img src="~/images/Emoji.png" class="mb-4" />
+            <h4 class="bold mb-4 px-4">Invite Sent</h4>
+            <p class="mb-4">You have successfully invited user</p>
+            <a asp-action="PermissionDecadev" asp-controller="Account">
+                <button class="bg-blue text-white w-100 p-2 rounded-2 bold">Ok!</button>
+            </a>
+        </div>
+    </div>
 </div>
+<style>
+    .bold {
+        font-weight: 600;
+    }
+</style>
+
+<script>
+    function selectOption(option) {
+        document.getElementById('selectedOption').textContent = option;
+    }
+</script>
