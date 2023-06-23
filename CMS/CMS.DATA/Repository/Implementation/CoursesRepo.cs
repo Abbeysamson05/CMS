@@ -18,7 +18,7 @@ namespace CMS.DATA.Repository.Implementation
          public async Task<ResponseDTO<Course>> GetCourseById(string courseId)
         {
             var response = new ResponseDTO<Course>();
-            var result = await _context.Courses.FindAsync(courseId);
+            var result = await _context.Courses.Include(c => c.Lessons).FirstOrDefaultAsync(c=> c.Id == courseId);
             if (result == null)
             {
                 response.ErrorMessages = new List<string>() { "Course not available" };

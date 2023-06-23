@@ -27,11 +27,12 @@ namespace CMS.DATA.Repository.Implementation
 
         public async Task<IEnumerable<Quiz>> GetQuizByLessonAsync(string lessonId)
         {
-            var lesson = await _context.Lessons.FindAsync(lessonId);
+            var lesson = await _context.Lessons.FirstOrDefaultAsync(e=>e.Id == lessonId);
             if (lesson == null)
+            {
                 throw new Exception("Lesson does not exist");
-
-            return await _context.Quizs.Where(x => x.LessonId == lessonId).ToListAsync();
+            }
+            return await _context.Quizs.Include(opt=>opt.QuizOptions).Where(x => x.LessonId == lessonId).ToListAsync();
         }
 
         public async Task<IEnumerable<Quiz>> GetQuizByUserAsync(string userId)

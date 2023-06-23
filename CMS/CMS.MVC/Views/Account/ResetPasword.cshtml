@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ResetPasswordViewModel
+@{
     ViewData["Title"] = "Reset Password Page";
     //Layout = "~/Views/Shared/_PasswordLayout.cshtml";
 }
@@ -17,13 +18,13 @@
 
             <h2 class="reset__title">Reset Password</h2>
 
-            <form action="" class="password__form">
+            <form method="post" asp-action="ResetPassword" class="password__form">
 
                 <div class="reset__password__form--group">
 
-                    <label for="new password" class="reset__password__form--label">New Password</label>
+                    <label for="new password"  class="reset__password__form--label">New Password</label>
 
-                    <input type="password" name="new password" id="new password" class="reset__password__form--input"
+                    <input type="password" asp-for="@Model.Password" name="new password" id="new password" class="reset__password__form--input"
                            placeholder="Enter your new password">
 
                 </div>
@@ -32,13 +33,15 @@
 
                     <label for="confirm password" class="reset__pin__label">Confirm Password</label>
 
-                    <input type="password" name="confirm password" id="confirm password" class="reset__pin__form--input"
+                    <input type="password" name="confirm password" asp-for="@Model.ConfirmPassword" id="confirm password" class="reset__pin__form--input"
                            placeholder="Confirm your password">
+                    <input type="text" name="confirm password" asp-for="@Model.Token" hidden>
+                    <input type="text" name="confirm password" asp-for="@Model.Email" hidden>
                 </div>
 
 
                 <div class="text-center">
-                    <button type="button" class="btn btn-primary btn-form" data-bs-toggle="modal" data-bs-target="#myModal">
+                    <button type="submit" class="btn btn-primary btn-form" data-bs-toggle="modal" data-bs-target="#myModal">
                         Reset Password
 
                     </button>

@@ -1,6 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model PermissionViewModel
 @{
     Layout = "~/Views/Shared/_PermissionDecadevLayout.cshtml";
     ViewData["Title"] = "Permission Page";
@@ -31,8 +29,8 @@
             <h5 class="curriculum w-75">Curriculum Access</h5>
             <div class="curri-right d-flex align-items-center gap-4 justify-content-between">
                 @*<Navlink href="#"></Navlink>*@
-                <a href="#">Facilitator</a>
-                <a href="#">Decadev</a>
+                <a href="Permissionfacilitator">Facilitator</a>
+                <a href="Permissiondecadev">Decadev</a>
                 @*<NavLink href="#" class="active"></NavLink>*@
                 <button class="btn btn-primary mt-0 w-0" data-toggle="modal" data-target="#myModal">Add <i class="oi oi-plus" aria-hidden="true"></i></button>
 
@@ -48,138 +46,25 @@
                 </tr>
             </thead>
             <tbody>
+                @if(Model.PermittedUsers != null){
+                    @foreach (var user in Model.PermittedUsers)
+                    {
+                        
+                    
                 <tr class="bg-white">
                     <td>
-                        <p>Ajayi Abiodun</p>
+                        <p>@user.Name</p>
                     </td>
-                    <td><p>abiodun@decagon.com</p></td>
-                    <td><p>Java</p></td>
+                    <td><p>@user.Email</p></td>
+                    <td><p>@user.Language</p></td>
                     <td>
-                        <a href="" class="btn rounded text-danger">
+                        <a href="/account/delete/dev/@user.Id" class="btn rounded text-danger">
                             <i class="bi bi-trash ms-2"></i>
                         </a>
                     </td>
                 </tr>
-                <tr class="bg-white">
-                    <td>
-                        <p>Chibueze Amadi</p>
-                    </td>
-                    <td><p>chibueze@decagon.com</p></td>
-                    <td><p>Java</p></td>
-                    <td>
-                        <a href="" class="btn rounded text-danger">
-                            <i class="bi bi-trash ms-2"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr class="bg-white">
-                    <td>
-                        <p>Orisa Shamimi</p>
-                    </td>
-                    <td><p>shamimi@decagon.com</p></td>
-                    <td><p>Java</p></td>
-                    <td>
-                        <a href="" class="btn rounded text-danger">
-                            <i class="bi bi-trash ms-2"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr class="bg-white">
-                    <td>
-                        <p>Ahmed Ajala</p>
-                    </td>
-                    <td><p>ahmed@decagon.com</p></td>
-                    <td><p>Java</p></td>
-                    <td>
-                        <a href="" class="btn rounded text-danger">
-                            <i class="bi bi-trash ms-2"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr class="bg-white">
-                    <td>
-                        <p>Emmanuel Omale</p>
-                    </td>
-                    <td><p>emmanuel@decagon.com</p></td>
-                    <td><p>Java</p></td>
-                    <td>
-                        <a href="" class="btn rounded text-danger">
-                            <i class="bi bi-trash ms-2"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr class="bg-white">
-                    <td>
-                        <p>Emmanuel Oriaku</p>
-                    </td>
-                    <td><p>emmy@decagon.com</p></td>
-                    <td><p>Java</p></td>
-                    <td>
-                        <a href="" class="btn rounded text-danger">
-                            <i class="bi bi-trash ms-2"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr class="bg-white">
-                    <td>
-                        <p>Babatunde Saheed</p>
-                    </td>
-                    <td><p>saheed@decagon.com</p></td>
-                    <td><p>Java</p></td>
-                    <td>
-                        <a href="" class="btn rounded text-danger">
-                            <i class="bi bi-trash ms-2"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr class="bg-white">
-                    <td>
-                        <p>IfeanyiOkpara</p>
-                    </td>
-                    <td><p>ifeanyi@decagon.com</p></td>
-                    <td><p>Java</p></td>
-                    <td>
-                        <a href="" class="btn rounded text-danger">
-                            <i class="bi bi-trash ms-2"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr class="bg-white">
-                    <td>
-                        <p>Olowoookere Timilehim</p>
-                    </td>
-                    <td><p>timi@decagon.com</p></td>
-                    <td><p>Java</p></td>
-                    <td>
-                        <a href="" class="btn rounded text-danger">
-                            <i class="bi bi-trash ms-2"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr class="bg-white">
-                    <td>
-                        <p>Sir Bunmi</p>
-                    </td>
-                    <td><p>bunmi@decagon.com</p></td>
-                    <td><p>Java</p></td>
-                    <td>
-                        <a href="" class="btn rounded text-danger">
-                            <i class="bi bi-trash ms-2"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr class="bg-white">
-                    <td>
-                        <p>Stephen Ohaeri</p>
-                    </td>
-                    <td><p>stephen@decagon.com</p></td>
-                    <td><p>Java</p></td>
-                    <td>
-                        <a href="" class="btn rounded text-danger">
-                            <i class="bi bi-trash ms-2"></i>
-                        </a>
-                    </td>
-                </tr>
+                    }
+                }
             </tbody>
         </table>
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -192,13 +77,13 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <Form>
+                        <form asp-controller="Auth" asp-action="SendInvite" method="post">
                             <div class="form-group ">
-                                <label for="firstname" class="ps-0 col-form-label p-1">
+                                <label for="firstname"  class="ps-0 col-form-label p-1">
                                     First Name
                                 </label>
                                 <div>
-                                    <input id="firstname" class="form-control p-2" placeholder="Type first name" />
+                                    <input id="firstname" asp-for="InviteUser.FirstName" class="form-control p-2" placeholder="Type first name" />
                                 </div>
                             </div>
                             <div class="form-group ">
@@ -206,7 +91,7 @@
                                     Last Name
                                 </label>
                                 <div>
-                                    <input id="lastname" class="form-control p-2" placeholder="Type last name" />
+                                    <input id="lastname" asp-for="InviteUser.LastName" class="form-control p-2" placeholder="Type last name" />
                                 </div>
                             </div>
                             <div class="form-group">
@@ -214,15 +99,26 @@
                                     Email
                                 </label>
                                 <div>
-                                    <input id="email" class="form-control p-2" placeholder="Enter email" />
+                                    <input id="email" class="form-control p-2" asp-for="InviteUser.Email" placeholder="Enter email" />
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="email" class="ps-0 col-form-label p-1">
+                                    Squad
+                                </label>
+                                <div>
+                                    <input id="email" class="form-control p-2" asp-for="InviteUser.SquadNumber" placeholder="Enter email" />
+                                </div>
+                            </div>
+                          
+                                    <input id="userType" hidden class="form-control p-2" asp-for="InviteUser.UserType" value="Decadev" />
+                               
                             <div class="form-group">
                                 <label for="Language" class="ps-0 col-form-label p-1">
                                     Language
                                 </label>
                                 <div>
-                                    <select id="language" class="form-control">
+                                    <select id="language" class="form-control" asp-for="InviteUser.StackId">
                                         <option>Select</option>
                                         <option value=".Net">.Net</option>
                                         <option value="Java">Java</option>
@@ -230,11 +126,11 @@
                                     </select>
                                 </div>
                             </div>
-                            <button class="bg-primary text-white rounded mt-4 p-2 border-0 w-100" type="button">Add</button>
+                            <button class="bg-primary text-white rounded mt-4 p-2 border-0 w-100" type="submit">Add</button>
                             <button class="rounded border-0 mt-2 p-2 w-100 text-black" style="background: #F2F4F7;" data-dismiss="modal" type="button">
                                 Cancel
                             </button>
-                        </Form>
+                        </form>
                     </div>
                 </div>
             </div>

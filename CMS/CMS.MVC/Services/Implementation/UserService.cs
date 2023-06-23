@@ -198,8 +198,8 @@ namespace CMS.MVC.Services.Implementation
                     throw new ArgumentNullException(nameof(email));
                 }
 
-                var findContact = await _userManager.FindByEmailAsync(email);
-                if (findContact == null)
+                var findUser = await _userManager.FindByEmailAsync(email);
+                if (findUser == null)
                 {
                     throw new ArgumentNullException($"User with the email {email} does not exist");
                 }
@@ -231,7 +231,10 @@ namespace CMS.MVC.Services.Implementation
 
                             uploadResult = await cloudinary.UploadAsync(uploadParameters);
                         }
-
+                        findUser.ImageUrl =uploadResult.Url.ToString();
+                        findUser.DateCreated = DateTime.UtcNow;
+                        findUser.DateUpdated = DateTime.UtcNow;
+                        await _userManager.UpdateAsync(findUser);
                         var result = new Dictionary<string, string>
                         {
                             { "PublicId", uploadResult.PublicId },

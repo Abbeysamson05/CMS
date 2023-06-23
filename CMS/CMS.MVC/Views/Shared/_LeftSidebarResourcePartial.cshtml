@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="menu-list-panel">
-        <a href="#">
+        <a asp-action="FacilitatorDashboard" asp-controller="Dashboard">
             <div class="menu-item">
                 <div class="menu-image-box">
                     <img src="~/images/dashboard.png" asp-append-version="true" />
@@ -15,26 +15,29 @@
                 <span>Dashboard</span>
             </div>
         </a>
-        <a href="#">
-            <div class="menu-item" id="active-page">
-                <div class="menu-image-box">
-                    <img src="~/images/Upload.png" asp-append-version="true" />
-                </div>
-                <span>Upload Resource</span>
-            </div>
-        </a>
-        <a href="#">
+        <a asp-controller="Classroom" asp-action="Resourcepage">
             <div class="menu-item">
                 <div class="menu-image-box">
-                    <img src="~/images/upload_quizicon.png" asp-append-version="true" />
+                    <img src="~/images/resources.png" asp-append-version="true" />
                 </div>
-                <span>Update Quiz</span>
+                <span>Upload Resources</span>
             </div>
         </a>
-        <a href="#">
+
+        <a asp-controller="Classroom" asp-action="QuizPage">
+            <div class="menu-item">
+                <div class="menu-image-box">
+                    <img src="~/images/quiz.png" asp-append-version="true" />
+                </div>
+                <span>Upload Quiz</span>
+            </div>
+        </a>
+
+
+        <a asp-action="Login" asp-controller="Account">
             <div class="menu-item logout-menu">
                 <div class="menu-image-box">
-                    <img src="~/images/fi_log-out.png" asp-append-version="true" />
+                    <img src="~/images/logout.png" asp-append-version="true" />
                 </div>
                 <span>Logout</span>
             </div>

@@ -1,4 +1,6 @@
-﻿@{
+﻿@using CMS.DATA.Enum;
+@model StudentDashBoardViewModel
+@{
     ViewData["Title"] = "Student Dashboard";
 }
 <style>
@@ -315,7 +317,7 @@
 
         <div>
             <a href="#" class="btn btn-outline-primary border-0 fw-bold mx-4">My Account</a>
-            <a href="#" class="btn btn-primary fw-bold">Logout</a>
+            <a asp-action="Login" asp-controller="Account" class="btn btn-primary fw-bold">Logout</a>
         </div>
     </header>
 </div>
@@ -325,14 +327,14 @@
     <div class="container mb-2">
         <div class="d-flex flex-column align-items-center">
             <div class="card border-0" style="">
-                <img src="~/images/Ellipse1.png" class="card-img-top" alt="student-profile">
+                <img src="@Model.User.ImageUrl" class="card-img-top" alt="student-profile">
                 <div class="card-body text-center">
-                    <h3 class="card-title fw-bolder">Showstopper Ace</h3>
-                    <p style="color: #667085; font-weight: 500;" class="card-text m-0">Backend Track: Node</p>
+                    <h3 class="card-title fw-bolder">@Model.User.FirstName.ToUpper() @Model.User.LastName.ToUpper()</h3>
+                    <p style="color: #667085; font-weight: 500;" class="card-text m-0">Backend Track: @ViewBag.StudentStack</p>
                     <div class="my-3">
-                        <span style="color: #98A2B3; border: 1px solid #98A2B3; border-radius: 25px;" class="p-2 card-text">Squad Number: SQ014</span>
+                        <span style="color: #98A2B3; border: 1px solid #98A2B3; border-radius: 25px;" class="p-2 card-text">Squad Number: @Model.User.SquadNumber</span>
                     </div>
-                    <a href="#" class="text-primary fw-bold">Edit Profile</a>
+                    <a href="/account/uploadpicture/@Model.User.Email" class="text-primary fw-bold">Update Profile Picture</a>
                 </div>
             </div>
 
@@ -361,10 +363,6 @@
         </div>
     </div>
 </section>
-
-@*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*@
-
-
 <div class="p-3"></div>
 <section class="profile-section px-3 py-5 bg-white">
     <div class="container">
@@ -373,22 +371,28 @@
                 <h1 class="text-light">Curriculum</h1>
                 <div class="flex-evenly text-white">
                     <div>
-                        <h4>Frontend</h4>
+                        <a style="color:white" href="/dashboard/studentdashboard/@Model.User.Id/75877727-d7d3-4258-858f-c0ce6abfc018" >
+                            <h4 style="color:white">Frontend</h4>
+                        </a>
                     </div>
+                    <a href="/dashboard/studentdashboard/@Model.User.Id/null">
                     <div class="text-center">
-                        <h4 class="mx-5 fw-bold">Backend (Node)</h4>
-                        <span class="dot-icon bg-white"></span>
+                            <h4 class="mx-5 fw-bold" style="color:white">@ViewBag.StudentStack</h4>
+                            <span class="dot-icon bg-white" style="color:white"></span>
                     </div>
+                    </a>
+                    <a href="/dashboard/studentdashboard/@Model.User.Id/f45eb607-a9f3-4de3-8515-c40b01e97630">
                     <div>
-                        <h4 class="me-5">Agile</h4>
+                            <h4 class="me-5" style="color:white">Agile</h4>
                     </div>
+                    </a>
                 </div>
             </div>
         </div>
 
         <div class="flex-end py-3">
             <div class="flex1">
-                <p class="fw-bold gray-color my-2">Backend (Node)</p>
+                <p class="fw-bold gray-color my-2">@Model.course.Name</p>
             </div>
             <div class="flex-end flex3 line br-8">
                 <div class="flex1 fl-ht bg-blue br-8"></div>
@@ -400,7 +404,7 @@
             </div>
         </div>
 
-        <div class="course-objective bg-white d-flex justify-content-between p-3 align-items-center">
+        @*<div class="course-objective bg-white d-flex justify-content-between p-3 align-items-center">
             <p class="fs-3 fw-bold mb-0" style="display: flex; align-items: center;">Course Objective</p>
         </div>
 
@@ -415,7 +419,7 @@
                 <li>Comfortably work with backend engineers</li>
                 <li>Comfortably work with backend engineers</li>
             </ul>
-        </div>
+        </div>*@
     </div>
 </section>
 
@@ -429,197 +433,59 @@
         <div class="course-objective bg-white d-flex justify-content-between p-3 align-items-center">
             <p class="fs-3 fw-bold mb-0" style="display: flex; align-items: center;">Course content</p>
         </div>
-   
-
-
-
-        @*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*@
-
-
-        <div class="bg-white">
-            <div id="course-content" class="container">
+        @if (Model.course != null)
+        {
+            @foreach (var lesson in Model.course.Lessons)
+            {
                 <div class="course-tile my-4 px-3">
-                    <h3 class="fw-bold">Week 1</h3>
-
-
-
+                    <h3 class="fw-bold">@lesson.Weeks.ToString()</h3>
+                </div>
+                <div class="gray-outline br-8">
                     <div class="accordion" id="accordionExample">
+
                         <div class="accordion-item">
-                            <div class="br-8 p-3 d-flex flex-row justify-content-between align-items-center fw-bold">
-                                <p class="mb-0"><img src="~/images/Succeess.png" class="me-2" />Introduction to VSCode</p>
-                                <div class="d-flex flex-row justify-content-between align-content-center">
-                                    <p class="mb-0 px-2 border-2">100% Complete</p>
-                                </div>
-                            </div>
-
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="course-tile my-4 px-3">
-            <h3 class="fw-bold">Week 2</h3>
-        </div>
-        <div class="gray-outline br-8">
-            <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-
-
-                    <h2 class="accordion-header" id="acc-head">
-                        <button style="margin: 0;" class="accordion-button py-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
-                            <div class="accordion-header-content d-flex flex-column w-100">
-                                <p class="accordion-header-title mb-1"><img src="~/images/Succeess.png" width="20px" class="me-2" />Introduction to Node</p>
-                                <div class="accordion-header-info d-flex flex-row justify-content-between">
-                                    <p class="accordion-header-subtitle fw-bold ms-4 me-2">2 topics</p>
-                                    <span class="accordion-button-expand"></span>
-                                </div>
-                            </div>
-                        </button>
-                    </h2>
-                </div>
-
-                <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="accordionExample2" data-bs-parent="#accordion2">
-                    <div class="accordion-body p-0">
-                        <div class="course-content-list">
-                            <div class="br-8 p-3 d-flex flex-row justify-content-between align-items-center fw-bold">
-                                <p class="mb-0"><img src="~/images/Icon2.jpg" class="me-2" />Lesson Content</p>
-                                <div class="d-flex flex-row justify-content-between align-content-center">
-                                    <p class="mb-0 px-2 border-end border-bottom-5">0% Complete</p>
-                                    <p class="mb-0 px-2">0/2</p>
-                                </div>
-                            </div>
-                            <div class="p-3 list-group-item"><img src="~/images/Succeess.png" width="20px" class="me-2" />What is node?</div>
-                            <div class="p-3 list-group-item"><img src="~/images/Succeess.png" width="20px" class="me-2" />Node color and background color</div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        @*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*@
-        <br />
-
-        <div class="course-tile my-4 px-3">
-            <h3 class="fw-bold">Week 3</h3>
-        </div>
-        <div class="gray-outline br-8">
-            <div class="accordion" id="accordionExample3">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="acc-head3">
-                        <button style="margin: 0;" class="accordion-button py-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
-                            <div class="accordion-header-content d-flex flex-column w-100">
-                                <p class="accordion-header-title mb-1"><img src="~/images/Succeess.png" width="20px" class="me-2" />Introduction to CSS</p>
-                                <div class="accordion-header-info d-flex flex-row justify-content-between">
-                                    <p class="accordion-header-subtitle fw-bold ms-4 me-2">3 topics</p>
-                                    <span class="accordion-button-expand"></span>
-                                </div>
-                            </div>
-                        </button>
-                    </h2>
-                    <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="acc-head3" data-bs-parent="#accordionExample3">
-                        <div class="accordion-body p-0">
-                            <div class="course-content-list">
-                                <div class="p-3 d-flex flex-row justify-content-between align-items-center fw-bold">
-                                    <p class="mb-0"><img src="~/images/Icon2.jpg" class="me-2" />Lesson Content</p>
-                                    <div class="d-flex flex-row justify-content-between align-content-center">
-                                        <p class="mb-0 px-2 border-end border-2">0% Complete</p>
-                                        <p class="mb-0 px-2">0/3</p>
+                            <h2 class="accordion-header" id="acc-head-@lesson.Id">
+                                <button style="margin: 0;" class="accordion-button py-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@lesson.Id" aria-expanded="false" aria-controls="collapse-@lesson.Id">
+                                    <div class="accordion-header-content d-flex flex-column w-100">
+                                        <p class="accordion-header-title mb-1"><img src="~/images/Succeess.png" width="20px" class="me-2" />@lesson.Topic</p>
+                                        <div class="accordion-header-info d-flex flex-row justify-content-between">
+                                            <p class="accordion-header-subtitle fw-bold ms-4 me-2">1 topics</p>
+                                            <span class="accordion-button-expand"></span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="p-3 list-group-item"><img src="~/images/Succeess.png" width="20px" class="me-2" />What is CSS?</div>
-                                <div class="p-3 list-group-item"><img src="~/images/Succeess.png" width="20px" class="me-2" />CSS color and background color</div>
-                                <div class="p-3 list-group-item"><img src="~/images/Succeess.png" width="20px" class="me-2" />CSS fonts</div>
-                            </div>
+                                </button>
+                            </h2>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*@
-        <div class="course-tile my-4 px-3">
-            <h3 class="fw-bold">Week 4</h3>
-        </div>
-        <div class="gray-outline br-8">
-            <div class="accordion" id="accordionExample4">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="acc-head4">
-                        <button style="margin: 0;" class="accordion-button py-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
-                            <div class="accordion-header-content d-flex flex-column w-100">
-                                <p class="accordion-header-title mb-1"><img src="~/images/Succeess.png" width="20px" class="me-2" />Css continued</p>
-                                <div class="accordion-header-info d-flex flex-row justify-content-between">
-                                    <p class="accordion-header-subtitle fw-bold ms-4 me-2">3 topics</p>
-                                    <span class="accordion-button-expand"></span>
-                                </div>
-                            </div>
-                        </button>
-                    </h2>
-                    <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="acc-head4" data-bs-parent="#accordionExample4">
-                        <div class="accordion-body p-0">
-                            <div class="course-content-list">
-                                <div class="p-3 d-flex flex-row justify-content-between align-items-center fw-bold">
-                                    <p class="mb-0"><img src="~/images/Icon2.jpg" class="me-2" />Lesson Content</p>
-                                    <div class="d-flex flex-row justify-content-between align-content-center">
-                                        <p class="mb-0 px-2 border-end border-2">0% Complete</p>
-                                        <p class="mb-0 px-2">0/3</p>
+
+                        <div id="collapse-@lesson.Id" class="accordion-collapse collapse" aria-labelledby="acc-head-@lesson.Id" data-bs-parent="#accordionExample">
+                            <div class="accordion-body p-0">
+                                <div class="course-content-list">
+                                    <div class="br-8 p-3 d-flex flex-row justify-content-between align-items-center fw-bold">
+                                        <p class="mb-0"><img src="~/images/Icon2.jpg" class="me-2" />Lesson Content</p>
+                                        <div class="d-flex flex-row justify-content-between align-content-center">
+                                            <p class="mb-0 px-2 border-end border-bottom-5">
+                                                @if (Model.course.IsCompleted == true)
+                                                {
+                                                    <span>100% Complete</span>
+                                                }
+                                                0% Complete
+                                            </p>
+                                            <p class="mb-0 px-2">0/2</p>
+                                        </div>
                                     </div>
+
+                                    <div class="p-3 list-group-item">
+                                        <a  href="/classroom/learningcontent/@Model.course.Id/@lesson.Id"><img src="~/images/Succeess.png" width="20px" class="me-2" />@lesson.Topic</a>
                                 </div>
-                                <div class="p-3 list-group-item"><img src="~/images/Succeess.png" width="20px" class="me-2" />What is CSS?</div>
-                                <div class="p-3 list-group-item"><img src="~/images/Succeess.png" width="20px" class="me-2" />CSS color and background color</div>
-                                <div class="p-3 list-group-item"><img src="~/images/Succeess.png" width="20px" class="me-2" />CSS fonts</div>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
-            </div>
-        </div>
-        @*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*@
-        <div class="course-tile my-4 px-3">
-            <h3 class="fw-bold">Week 5</h3>
-        </div>
-        <div class="gray-outline br-8">
-            <div class="accordion" id="accordionExample5">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="acc-head5">
-                        <button style="margin: 0;" class="accordion-button py-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
-                            <div class="accordion-header-content d-flex flex-column w-100">
-                                <p class="accordion-header-title mb-1"><img src="~/images/Succeess.png" width="20px" class="me-2" />Css continued</p>
-                                <div class="accordion-header-info d-flex flex-row justify-content-between">
-                                    <p class="accordion-header-subtitle fw-bold ms-4 me-2">3 topics</p>
-                                    <span class="accordion-button-expand"></span>
-                                </div>
-                            </div>
-                        </button>
-                    </h2>
-                    <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="acc-head5" data-bs-parent="#accordionExample5">
-                        <div class="accordion-body p-0">
-                            <div class="course-content-list">
-                                <div class="p-3 d-flex flex-row justify-content-between align-items-center fw-bold">
-                                    <p class="mb-0"><img src="~/images/Icon2.jpg" class="me-2" />Lesson Content</p>
-                                    <div class="d-flex flex-row justify-content-between align-content-center">
-                                        <p class="mb-0 px-2 border-end border-2">0% Complete</p>
-                                        <p class="mb-0 px-2">0/3</p>
-                                    </div>
-                                </div>
-                                <div class="p-3 list-group-item"><img src="~/images/Succeess.png" width="20px" class="me-2" />What is CSS?</div>
-                                <div class="p-3 list-group-item"><img src="~/images/Succeess.png" width="20px" class="me-2" />CSS color and background color</div>
-                                <div class="p-3 list-group-item"><img src="~/images/Succeess.png" width="20px" class="me-2" />CSS fonts</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-        @*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*@
-        <br />
-
-        
+                <br />
+            }
+        }
 </section>
 
 <footer class="bg-dark mt-5 w-100 ft-20">

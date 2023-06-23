@@ -1,4 +1,5 @@
-﻿<div class="side-nav-panel">
+﻿@model LearningContentViewModel
+<div class="side-nav-panel">
     <div class="top-nav-panel">
         <div class="inner-panel">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
@@ -7,165 +8,48 @@
         </div>
     </div>
 
+    @if (Model.Lesson != null && Model.Course != null)
+    {
+        <div class="Left-Navbar-Partial">
 
-    <div class="Left-Navbar-Partial">
         <div class="backward-wrapper">
             <div>
                 <img src="~/images/left-Arrow.png" asp-append-version="true" />
             </div>
-            <p>
-                Go Back
-            </p>
+            
+                <a  asp-action="Login" asp-controller="Account">
+                Logout
+            </a>
         </div>
         <div class="left-navbar-title">
             <div class="left-navbar-title-inner">
                 <i class="bi bi-book"></i>
-                <p>Frontend Course Content</p>
+                <p>@Model.Course.Name</p>
             </div>
         </div>
 
         <div class="menu-list-panel">
-            <a href="#">
+            @foreach (var lesson in Model.Course.Lessons)
+                {
+                    
+                <a href="/classroom/learningcontent/@Model.Course.Id/@lesson.Id">
                 <div class="menu-wrapper">
-                    <p class="week">Week 1</p>
+                    <p class="week">@lesson.Weeks.ToString()</p>
                     <div class="week-topic">
                         <div class="marked">
                             <img src="~/images/Layer5.png" asp-append-version="true" />
                         </div>
                         <div class="week-text">
-                            <p class="up-text">Introduction to Node</p>
-                            <p class="down-text">2 Topics</p>
+                            <p class="up-text">@lesson.Topic</p>
+                            <p class="down-text">1 Topics</p>
                         </div>
                     </div>
                 </div>
             </a>
-            <a href="#">
-                <div class="menu-wrapper">
-                    <p class="week">Week 2</p>
-                    <div class="week-topic">
-                        <div class="marked">
-                            <img src="~/images/Layer5.png" asp-append-version="true" />
-                        </div>
-                        <div class="week-text">
-                            <p class="up-text">Introduction to Node</p>
-                            <p class="down-text">2 Topics</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="menu-wrapper">
-                    <p class="week">Week 3</p>
-                    <div class="week-topic">
-                        <div class="marked">
-                            <img src="~/images/Layer5.png" asp-append-version="true" />
-                        </div>
-                        <div class="week-text">
-                            <p class="up-text">Introduction to Node</p>
-                            <p class="down-text">2 Topics</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="menu-wrapper">
-                    <p class="week">Week 4</p>
-                    <div class="week-topic">
-                        <div class="marked">
-                            <img src="~/images/layer5.png" asp-append-version="true" />
-                        </div>
-                        <div class="week-text">
-                            <p class="up-text">Introduction to Node</p>
-                            <p class="down-text">2 Topics</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="menu-wrapper">
-                    <p class="week">Week 5</p>
-                    <div class="week-topic">
-                        <div class="marked">
-                            <img src="~/images/layer5.png" asp-append-version="true" />
-                        </div>
-                        <div class="week-text">
-                            <p class="up-text">Introduction to Node</p>
-                            <p class="down-text">2 Topics</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="menu-wrapper">
-                    <p class="week">Week 6</p>
-                    <div class="week-topic">
-                        <div class="marked">
-                            <img src="~/images/Layer 5.png" asp-append-version="true" />
-                        </div>
-                        <div class="week-text">
-                            <p class="up-text">Introduction to Node</p>
-                            <p class="down-text">2 Topics</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="menu-wrapper">
-                    <p class="week">Week 7</p>
-                    <div class="week-topic">
-                        <div class="marked">
-                            <img src="~/images/Layer 5.png" asp-append-version="true" />
-                        </div>
-                        <div class="week-text">
-                            <p class="up-text">Introduction to Node</p>
-                            <p class="down-text">2 Topics</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="menu-wrapper">
-                    <p class="week">Week 8</p>
-                    <div class="week-topic">
-                        <div class="marked">
-                            <img src="~/images/Layer 5.png" asp-append-version="true" />
-                        </div>
-                        <div class="week-text">
-                            <p class="up-text">Introduction to Node</p>
-                            <p class="down-text">2 Topics</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="menu-wrapper">
-                    <p class="week">Week 9</p>
-                    <div class="week-topic">
-                        <div class="marked">
-                            <img src="~/images/Layer 5.png" asp-append-version="true" />
-                        </div>
-                        <div class="week-text">
-                            <p class="up-text">Introduction to Node</p>
-                            <p class="down-text">2 Topics</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="menu-wrapper">
-                    <p class="week">Week 10</p>
-                    <div class="week-topic">
-                        <div class="marked">
-                            <img src="~/images/layer5.png" asp-append-version="true" />
-                        </div>
-                        <div class="week-text">
-                            <p class="up-text">Introduction to Node</p>
-                            <p class="down-text">2 Topics</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
+                }
+            
         </div>
     </div>
+    }
 </div>
 
